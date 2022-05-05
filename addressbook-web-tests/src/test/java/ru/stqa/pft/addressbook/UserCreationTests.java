@@ -12,26 +12,26 @@ import java.util.concurrent.TimeUnit;
 import static org.testng.Assert.fail;
 
 public class UserCreationTests {
-  private WebDriver driver;
+  private WebDriver wd;
   private JavascriptExecutor js;
 
   @BeforeClass(alwaysRun = true)
   public void setUp() throws Exception {
     System.setProperty("webdriver.chrome.driver", "C:\\Users\\kirra\\Downloads\\chromedriver_win32_100\\chromedriver.exe");
-    driver = new ChromeDriver();
-    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    js = (JavascriptExecutor) driver;
-    driver.get("http://localhost/addressbook/");
+    wd = new ChromeDriver();
+    wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    js = (JavascriptExecutor) wd;
+    wd.get("http://localhost/addressbook/");
     login("admin", "secret");
   }
 
   private void login(String userName, String password) {
-    driver.findElement(By.name("user")).click();
-    driver.findElement(By.name("user")).clear();
-    driver.findElement(By.name("user")).sendKeys(userName);
-    driver.findElement(By.name("pass")).clear();
-    driver.findElement(By.name("pass")).sendKeys(password);
-    driver.findElement(By.xpath("//input[@value='Login']")).click();
+    wd.findElement(By.name("user")).click();
+    wd.findElement(By.name("user")).clear();
+    wd.findElement(By.name("user")).sendKeys(userName);
+    wd.findElement(By.name("pass")).clear();
+    wd.findElement(By.name("pass")).sendKeys(password);
+    wd.findElement(By.xpath("//input[@value='Login']")).click();
   }
 
   @Test
@@ -45,48 +45,48 @@ public class UserCreationTests {
   }
 
   private void gotoHomePage() {
-    driver.findElement(By.linkText("home page")).click();
+    wd.findElement(By.linkText("home page")).click();
   }
 
   private void submitUserCreation() {
-    driver.findElement(By.xpath("//input[21]")).click();
+    wd.findElement(By.xpath("//input[21]")).click();
   }
 
   private void fillUserData(userData userData) {
-    driver.findElement(By.name("firstname")).clear();
-    driver.findElement(By.name("firstname")).sendKeys(userData.getFirstname());
-    driver.findElement(By.name("middlename")).clear();
-    driver.findElement(By.name("middlename")).sendKeys(userData.getMiddlename());
-    driver.findElement(By.name("lastname")).clear();
-    driver.findElement(By.name("lastname")).sendKeys(userData.getLastname());
-    driver.findElement(By.name("mobile")).clear();
-    driver.findElement(By.name("mobile")).sendKeys(userData.getMobilePhone());
-    driver.findElement(By.name("email")).clear();
-    driver.findElement(By.name("email")).sendKeys(userData.getEmail());
-    new Select(driver.findElement(By.name("bday"))).selectByVisibleText(userData.getBday());
-    new Select(driver.findElement(By.name("bmonth"))).selectByVisibleText(userData.getBmonth());
-    driver.findElement(By.name("byear")).clear();
-    driver.findElement(By.name("byear")).sendKeys(userData.getByear());
+    wd.findElement(By.name("firstname")).clear();
+    wd.findElement(By.name("firstname")).sendKeys(userData.getFirstname());
+    wd.findElement(By.name("middlename")).clear();
+    wd.findElement(By.name("middlename")).sendKeys(userData.getMiddlename());
+    wd.findElement(By.name("lastname")).clear();
+    wd.findElement(By.name("lastname")).sendKeys(userData.getLastname());
+    wd.findElement(By.name("mobile")).clear();
+    wd.findElement(By.name("mobile")).sendKeys(userData.getMobilePhone());
+    wd.findElement(By.name("email")).clear();
+    wd.findElement(By.name("email")).sendKeys(userData.getEmail());
+    new Select(wd.findElement(By.name("bday"))).selectByVisibleText(userData.getBday());
+    new Select(wd.findElement(By.name("bmonth"))).selectByVisibleText(userData.getBmonth());
+    wd.findElement(By.name("byear")).clear();
+    wd.findElement(By.name("byear")).sendKeys(userData.getByear());
   }
 
   private void addNewUser() {
-    driver.findElement(By.linkText("add new")).click();
+    wd.findElement(By.linkText("add new")).click();
   }
 
   private void logout() {
-    driver.findElement(By.linkText("Logout")).click();
-    driver.get("http://localhost/addressbook/");
+    wd.findElement(By.linkText("Logout")).click();
+    wd.get("http://localhost/addressbook/");
   }
 
   @AfterClass(alwaysRun = true)
   public void tearDown() throws Exception {
     logout();
-    driver.quit();
+    wd.quit();
   }
 
   private boolean isElementPresent(By by) {
     try {
-      driver.findElement(by);
+      wd.findElement(by);
       return true;
     } catch (NoSuchElementException e) {
       return false;
@@ -95,7 +95,7 @@ public class UserCreationTests {
 
   private boolean isAlertPresent() {
     try {
-      driver.switchTo().alert();
+      wd.switchTo().alert();
       return true;
     } catch (NoAlertPresentException e) {
       return false;
