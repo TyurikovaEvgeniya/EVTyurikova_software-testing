@@ -38,8 +38,8 @@ public class UserCreationTests {
   public void testUserCreation() throws Exception {
 
     addNewUser();
-    fillUserData("Евгения", "Вячеславовна",
-            "Тюрикова", "+79169928151", "evgeniya.tyurikova@ligastavok.ru", "15", "May", "1988");
+    fillUserData(
+            new userData("Евгения", "Вячеславовна", "Тюрикова", "+79169928151", "evgeniya.tyurikova@ligastavok.ru", "15", "May", "1988"));
     submitUserCreation();
     gotoHomePage();
   }
@@ -52,21 +52,21 @@ public class UserCreationTests {
     driver.findElement(By.xpath("//input[21]")).click();
   }
 
-  private void fillUserData(String firstname, String middlename, String lastname, String mobilePhone, String email, String bday, String bmonth, String byear) {
+  private void fillUserData(userData userData) {
     driver.findElement(By.name("firstname")).clear();
-    driver.findElement(By.name("firstname")).sendKeys(firstname);
+    driver.findElement(By.name("firstname")).sendKeys(userData.getFirstname());
     driver.findElement(By.name("middlename")).clear();
-    driver.findElement(By.name("middlename")).sendKeys(middlename);
+    driver.findElement(By.name("middlename")).sendKeys(userData.getMiddlename());
     driver.findElement(By.name("lastname")).clear();
-    driver.findElement(By.name("lastname")).sendKeys(lastname);
+    driver.findElement(By.name("lastname")).sendKeys(userData.getLastname());
     driver.findElement(By.name("mobile")).clear();
-    driver.findElement(By.name("mobile")).sendKeys(mobilePhone);
+    driver.findElement(By.name("mobile")).sendKeys(userData.getMobilePhone());
     driver.findElement(By.name("email")).clear();
-    driver.findElement(By.name("email")).sendKeys(email);
-    new Select(driver.findElement(By.name("bday"))).selectByVisibleText(bday);
-    new Select(driver.findElement(By.name("bmonth"))).selectByVisibleText(bmonth);
+    driver.findElement(By.name("email")).sendKeys(userData.getEmail());
+    new Select(driver.findElement(By.name("bday"))).selectByVisibleText(userData.getBday());
+    new Select(driver.findElement(By.name("bmonth"))).selectByVisibleText(userData.getBmonth());
     driver.findElement(By.name("byear")).clear();
-    driver.findElement(By.name("byear")).sendKeys(byear);
+    driver.findElement(By.name("byear")).sendKeys(userData.getByear());
   }
 
   private void addNewUser() {
