@@ -39,7 +39,7 @@ public class UserCreationTests {
 
     addNewUser();
     fillUserData(
-            new userData("Евгения", "Вячеславовна", "Тюрикова", "+79169928151", "evgeniya.tyurikova@ligastavok.ru", "15", "May", "1988"));
+            new UserData("Евгения", "Вячеславовна", "Тюрикова", "+79169928151", "evgeniya.tyurikova@ligastavok.ru", "15", "May", "1988"));
     submitUserCreation();
     gotoHomePage();
   }
@@ -52,7 +52,7 @@ public class UserCreationTests {
     wd.findElement(By.xpath("//input[21]")).click();
   }
 
-  private void fillUserData(userData userData) {
+  private void fillUserData(UserData userData) {
     wd.findElement(By.name("firstname")).clear();
     wd.findElement(By.name("firstname")).sendKeys(userData.getFirstname());
     wd.findElement(By.name("middlename")).clear();
