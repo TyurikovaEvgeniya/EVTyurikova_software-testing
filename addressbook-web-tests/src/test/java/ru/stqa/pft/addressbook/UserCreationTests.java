@@ -13,58 +13,75 @@ import static org.testng.Assert.fail;
 
 public class UserCreationTests {
   private WebDriver driver;
-  private String baseUrl;
-  private boolean acceptNextAlert = true;
-  private StringBuffer verificationErrors = new StringBuffer();
   private JavascriptExecutor js;
 
   @BeforeClass(alwaysRun = true)
   public void setUp() throws Exception {
     System.setProperty("webdriver.chrome.driver", "C:\\Users\\kirra\\Downloads\\chromedriver_win32_100\\chromedriver.exe");
     driver = new ChromeDriver();
-    baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     js = (JavascriptExecutor) driver;
+    driver.get("http://localhost/addressbook/");
+    login("admin", "secret");
+  }
+
+  private void login(String userName, String password) {
+    driver.findElement(By.name("user")).click();
+    driver.findElement(By.name("user")).clear();
+    driver.findElement(By.name("user")).sendKeys(userName);
+    driver.findElement(By.name("pass")).clear();
+    driver.findElement(By.name("pass")).sendKeys(password);
+    driver.findElement(By.xpath("//input[@value='Login']")).click();
   }
 
   @Test
   public void testUserCreation() throws Exception {
-    driver.get("http://localhost/addressbook/");
-    driver.findElement(By.name("user")).click();
-    driver.findElement(By.name("user")).clear();
-    driver.findElement(By.name("user")).sendKeys("admin");
-    driver.findElement(By.name("pass")).clear();
-    driver.findElement(By.name("pass")).sendKeys("secret");
-    driver.findElement(By.xpath("//input[@value='Login']")).click();
-    driver.findElement(By.linkText("add new")).click();
-    driver.findElement(By.name("firstname")).click();
-    driver.findElement(By.name("firstname")).clear();
-    driver.findElement(By.name("firstname")).sendKeys("Евгения");
-    driver.findElement(By.name("middlename")).clear();
-    driver.findElement(By.name("middlename")).sendKeys("Вячеславовна");
-    driver.findElement(By.name("lastname")).clear();
-    driver.findElement(By.name("lastname")).sendKeys("Тюрикова");
-    driver.findElement(By.name("mobile")).clear();
-    driver.findElement(By.name("mobile")).sendKeys("+79169928151");
-    driver.findElement(By.name("email")).clear();
-    driver.findElement(By.name("email")).sendKeys("evgeniya.tyurikova@ligastavok.ru");
-    new Select(driver.findElement(By.name("bday"))).selectByVisibleText("15");
-    new Select(driver.findElement(By.name("bmonth"))).selectByVisibleText("May");
-    driver.findElement(By.name("byear")).clear();
-    driver.findElement(By.name("byear")).sendKeys("1988");
-    driver.findElement(By.xpath("//input[21]")).click();
+
+    addNewUser();
+    fillUserData("Евгения", "Вячеславовна",
+            "Тюрикова", "+79169928151", "evgeniya.tyurikova@ligastavok.ru", "15", "May", "1988");
+    submitUserCreation();
+    gotoHomePage();
+  }
+
+  private void gotoHomePage() {
     driver.findElement(By.linkText("home page")).click();
+  }
+
+  private void submitUserCreation() {
+    driver.findElement(By.xpath("//input[21]")).click();
+  }
+
+  private void fillUserData(String firstname, String middlename, String lastname, String mobilePhone, String email, String bday, String bmonth, String byear) {
+    driver.findElement(By.name("firstname")).clear();
+    driver.findElement(By.name("firstname")).sendKeys(firstname);
+    driver.findElement(By.name("middlename")).clear();
+    driver.findElement(By.name("middlename")).sendKeys(middlename);
+    driver.findElement(By.name("lastname")).clear();
+    driver.findElement(By.name("lastname")).sendKeys(lastname);
+    driver.findElement(By.name("mobile")).clear();
+    driver.findElement(By.name("mobile")).sendKeys(mobilePhone);
+    driver.findElement(By.name("email")).clear();
+    driver.findElement(By.name("email")).sendKeys(email);
+    new Select(driver.findElement(By.name("bday"))).selectByVisibleText(bday);
+    new Select(driver.findElement(By.name("bmonth"))).selectByVisibleText(bmonth);
+    driver.findElement(By.name("byear")).clear();
+    driver.findElement(By.name("byear")).sendKeys(byear);
+  }
+
+  private void addNewUser() {
+    driver.findElement(By.linkText("add new")).click();
+  }
+
+  private void logout() {
     driver.findElement(By.linkText("Logout")).click();
     driver.get("http://localhost/addressbook/");
   }
 
   @AfterClass(alwaysRun = true)
   public void tearDown() throws Exception {
+    logout();
     driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
   }
 
   private boolean isElementPresent(By by) {
@@ -85,18 +102,4 @@ public class UserCreationTests {
     }
   }
 
-  private String closeAlertAndGetItsText() {
-    try {
-      Alert alert = driver.switchTo().alert();
-      String alertText = alert.getText();
-      if (acceptNextAlert) {
-        alert.accept();
-      } else {
-        alert.dismiss();
-      }
-      return alertText;
-    } finally {
-      acceptNextAlert = true;
-    }
-  }
 }
