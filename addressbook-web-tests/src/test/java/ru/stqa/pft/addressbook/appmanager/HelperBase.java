@@ -27,6 +27,10 @@ public class HelperBase {
     new Select(wd.findElement(By.name(listName))).selectByVisibleText(listItemValue);
   }
 
+  public void acceptAlert() {
+    wd.switchTo().alert().accept();
+  }
+
   public boolean isElementPresent(By by) {
     try {
       wd.findElement(by);
