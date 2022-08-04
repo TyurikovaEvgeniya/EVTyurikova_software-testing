@@ -6,5 +6,5 @@ repositories {
 
 dependencies{
     implementation 'com.thegoate:testng:0.15.8.202204130045'
-    implementation 'org.seleniumhq.selenium:selenium-java:4.1.4'
+    implementation 'org.seleniumhq.selenium:selenium-java:4.3.0'
 }
