@@ -9,13 +9,13 @@ public class DistanceTests {
   public void testDistanceBetweenTwoPoints(){
     Point p1 = new Point(-1, 9);
     Point p2 = new Point(5, 9);
-    Assert.assertEquals(Point.distance(p1, p2), 6);
+    Assert.assertEquals(p1.distanceToPoint(p2), 6);
   }
 
   @Test
   public void testDistanceBetweenTwoPoints2(){
     Point p1 = new Point(-1, 9);
     Point p2 = new Point(-1, 2);
-    Assert.assertEquals(Point.distance(p1, p2), 7);
+    Assert.assertEquals(p1.distanceToPoint(p2), 7);
   }
 }
