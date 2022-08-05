@@ -16,26 +16,23 @@ public class ApplicationManager {
   private NavigationHelper navigationHelper;
   private GroupHelper groupHelper;
   private ContactHelper contactHelper;
-  private String browser;
+  private Browser browser;
 
-  public ApplicationManager(String browser) {
+  public ApplicationManager(Browser browser) {
     this.browser = browser;
   }
 
   public void init() {
 
-    if (browser.equals(BrowserType.FIREFOX))
+    if (browser.equals(Browser.FIREFOX))
     {
       wd = new FirefoxDriver();
-    } else if (browser.equals(BrowserType.CHROME)) {
+    } else if (browser.equals(Browser.CHROME)) {
       wd = new ChromeDriver();
-    } else if (browser.equals(BrowserType.IE)) {
+    } else if (browser.equals(Browser.IE)) {
       wd = new InternetExplorerDriver();
     }
 
-    //System.setProperty("webdriver.chrome.driver", "C:\\Users\\kirra\\Downloads\\chromedriver_win32_100\\chromedriver.exe");
-
-    wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     wd.get("http://localhost/addressbook/");
     groupHelper = new GroupHelper(wd);
     navigationHelper = new NavigationHelper(wd);
