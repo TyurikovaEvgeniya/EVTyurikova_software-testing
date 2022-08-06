@@ -1,7 +1,6 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
@@ -9,12 +8,15 @@ import ru.stqa.pft.addressbook.model.ContactData;
 
 public class ContactHelper extends HelperBase {
 
+  public static final String FIRST_CONTACT_IN_MAINTABLE = "//table[@id='maintable']/tbody/tr[2]/td/input";
+  public static final String PHONE_IN_MAINTABLE = "//*[@id='maintable']/tbody//td[6][text()='%s']";
+
   public ContactHelper(WebDriver wd) {
     super(wd);
   }
 
   public void submitContactCreation() {
-    click(By.xpath("//input[21]"));
+    click(By.xpath("//input[1][@type = 'submit'][@value='Enter']"));
   }
 
   public void fillContactData(ContactData contactData, boolean creation) {
@@ -34,16 +36,16 @@ public class ContactHelper extends HelperBase {
     }
   }
 
-  public void addNewContact() {
+  public void clickAddNew() {
     click(By.linkText("add new"));
   }
 
   public void clickFirstContactInMainTable() {
-    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input"));
+    click(By.xpath(FIRST_CONTACT_IN_MAINTABLE));
   }
 
   public void DeleteContactOnHomePage() {
-    click(By.xpath("//input[@value='Delete']"));
+    click(By.xpath("//input[@type = 'button'][@value='Delete']"));
   }
 
   public void DeleteContactOnEditPage() {
@@ -59,7 +61,25 @@ public class ContactHelper extends HelperBase {
     type(By.name("mobile"), phone);
   }
 
-  public void submitContactUpdate() {
+  public void submitContactUpdating() {
     click(By.xpath("//input[1][@type = 'submit'][@value='Update']"));
+  }
+
+  public void submitContactCreating() {
+    click(By.xpath("//input[1][@type = 'submit'][@value='Enter']"));
+  }
+
+  public void addNewContact(ContactData contactData, boolean creation) {
+    clickAddNew();
+    fillContactData(contactData, creation);
+    submitContactCreation();
+  }
+
+  public boolean isThereContact() {
+    return isElementPresent(By.xpath(FIRST_CONTACT_IN_MAINTABLE));
+  }
+
+  public boolean isThereContactWithPhone(String phone) {
+    return isElementPresent(By.xpath(String.format(PHONE_IN_MAINTABLE, phone)));
   }
 }
