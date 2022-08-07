@@ -8,6 +8,8 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
+import static java.lang.Math.random;
+
 
 public class GroupCreationTests extends TestBase {
 
@@ -16,16 +18,16 @@ public class GroupCreationTests extends TestBase {
 
     app.getNavigationHelper().gotoGroupPage();
     List<GroupData> before = app.getGroupHelper().getGroupList();
-    GroupData group = new GroupData("test66", "test2", "test3");
+    GroupData group = new GroupData(String.format("test%s", (int) (random()*1000)), "test2", "test3");
     app.getGroupHelper().createGroup(group);
     app.getNavigationHelper().gotoGroupPage();
     List<GroupData> after = app.getGroupHelper().getGroupList();
     Assert.assertEquals(after.size(), before.size() + 1);
 
 
-    if (after.stream().max(Comparator.comparingInt(GroupData::getId)).isPresent()) {
-      group.setId(after.stream().max(Comparator.comparingInt(GroupData::getId)).get().getId());
-    }
+//    if (after.stream().max(Comparator.comparingInt(GroupData::getId)).isPresent()) {
+//      group.setId(after.stream().max(Comparator.comparingInt(GroupData::getId)).get().getId());
+//    }
     before.add(group);
     Comparator<? super GroupData> byId = Comparator.comparingInt(GroupData::getId);
     before.sort(byId);
