@@ -2,13 +2,17 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ContactHelper extends HelperBase {
 
-  public static final String FIRST_CONTACT_IN_MAINTABLE = "//table[@id='maintable']/tbody/tr[2]/td/input";
+  public static final String CONTACT_IN_MAINTABLE = "//table[@id='maintable']/tbody/tr[%s]/td/input";
   public static final String PHONE_IN_MAINTABLE = "//*[@id='maintable']/tbody//td[6][text()='%s']";
 
   public ContactHelper(WebDriver wd) {
@@ -30,7 +34,11 @@ public class ContactHelper extends HelperBase {
     type(By.name("byear"), contactData.getByear());
 
     if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+      if (contactData.getGroup() != null) {
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+      } else {
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText("[none]");
+      }
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
@@ -40,8 +48,8 @@ public class ContactHelper extends HelperBase {
     click(By.linkText("add new"));
   }
 
-  public void clickFirstContactInMainTable() {
-    click(By.xpath(FIRST_CONTACT_IN_MAINTABLE));
+  public void clickCertainContactInMainTable(int position) {
+    click(By.xpath(String.format(CONTACT_IN_MAINTABLE, position + 1)));
   }
 
   public void DeleteContactOnHomePage() {
@@ -69,17 +77,38 @@ public class ContactHelper extends HelperBase {
     click(By.xpath("//input[1][@type = 'submit'][@value='Enter']"));
   }
 
-  public void addNewContact(ContactData contactData, boolean creation) {
+  public void addNewContact(ContactData contactData) {
     clickAddNew();
-    fillContactData(contactData, creation);
+    fillContactData(contactData, true);
     submitContactCreation();
   }
 
-  public boolean isThereContact() {
-    return isElementPresent(By.xpath(FIRST_CONTACT_IN_MAINTABLE));
+  public boolean isThereContact(int position) {
+    return isElementPresent(By.xpath(String.format(CONTACT_IN_MAINTABLE, position + 1)));
   }
 
   public boolean isThereContactWithPhone(String phone) {
     return isElementPresent(By.xpath(String.format(PHONE_IN_MAINTABLE, phone)));
+  }
+
+  public List<ContactData> getContactList() {
+    List<ContactData> contacts = new ArrayList<>();
+    List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
+    for (WebElement element : elements) {
+      String el = element.getText();
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      String lastname = element.findElement(By.xpath("./td[2]")).getText();
+      String firstname = element.findElement(By.xpath("./td[3]")).getText();
+      String phone = String.valueOf(element.findElement(By.xpath("./td[6]")).getText());
+
+
+      ContactData contact = new ContactData(id, firstname, null, lastname, phone, null, null, null, null, null);
+      contacts.add(contact);
+    }
+    return contacts;
+  }
+
+  public String randomPhone() {
+    return "+7777777" + (int) (100 + Math.random() * 1000) % 1000;
   }
 }

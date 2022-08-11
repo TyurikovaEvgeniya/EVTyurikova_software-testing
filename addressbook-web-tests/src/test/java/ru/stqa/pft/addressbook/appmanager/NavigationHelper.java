@@ -28,6 +28,10 @@ public class NavigationHelper extends HelperBase {
     }
   }
 
+  public void gotoHome() {
+      click(By.linkText("home"));
+  }
+
   public void gotoContactEdit(int position) {
     click(By.xpath(String.format("//tr[%s]//img[@alt=\"Edit\"]", position + 1)));
   }

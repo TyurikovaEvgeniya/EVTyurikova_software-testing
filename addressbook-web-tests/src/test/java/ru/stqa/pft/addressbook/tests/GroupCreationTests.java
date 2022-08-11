@@ -25,9 +25,9 @@ public class GroupCreationTests extends TestBase {
     Assert.assertEquals(after.size(), before.size() + 1);
 
 
-//    if (after.stream().max(Comparator.comparingInt(GroupData::getId)).isPresent()) {
-//      group.setId(after.stream().max(Comparator.comparingInt(GroupData::getId)).get().getId());
-//    }
+    if (after.stream().max(Comparator.comparingInt(GroupData::getId)).isPresent()) {
+      group.setId(after.stream().max(Comparator.comparingInt(GroupData::getId)).get().getId());
+    }
     before.add(group);
     Comparator<? super GroupData> byId = Comparator.comparingInt(GroupData::getId);
     before.sort(byId);
