@@ -11,7 +11,7 @@ public class ContactDeletionTests extends TestBase {
 
   private static final int DELETE_POSITION = 1;
 
-  @Test
+  @Test (enabled = false)
   public void testContactDeletionHome() throws Exception {
     ContactData contact = null;
 
@@ -47,7 +47,7 @@ public class ContactDeletionTests extends TestBase {
     Assert.assertEquals(before, after);
   }
 
-  @Test
+  @Test (enabled = false)
   public void testContactDeletionEdit() throws Exception {
 
     ContactData contact = null;

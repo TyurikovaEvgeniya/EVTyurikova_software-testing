@@ -11,7 +11,7 @@ public class ContactUpdateTests extends TestBase {
 
   public static final int UPDATE_POSITION = 1;
 
-  @Test
+  @Test (enabled = false)
   public void testContactUpdateDetails() throws Exception {
     ContactData contact = null;
 
@@ -56,7 +56,7 @@ public class ContactUpdateTests extends TestBase {
 
   }
 
-  @Test
+  @Test (enabled = false)
   public void testContactModificationEdit() throws Exception {
     ContactData contact = null;
 
