@@ -16,13 +16,13 @@ public class GroupDeletionTests extends TestBase {
   public void ensurePreconditions(){
     app.goTo().groupPage();
     if (app.group().list().size() == 0) {
-      app.group().create(new GroupData(String.format("test%s", (int) (random()*1000)), "test2", "test3"));
+      app.group().create(new GroupData().withName(String.format("test%s", (int) (random()*1000))).withHeader( "test2").withFooter("test3"));
     }
   }
 
   @Test
   public void testGroupDeletion() throws Exception {
-
+    ensurePreconditions();
     List<GroupData> before = app.group().list();
 
     int deletingGroupPosition = Math.abs(1 - before.size());

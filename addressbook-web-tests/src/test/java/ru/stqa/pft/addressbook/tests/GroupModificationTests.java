@@ -16,16 +16,16 @@ public class GroupModificationTests extends TestBase {
   public void ensurePreconditions(){
     app.goTo().groupPage();
     if (app.group().list().size() == 0) {
-      app.group().create(new GroupData(String.format("test%s", (int) (random()*1000)), "test2", "test3"));
+      app.group().create(new GroupData().withName(String.format("test%s", (int) (random()*1000))));
     }
   }
 
   @Test
   public void testGroupModification() {
-
+    ensurePreconditions();
     List<GroupData> before = app.group().list();
-    int positionToModify = 1 - before.size();
-    GroupData group = new GroupData(before.get(Math.abs(positionToModify)).getId(), "test1", null, null);
+    int positionToModify = Math.abs(1 - before.size());
+    GroupData group = new GroupData().withId(before.get(positionToModify).getId()).withName("test1");
 
     app.group().modify(positionToModify, group);
     app.goTo().groupPage();

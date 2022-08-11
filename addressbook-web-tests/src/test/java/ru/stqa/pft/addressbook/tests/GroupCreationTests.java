@@ -17,7 +17,7 @@ public class GroupCreationTests extends TestBase {
 
     app.goTo().groupPage();
     List<GroupData> before = app.group().list();
-    GroupData group = new GroupData(String.format("Нечто", (int) (random()*1000)), "test2", "test3");
+    GroupData group = new GroupData().withName(String.format("Нечто", (int) (random()*1000))).withHeader("test2").withFooter( "test3");
     app.group().create(group);
     app.goTo().groupPage();
     List<GroupData> after = app.group().list();
