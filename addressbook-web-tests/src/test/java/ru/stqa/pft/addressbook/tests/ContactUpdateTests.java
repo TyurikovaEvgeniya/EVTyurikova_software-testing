@@ -9,13 +9,12 @@ import java.util.List;
 
 public class ContactUpdateTests extends TestBase {
 
-  public static final int UPDATE_POSITION = 1;
-
   @Test (enabled = false)
   public void testContactUpdateDetails() throws Exception {
     ContactData contact = null;
 
-    if (!app.getContactHelper().isThereContact(UPDATE_POSITION)) {
+    int ContactUpdatePosition = 1;
+    if (!app.getContactHelper().isThereContact(ContactUpdatePosition)) {
       contact = new ContactData("Евгения",
               "Вячеславовна",
               "Тюрикова",
@@ -32,7 +31,7 @@ public class ContactUpdateTests extends TestBase {
 
     List<ContactData> before = app.getContactHelper().getContactList();
 
-    app.getNavigationHelper().gotoContactDetails(UPDATE_POSITION);
+    app.getNavigationHelper().gotoContactDetails(ContactUpdatePosition);
     app.getNavigationHelper().gotoModifingContactOnDetailsPage();
     String phone = app.getContactHelper().randomPhone();
     app.getContactHelper().modifyContactPhone(phone);
@@ -42,11 +41,11 @@ public class ContactUpdateTests extends TestBase {
     List<ContactData> after = app.getContactHelper().getContactList();
 
     if (contact == null) {
-      contact = before.get(UPDATE_POSITION - 1);
+      contact = before.get(ContactUpdatePosition - 1);
       contact.setMobilePhone(phone);
     }
 
-    before.set(UPDATE_POSITION - 1, contact);
+    before.set(ContactUpdatePosition - 1, contact);
 
     Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
     before.sort(byId);
@@ -60,7 +59,8 @@ public class ContactUpdateTests extends TestBase {
   public void testContactModificationEdit() throws Exception {
     ContactData contact = null;
 
-    if (!app.getContactHelper().isThereContact(UPDATE_POSITION)) {
+    int ContactUpdatePosition = 1;
+    if (!app.getContactHelper().isThereContact(ContactUpdatePosition)) {
       contact = new ContactData("Евгения",
               "Вячеславовна",
               "Тюрикова",
@@ -77,7 +77,7 @@ public class ContactUpdateTests extends TestBase {
 
     List<ContactData> before = app.getContactHelper().getContactList();
 
-    app.getNavigationHelper().gotoContactEdit(UPDATE_POSITION);
+    app.getNavigationHelper().gotoContactEdit(ContactUpdatePosition);
     String phone = app.getContactHelper().randomPhone();
     app.getContactHelper().modifyContactPhone(phone);
     app.getContactHelper().submitContactUpdating();
@@ -86,11 +86,11 @@ public class ContactUpdateTests extends TestBase {
     List<ContactData> after = app.getContactHelper().getContactList();
 
     if (contact == null) {
-      contact = before.get(UPDATE_POSITION - 1);
+      contact = before.get(ContactUpdatePosition - 1);
       contact.setMobilePhone(phone);
     }
 
-    before.set(UPDATE_POSITION - 1, contact);
+    before.set(ContactUpdatePosition - 1, contact);
 
     Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
     before.sort(byId);

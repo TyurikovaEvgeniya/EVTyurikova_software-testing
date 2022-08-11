@@ -69,4 +69,18 @@ public class GroupHelper extends HelperBase {
     }
     return groups;
   }
+
+  public void modifyGroup(int positionToModify, GroupData group) {
+    selectGroup(Math.abs(positionToModify));
+    initGroupModification();
+    fillGroupForm(group);
+    submitGroupModification();
+
+  }
+
+  public void DeleteGroup(int deletingGroupPosition) {
+    selectGroup(deletingGroupPosition);
+    deleteSelectedGroups();
+  }
+
 }

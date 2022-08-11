@@ -9,13 +9,12 @@ import java.util.List;
 
 public class ContactDeletionTests extends TestBase {
 
-  private static final int DELETE_POSITION = 1;
-
   @Test (enabled = false)
   public void testContactDeletionHome() throws Exception {
     ContactData contact = null;
 
-    if (!app.getContactHelper().isThereContact(DELETE_POSITION)) {
+    int contactDeletePosition = 1;
+    if (!app.getContactHelper().isThereContact(contactDeletePosition)) {
       contact = new ContactData("Евгения",
               "Вячеславовна",
               "Тюрикова",
@@ -32,14 +31,14 @@ public class ContactDeletionTests extends TestBase {
 
     List<ContactData> before = app.getContactHelper().getContactList();
 
-    app.getContactHelper().clickCertainContactInMainTable(DELETE_POSITION);
+    app.getContactHelper().clickCertainContactInMainTable(contactDeletePosition);
     app.getContactHelper().DeleteContactOnHomePage();
     app.getContactHelper().confirmContactsDeletion();
     app.getNavigationHelper().gotoHome();
 
     List<ContactData> after = app.getContactHelper().getContactList();
 
-    before.remove(DELETE_POSITION - 1);
+    before.remove(contactDeletePosition - 1);
     Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
     before.sort(byId);
     after.sort(byId);
@@ -51,7 +50,8 @@ public class ContactDeletionTests extends TestBase {
   public void testContactDeletionEdit() throws Exception {
 
     ContactData contact = null;
-    if (!app.getContactHelper().isThereContact(DELETE_POSITION)) {
+    int ContactDeletePosition = 1;
+    if (!app.getContactHelper().isThereContact(ContactDeletePosition)) {
       contact = new ContactData("Евгения",
               "Вячеславовна",
               "Тюрикова",
@@ -74,7 +74,7 @@ public class ContactDeletionTests extends TestBase {
 
     List<ContactData> after = app.getContactHelper().getContactList();
 
-    before.remove(DELETE_POSITION - 1);
+    before.remove(ContactDeletePosition - 1);
     Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
     before.sort(byId);
     after.sort(byId);
