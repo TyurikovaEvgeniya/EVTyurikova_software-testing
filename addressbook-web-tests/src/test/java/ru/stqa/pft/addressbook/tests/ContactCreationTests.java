@@ -20,7 +20,7 @@ public class ContactCreationTests extends TestBase{
             "15",
             "May",
             "1988",
-            null);
+            "Нечто");
     app.getContactHelper().addNewContact(contact);
     app.getNavigationHelper().gotoHomePage();
     List<ContactData> after = app.getContactHelper().getContactList();

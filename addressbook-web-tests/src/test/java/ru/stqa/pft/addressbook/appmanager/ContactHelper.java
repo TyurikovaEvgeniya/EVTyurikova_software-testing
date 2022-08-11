@@ -1,6 +1,7 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -35,7 +36,13 @@ public class ContactHelper extends HelperBase {
 
     if (creation) {
       if (contactData.getGroup() != null) {
-        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+        try {
+          new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+        } catch (NoSuchElementException e) {
+          System.out.println("Группа \""+ contactData.getGroup() + "\" не найдена.");
+          new Select(wd.findElement(By.name("new_group"))).selectByVisibleText("[none]");
+
+        }
       } else {
         new Select(wd.findElement(By.name("new_group"))).selectByVisibleText("[none]");
       }

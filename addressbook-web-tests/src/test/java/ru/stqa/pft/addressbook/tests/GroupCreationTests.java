@@ -18,7 +18,7 @@ public class GroupCreationTests extends TestBase {
 
     app.getNavigationHelper().gotoGroupPage();
     List<GroupData> before = app.getGroupHelper().getGroupList();
-    GroupData group = new GroupData(String.format("test%s", (int) (random()*1000)), "test2", "test3");
+    GroupData group = new GroupData(String.format("Нечто", (int) (random()*1000)), "test2", "test3");
     app.getGroupHelper().createGroup(group);
     app.getNavigationHelper().gotoGroupPage();
     List<GroupData> after = app.getGroupHelper().getGroupList();
