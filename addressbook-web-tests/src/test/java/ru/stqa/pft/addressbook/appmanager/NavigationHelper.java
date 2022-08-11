@@ -10,7 +10,7 @@ public class NavigationHelper extends HelperBase {
     super(wd);
   }
 
-  public void gotoGroupPage() {
+  public void groupPage() {
     if (isElementPresent(By.tagName("h1"))
             && wd.findElement(By.tagName("h1")).getText().equals("Groups")
             && isElementPresent(By.name("new"))) {
@@ -20,7 +20,7 @@ public class NavigationHelper extends HelperBase {
     }
   }
 
-  public void gotoHomePage() {
+  public void homePage() {
     if (isElementPresent(By.id("maintable"))) {
       return;
     } else {
@@ -28,19 +28,19 @@ public class NavigationHelper extends HelperBase {
     }
   }
 
-  public void gotoHome() {
+  public void home() {
       click(By.linkText("home"));
   }
 
-  public void gotoContactEdit(int position) {
+  public void contactEdit(int position) {
     click(By.xpath(String.format("//tr[%s]//img[@alt=\"Edit\"]", position + 1)));
   }
 
-  public void gotoContactDetails(int position) {
+  public void contactDetails(int position) {
     click(By.xpath(String.format("//tr[%s]//img[@alt=\"Details\"]", position + 1)));
   }
 
-  public void gotoModifingContactOnDetailsPage() {
+  public void modifingContactOnDetailsPage() {
     click(By.name("modifiy"));
   }
 }

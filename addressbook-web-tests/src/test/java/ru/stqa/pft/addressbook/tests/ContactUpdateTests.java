@@ -14,31 +14,33 @@ public class ContactUpdateTests extends TestBase {
     ContactData contact = null;
 
     int ContactUpdatePosition = 1;
-    if (!app.getContactHelper().isThereContact(ContactUpdatePosition)) {
+    if (!app.contact().isThereContact(ContactUpdatePosition)) {
       contact = new ContactData("Евгения",
               "Вячеславовна",
               "Тюрикова",
-              app.getContactHelper().randomPhone(),
+              app.contact().randomPhone(),
               "evgeniya.tyurikova@ligastavok.ru",
               "15",
               "May",
               "1988",
               null);
 
-      app.getContactHelper().addNewContact(contact);
-      app.getNavigationHelper().gotoHomePage();
+      app.contact().addNewContact(contact);
+      app.goTo().homePage();
     }
 
-    List<ContactData> before = app.getContactHelper().getContactList();
+    List<ContactData> before = app.contact().list();
 
-    app.getNavigationHelper().gotoContactDetails(ContactUpdatePosition);
-    app.getNavigationHelper().gotoModifingContactOnDetailsPage();
-    String phone = app.getContactHelper().randomPhone();
-    app.getContactHelper().modifyContactPhone(phone);
-    app.getContactHelper().submitContactUpdating();
-    app.getNavigationHelper().gotoHomePage();
+    String phone = app.contact().randomPhone();
 
-    List<ContactData> after = app.getContactHelper().getContactList();
+    app.goTo().contactDetails(ContactUpdatePosition);
+
+
+    app.goTo().modifingContactOnDetailsPage();
+    app.contact().modify(phone);
+    app.goTo().homePage();
+
+    List<ContactData> after = app.contact().list();
 
     if (contact == null) {
       contact = before.get(ContactUpdatePosition - 1);
@@ -55,35 +57,36 @@ public class ContactUpdateTests extends TestBase {
 
   }
 
+
   @Test (enabled = false)
   public void testContactModificationEdit() throws Exception {
     ContactData contact = null;
 
     int ContactUpdatePosition = 1;
-    if (!app.getContactHelper().isThereContact(ContactUpdatePosition)) {
+    if (app.contact().list().size() == 0) {
       contact = new ContactData("Евгения",
               "Вячеславовна",
               "Тюрикова",
-              app.getContactHelper().randomPhone(),
+              app.contact().randomPhone(),
               "evgeniya.tyurikova@ligastavok.ru",
               "15",
               "May",
               "1988",
               null);
 
-      app.getContactHelper().addNewContact(contact);
-      app.getNavigationHelper().gotoHomePage();
+      app.contact().addNewContact(contact);
+      app.goTo().homePage();
     }
 
-    List<ContactData> before = app.getContactHelper().getContactList();
+    List<ContactData> before = app.contact().list();
 
-    app.getNavigationHelper().gotoContactEdit(ContactUpdatePosition);
-    String phone = app.getContactHelper().randomPhone();
-    app.getContactHelper().modifyContactPhone(phone);
-    app.getContactHelper().submitContactUpdating();
-    app.getNavigationHelper().gotoHomePage();
+    String phone = app.contact().randomPhone();
 
-    List<ContactData> after = app.getContactHelper().getContactList();
+    app.goTo().contactEdit(ContactUpdatePosition);
+    app.contact().modify(phone);
+    app.goTo().homePage();
+
+    List<ContactData> after = app.contact().list();
 
     if (contact == null) {
       contact = before.get(ContactUpdatePosition - 1);

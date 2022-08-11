@@ -11,19 +11,19 @@ public class ContactCreationTests extends TestBase{
 
   @Test (enabled = false)
   public void testContactCreation() throws Exception {
-    List<ContactData> before = app.getContactHelper().getContactList();
+    List<ContactData> before = app.contact().list();
     ContactData contact = new ContactData("Евгения",
             "Вячеславовна",
             "Тюрикова",
-            app.getContactHelper().randomPhone(),
+            app.contact().randomPhone(),
             "evgeniya.tyurikova@ligastavok.ru",
             "15",
             "May",
             "1988",
             "Нечто");
-    app.getContactHelper().addNewContact(contact);
-    app.getNavigationHelper().gotoHomePage();
-    List<ContactData> after = app.getContactHelper().getContactList();
+    app.contact().addNewContact(contact);
+    app.goTo().homePage();
+    List<ContactData> after = app.contact().list();
 
     if (after.stream().max(Comparator.comparingInt(ContactData::getId)).isPresent()) {
       contact.setId(after.stream().max(Comparator.comparingInt(ContactData::getId)).get().getId());

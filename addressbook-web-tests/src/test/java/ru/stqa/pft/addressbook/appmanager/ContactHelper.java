@@ -20,10 +20,6 @@ public class ContactHelper extends HelperBase {
     super(wd);
   }
 
-  public void submitContactCreation() {
-    click(By.xpath("//input[1][@type = 'submit'][@value='Enter']"));
-  }
-
   public void fillContactData(ContactData contactData, boolean creation) {
     type(By.name("firstname"), contactData.getFirstname());
     type(By.name("middlename"), contactData.getMiddlename());
@@ -59,11 +55,11 @@ public class ContactHelper extends HelperBase {
     click(By.xpath(String.format(CONTACT_IN_MAINTABLE, position + 1)));
   }
 
-  public void DeleteContactOnHomePage() {
+  public void deleteContactOnHomePage() {
     click(By.xpath("//input[@type = 'button'][@value='Delete']"));
   }
 
-  public void DeleteContactOnEditPage() {
+  public void deleteContactOnEditPage() {
     click(By.xpath("//input[@type = 'submit'][@value='Delete']"));
   }
 
@@ -87,18 +83,14 @@ public class ContactHelper extends HelperBase {
   public void addNewContact(ContactData contactData) {
     clickAddNew();
     fillContactData(contactData, true);
-    submitContactCreation();
+    submitContactCreating();
   }
 
   public boolean isThereContact(int position) {
     return isElementPresent(By.xpath(String.format(CONTACT_IN_MAINTABLE, position + 1)));
   }
 
-  public boolean isThereContactWithPhone(String phone) {
-    return isElementPresent(By.xpath(String.format(PHONE_IN_MAINTABLE, phone)));
-  }
-
-  public List<ContactData> getContactList() {
+  public List<ContactData> list() {
     List<ContactData> contacts = new ArrayList<>();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
     for (WebElement element : elements) {
@@ -117,5 +109,17 @@ public class ContactHelper extends HelperBase {
 
   public String randomPhone() {
     return "+7777777" + (int) (100 + Math.random() * 1000) % 1000;
+  }
+
+
+  public void modify(String phone) {
+    modifyContactPhone(phone);
+    submitContactUpdating();
+  }
+
+  public void delete(int contactDeletePosition) {
+    clickCertainContactInMainTable(contactDeletePosition);
+    deleteContactOnHomePage();
+    confirmContactsDeletion();
   }
 }

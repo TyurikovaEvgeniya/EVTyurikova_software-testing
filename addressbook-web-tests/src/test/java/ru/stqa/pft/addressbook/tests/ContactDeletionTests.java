@@ -14,29 +14,27 @@ public class ContactDeletionTests extends TestBase {
     ContactData contact = null;
 
     int contactDeletePosition = 1;
-    if (!app.getContactHelper().isThereContact(contactDeletePosition)) {
+    if (app.contact().list().size() == 0) {
       contact = new ContactData("Евгения",
               "Вячеславовна",
               "Тюрикова",
-              app.getContactHelper().randomPhone(),
+              app.contact().randomPhone(),
               "evgeniya.tyurikova@ligastavok.ru",
               "15",
               "May",
               "1988",
               null);
 
-      app.getContactHelper().addNewContact(contact);
-      app.getNavigationHelper().gotoHomePage();
+      app.contact().addNewContact(contact);
+      app.goTo().homePage();
     }
 
-    List<ContactData> before = app.getContactHelper().getContactList();
+    List<ContactData> before = app.contact().list();
 
-    app.getContactHelper().clickCertainContactInMainTable(contactDeletePosition);
-    app.getContactHelper().DeleteContactOnHomePage();
-    app.getContactHelper().confirmContactsDeletion();
-    app.getNavigationHelper().gotoHome();
+    app.contact().delete(contactDeletePosition);
+    app.goTo().home();
 
-    List<ContactData> after = app.getContactHelper().getContactList();
+    List<ContactData> after = app.contact().list();
 
     before.remove(contactDeletePosition - 1);
     Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
@@ -46,33 +44,35 @@ public class ContactDeletionTests extends TestBase {
     Assert.assertEquals(before, after);
   }
 
+
+
   @Test (enabled = false)
   public void testContactDeletionEdit() throws Exception {
 
     ContactData contact = null;
     int ContactDeletePosition = 1;
-    if (!app.getContactHelper().isThereContact(ContactDeletePosition)) {
+    if (!app.contact().isThereContact(ContactDeletePosition)) {
       contact = new ContactData("Евгения",
               "Вячеславовна",
               "Тюрикова",
-              app.getContactHelper().randomPhone(),
+              app.contact().randomPhone(),
               "evgeniya.tyurikova@ligastavok.ru",
               "15",
               "May",
               "1988",
               null);
 
-      app.getContactHelper().addNewContact(contact);
-      app.getNavigationHelper().gotoHomePage();
+      app.contact().addNewContact(contact);
+      app.goTo().homePage();
 
     }
 
-    List<ContactData> before = app.getContactHelper().getContactList();
+    List<ContactData> before = app.contact().list();
 
-    app.getNavigationHelper().gotoContactEdit(1);
-    app.getContactHelper().DeleteContactOnEditPage();
+    app.goTo().contactEdit(1);
+    app.contact().deleteContactOnEditPage();
 
-    List<ContactData> after = app.getContactHelper().getContactList();
+    List<ContactData> after = app.contact().list();
 
     before.remove(ContactDeletePosition - 1);
     Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
