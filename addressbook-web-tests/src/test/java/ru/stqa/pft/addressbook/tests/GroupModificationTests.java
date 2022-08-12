@@ -6,37 +6,35 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.Comparator;
-import java.util.List;
-
-import static java.lang.Math.random;
+import java.util.Set;
 
 public class GroupModificationTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions(){
     app.goTo().groupPage();
-    if (app.group().list().size() == 0) {
-      app.group().create(new GroupData().withName(String.format("test%s", (int) (random()*1000))));
+    if (app.group().all().size() == 0) {
+      app.group().create(new GroupData().withName(app.group().randomGroupName()));
     }
   }
+
 
   @Test
   public void testGroupModification() {
     app.goTo().groupPage();
-    List<GroupData> before = app.group().list();
-    int positionToModify = Math.abs(1 - before.size());
-    GroupData group = new GroupData().withId(before.get(positionToModify).getId()).withName("test1");
+    Set<GroupData> before = app.group().all();
+    GroupData modifyingGroup = before.iterator().next();
+    GroupData group = new GroupData().withId(modifyingGroup.getId()).withName(app.group().randomGroupName());
 
-    app.group().modify(positionToModify, group);
+    app.group().modify(group);
     app.goTo().groupPage();
 
-    List<GroupData> after = app.group().list();
+    Set<GroupData> after = app.group().all();
 
-    before.remove(Math.abs(positionToModify));
+    before.remove(modifyingGroup);
     before.add(group);
     Comparator<? super GroupData> byId = Comparator.comparingInt(GroupData::getId);
-    before.sort(byId);
-    after.sort(byId);
+
     Assert.assertEquals(before, after);
 
   }
