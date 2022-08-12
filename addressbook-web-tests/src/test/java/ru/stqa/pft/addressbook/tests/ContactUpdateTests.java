@@ -47,7 +47,12 @@ public class ContactUpdateTests extends TestBase {
       contact.setMobilePhone(phone);
     }
 
-    before.set(ContactUpdatePosition - 1, contact);
+    contact = before.get(ContactUpdatePosition - 1);
+
+    if (after.stream().max(Comparator.comparingInt(ContactData::getId)).isPresent()
+            && after.stream().max(Comparator.comparingInt(ContactData::getId)).get().getId() == Integer.MAX_VALUE) {
+      contact.setId(after.stream().max(Comparator.comparingInt(ContactData::getId)).get().getId());
+    }
 
     Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
     before.sort(byId);
@@ -88,10 +93,15 @@ public class ContactUpdateTests extends TestBase {
 
     List<ContactData> after = app.contact().list();
 
-    if (contact == null) {
-      contact = before.get(ContactUpdatePosition - 1);
-      contact.setMobilePhone(phone);
+
+    contact = before.get(ContactUpdatePosition - 1);
+
+    if (after.stream().max(Comparator.comparingInt(ContactData::getId)).isPresent()
+            && after.stream().max(Comparator.comparingInt(ContactData::getId)).get().getId() == Integer.MAX_VALUE) {
+      contact.setId(after.stream().max(Comparator.comparingInt(ContactData::getId)).get().getId());
     }
+
+    contact.setMobilePhone(phone);
 
     before.set(ContactUpdatePosition - 1, contact);
 
