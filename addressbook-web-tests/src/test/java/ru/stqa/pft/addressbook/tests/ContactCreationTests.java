@@ -1,39 +1,39 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.Comparator;
-import java.util.List;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class ContactCreationTests extends TestBase{
 
-  @Test (enabled = false)
+  @Test
   public void testContactCreation() throws Exception {
-    List<ContactData> before = app.contact().list();
-    ContactData contact = new ContactData("Евгения",
-            "Вячеславовна",
-            "Тюрикова",
-            app.contact().randomPhone(),
-            "evgeniya.tyurikova@ligastavok.ru",
-            "15",
-            "May",
-            "1988",
-            "Нечто");
+    Contacts before = app.contact().all();
+    ContactData contact;
+    contact = new ContactData();
+    contact.withFirstName("Евгения");
+    contact.withMiddleName("Вячеславовна");
+    contact.withLastName("Тюрикова");
+    contact.withMobilePhone(app.contact().randomPhone());
+    contact.withEmail("evgeniya.tyurikova@ligastavok.ru");
+    contact.withBday("15");
+    contact.withBmonth("May");
+    contact.withByear("1988");
+    contact.withGroup("Нечто");
+
     app.contact().addNewContact(contact);
     app.goTo().homePage();
-    List<ContactData> after = app.contact().list();
+    Contacts after = app.contact().all();
 
-    if (after.stream().max(Comparator.comparingInt(ContactData::getId)).isPresent()) {
-      contact.setId(after.stream().max(Comparator.comparingInt(ContactData::getId)).get().getId());
-    }
-    before.add(contact);
-    Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
-    before.sort(byId);
-    after.sort(byId);
+    assertEquals(after.size(), before.size() + 1);
+    assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
 
-    Assert.assertEquals(before, after);
   }
 
 }

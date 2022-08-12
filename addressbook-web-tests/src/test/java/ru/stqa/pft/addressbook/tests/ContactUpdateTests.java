@@ -1,114 +1,73 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
 import java.util.Comparator;
-import java.util.List;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class ContactUpdateTests extends TestBase {
 
-  @Test (enabled = false)
-  public void testContactUpdateDetails() throws Exception {
+  @BeforeMethod
+  public void ensurePrecoditions() {
     ContactData contact = null;
-
-    int ContactUpdatePosition = 1;
-    if (!app.contact().isThereContact(ContactUpdatePosition)) {
-      contact = new ContactData("Евгения",
-              "Вячеславовна",
-              "Тюрикова",
-              app.contact().randomPhone(),
-              "evgeniya.tyurikova@ligastavok.ru",
-              "15",
-              "May",
-              "1988",
-              null);
+    if (app.contact().all().size() == 0) {
+      contact = new ContactData().withFirstName("Евгения").withMiddleName("Вячеславовна").withLastName("Тюрикова")
+              .withMobilePhone(app.contact().randomPhone()).withEmail("evgeniya.tyurikova@ligastavok.ru")
+              .withBday("15").withBmonth("May").withByear("1988").withGroup(null);
 
       app.contact().addNewContact(contact);
-      app.goTo().homePage();
     }
+    app.goTo().homePage();
+  }
 
-    List<ContactData> before = app.contact().list();
+  @Test
+  public void testContactUpdateDetails() throws Exception {
 
-    String phone = app.contact().randomPhone();
+    Contacts before = app.contact().all();
+    ContactData updatedPosition = before.iterator().next();
 
-    app.goTo().contactDetails(ContactUpdatePosition);
+    String newPhone = app.contact().randomPhone();
+    ContactData contact;
+    contact = updatedPosition.withMobilePhone(newPhone);
 
-
+    app.goTo().contactDetails(updatedPosition);
     app.goTo().modifingContactOnDetailsPage();
-    app.contact().modify(phone);
+    app.contact().modify(contact);
     app.goTo().homePage();
 
-    List<ContactData> after = app.contact().list();
+    Contacts after = app.contact().all();
 
-    if (contact == null) {
-      contact = before.get(ContactUpdatePosition - 1);
-      contact.setMobilePhone(phone);
-    }
+    assertThat(after, equalTo(before.without(updatedPosition).withAdded(contact)));
 
-    contact = before.get(ContactUpdatePosition - 1);
-
-    if (after.stream().max(Comparator.comparingInt(ContactData::getId)).isPresent()
-            && after.stream().max(Comparator.comparingInt(ContactData::getId)).get().getId() == Integer.MAX_VALUE) {
-      contact.setId(after.stream().max(Comparator.comparingInt(ContactData::getId)).get().getId());
-    }
-
-    Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
-    before.sort(byId);
-    after.sort(byId);
-
-    Assert.assertEquals(before, after);
 
   }
 
 
-  @Test (enabled = false)
+  @Test
   public void testContactModificationEdit() throws Exception {
-    ContactData contact = null;
 
-    int ContactUpdatePosition = 1;
-    if (app.contact().list().size() == 0) {
-      contact = new ContactData("Евгения",
-              "Вячеславовна",
-              "Тюрикова",
-              app.contact().randomPhone(),
-              "evgeniya.tyurikova@ligastavok.ru",
-              "15",
-              "May",
-              "1988",
-              null);
+    Contacts before = app.contact().all();
+    ContactData updatedPosition = before.iterator().next();
 
-      app.contact().addNewContact(contact);
-      app.goTo().homePage();
-    }
+    String newPhone = app.contact().randomPhone();
+    ContactData contact;
+    contact = updatedPosition.withMobilePhone(newPhone);
 
-    List<ContactData> before = app.contact().list();
-
-    String phone = app.contact().randomPhone();
-
-    app.goTo().contactEdit(ContactUpdatePosition);
-    app.contact().modify(phone);
+    app.goTo().contactEdit(updatedPosition);
+    app.contact().modify(contact);
     app.goTo().homePage();
 
-    List<ContactData> after = app.contact().list();
+    Contacts after = app.contact().all();
 
+    assertThat(after, equalTo(before.without(updatedPosition).withAdded(contact)));
 
-    contact = before.get(ContactUpdatePosition - 1);
-
-    if (after.stream().max(Comparator.comparingInt(ContactData::getId)).isPresent()
-            && after.stream().max(Comparator.comparingInt(ContactData::getId)).get().getId() == Integer.MAX_VALUE) {
-      contact.setId(after.stream().max(Comparator.comparingInt(ContactData::getId)).get().getId());
-    }
-
-    contact.setMobilePhone(phone);
-
-    before.set(ContactUpdatePosition - 1, contact);
-
-    Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
-    before.sort(byId);
-    after.sort(byId);
-
-    Assert.assertEquals(before, after);
   }
 }

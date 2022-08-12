@@ -11,6 +11,7 @@ import ru.stqa.pft.addressbook.model.Groups;
 import java.util.Set;
 
 import static java.lang.Math.random;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
 
@@ -37,10 +38,9 @@ public class GroupDeletionTests extends TestBase {
 
     Groups after = app.group().all();
 
-    before.remove(deletedGroup);
-    assertThat(after, CoreMatchers.equalTo(before.without(deletedGroup)));
-    assertEquals(before, after);
 
+    assertThat(after,
+            equalTo(before.without(deletedGroup)));
   }
 
 

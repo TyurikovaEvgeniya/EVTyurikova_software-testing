@@ -1,82 +1,63 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
 import java.util.Comparator;
-import java.util.List;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class ContactDeletionTests extends TestBase {
 
-  @Test (enabled = false)
-  public void testContactDeletionHome() throws Exception {
-    ContactData contact = null;
-
-    int contactDeletePosition = 1;
-    if (app.contact().list().size() == 0) {
-      contact = new ContactData("Евгения",
-              "Вячеславовна",
-              "Тюрикова",
-              app.contact().randomPhone(),
-              "evgeniya.tyurikova@ligastavok.ru",
-              "15",
-              "May",
-              "1988",
-              null);
+  @BeforeMethod
+  public void ensurePreconditions() {
+    ContactData contact;
+    if (app.contact().all().size() == 0) {
+      contact = new ContactData().withFirstName("Евгения").withMiddleName("Вячеславовна").withLastName("Тюрикова")
+              .withMobilePhone(app.contact().randomPhone()).withEmail("evgeniya.tyurikova@ligastavok.ru")
+              .withBday("15").withBmonth("May").withByear("1988").withGroup(null);
 
       app.contact().addNewContact(contact);
       app.goTo().homePage();
     }
+  }
 
-    List<ContactData> before = app.contact().list();
+  @Test
+  public void testContactDeletionHome() throws Exception {
+    Contacts before = app.contact().all();
+    ContactData deletedPosition = before.iterator().next() ;
 
-    app.contact().delete(contactDeletePosition);
     app.goTo().home();
+    app.contact().deleteOnHomePage(deletedPosition);
 
-    List<ContactData> after = app.contact().list();
 
-    before.remove(contactDeletePosition - 1);
-    Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
-    before.sort(byId);
-    after.sort(byId);
+    Contacts after = app.contact().all();
 
-    Assert.assertEquals(before, after);
+
+    assertThat(after, equalTo(before.without(deletedPosition)));
+
   }
 
 
-
-  @Test (enabled = false)
+  @Test
   public void testContactDeletionEdit() throws Exception {
+    Contacts before = app.contact().all();
+    ContactData deletedPosition = before.iterator().next() ;
 
-    ContactData contact = null;
-    int ContactDeletePosition = 1;
-    if (!app.contact().isThereContact(ContactDeletePosition)) {
-      contact = new ContactData("Евгения",
-              "Вячеславовна",
-              "Тюрикова",
-              app.contact().randomPhone(),
-              "evgeniya.tyurikova@ligastavok.ru",
-              "15",
-              "May",
-              "1988",
-              null);
 
-      app.contact().addNewContact(contact);
-      app.goTo().homePage();
+    app.goTo().contactEdit(deletedPosition);
+    app.contact().deleteOnEditPage(deletedPosition);
+    app.goTo().home();
 
-    }
+    Contacts after = app.contact().all();
 
-    List<ContactData> before = app.contact().list();
+    assertThat(after, equalTo(before.without(deletedPosition)));
 
-    app.goTo().contactEdit(1);
-    app.contact().deleteContactOnEditPage();
-
-    List<ContactData> after = app.contact().list();
-
-    before.remove(ContactDeletePosition - 1);
-    Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
-    before.sort(byId);
-    after.sort(byId);
   }
 }

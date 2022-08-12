@@ -7,23 +7,20 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
-
-  public static final String CONTACT_IN_MAINTABLE = "//table[@id='maintable']/tbody/tr[%s]/td/input";
-  public static final String PHONE_IN_MAINTABLE = "//*[@id='maintable']/tbody//td[6][text()='%s']";
 
   public ContactHelper(WebDriver wd) {
     super(wd);
   }
 
   public void fillContactData(ContactData contactData, boolean creation) {
-    type(By.name("firstname"), contactData.getFirstname());
-    type(By.name("middlename"), contactData.getMiddlename());
-    type(By.name("lastname"), contactData.getLastname());
+    type(By.name("firstname"), contactData.getFirstName());
+    type(By.name("middlename"), contactData.getMiddleName());
+    type(By.name("lastname"), contactData.getLastName());
     type(By.name("mobile"), contactData.getMobilePhone());
     type(By.name("email"), contactData.getEmail());
     selectFromDropDownList("bday", contactData.getBday());
@@ -49,10 +46,6 @@ public class ContactHelper extends HelperBase {
 
   public void clickAddNew() {
     click(By.linkText("add new"));
-  }
-
-  public void clickCertainContactInMainTable(int position) {
-    click(By.xpath(String.format(CONTACT_IN_MAINTABLE, position + 1)));
   }
 
   public void deleteContactOnHomePage() {
@@ -86,40 +79,41 @@ public class ContactHelper extends HelperBase {
     submitContactCreating();
   }
 
-  public boolean isThereContact(int position) {
-    return isElementPresent(By.xpath(String.format(CONTACT_IN_MAINTABLE, position + 1)));
-  }
-
-  public List<ContactData> list() {
-    List<ContactData> contacts = new ArrayList<>();
-    List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
-    for (WebElement element : elements) {
-      String el = element.getText();
-      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      String lastname = element.findElement(By.xpath("./td[2]")).getText();
-      String firstname = element.findElement(By.xpath("./td[3]")).getText();
-      String phone = String.valueOf(element.findElement(By.xpath("./td[6]")).getText());
-
-
-      ContactData contact = new ContactData(id, firstname, null, lastname, phone, null, null, null, null, null);
-      contacts.add(contact);
-    }
-    return contacts;
-  }
-
   public String randomPhone() {
     return "+7777777" + (int) (100 + Math.random() * 1000) % 1000;
   }
 
 
-  public void modify(String phone) {
-    modifyContactPhone(phone);
+  public void modify(ContactData contact) {
+    modifyContactPhone(contact.getMobilePhone());
     submitContactUpdating();
   }
 
-  public void delete(int contactDeletePosition) {
-    clickCertainContactInMainTable(contactDeletePosition);
-    deleteContactOnHomePage();
-    confirmContactsDeletion();
+  public Contacts all() {
+    Contacts contacts = new Contacts();
+    List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
+    for (WebElement element : elements) {
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      String lastname = element.findElement(By.xpath("./td[2]")).getText();
+      String firstname = element.findElement(By.xpath("./td[3]")).getText();
+      String phone = String.valueOf(element.findElement(By.xpath("./td[6]")).getText());
+
+      contacts.add(new ContactData().withId(id).withFirstName(firstname).withLastName(lastname).withMobilePhone(phone));
+    }
+    return contacts;
+  }
+
+  public void deleteOnHomePage(ContactData deletedContact) {
+   selectContactById(deletedContact.getId());
+   deleteContactOnHomePage();
+   confirmContactsDeletion();
+  }
+
+  public void deleteOnEditPage(ContactData deletedContact) {
+    deleteContactOnEditPage();
+  }
+
+  private void selectContactById(int id) {
+    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
 }

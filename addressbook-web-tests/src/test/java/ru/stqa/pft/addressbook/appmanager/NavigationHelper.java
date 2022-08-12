@@ -2,6 +2,7 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import ru.stqa.pft.addressbook.model.ContactData;
 
 public class NavigationHelper extends HelperBase {
 
@@ -32,15 +33,16 @@ public class NavigationHelper extends HelperBase {
       click(By.linkText("home"));
   }
 
-  public void contactEdit(int position) {
-    click(By.xpath(String.format("//tr[%s]//img[@alt=\"Edit\"]", position + 1)));
+  public void contactEdit(ContactData contact) {
+    click(By.xpath(String.format("//tr//input[@value='%s']/following::img[@alt=\"Edit\"][1]", contact.getId())));
   }
 
-  public void contactDetails(int position) {
-    click(By.xpath(String.format("//tr[%s]//img[@alt=\"Details\"]", position + 1)));
+  public void contactDetails(ContactData contact) {
+    click(By.xpath(String.format("//tr//input[@value='%s']/following::img[@alt=\"Details\"][1]", contact.getId())));
   }
 
   public void modifingContactOnDetailsPage() {
     click(By.name("modifiy"));
   }
+
 }
