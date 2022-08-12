@@ -22,7 +22,8 @@ public class GroupDeletionTests extends TestBase {
 
   @Test
   public void testGroupDeletion() throws Exception {
-    ensurePreconditions();
+
+    app.goTo().groupPage();
     List<GroupData> before = app.group().list();
 
     int deletingGroupPosition = Math.abs(1 - before.size());

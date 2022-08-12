@@ -22,7 +22,7 @@ public class GroupModificationTests extends TestBase {
 
   @Test
   public void testGroupModification() {
-    ensurePreconditions();
+    app.goTo().groupPage();
     List<GroupData> before = app.group().list();
     int positionToModify = Math.abs(1 - before.size());
     GroupData group = new GroupData().withId(before.get(positionToModify).getId()).withName("test1");
