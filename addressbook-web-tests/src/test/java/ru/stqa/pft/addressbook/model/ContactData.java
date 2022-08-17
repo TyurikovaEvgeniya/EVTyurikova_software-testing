@@ -13,6 +13,8 @@ public class ContactData {
   private String bmonth;
   private String byear;
   private String group;
+  private String homePhone;
+  private String workPhone;
 
   public void setId(int id) {
     this.id = id;
@@ -20,6 +22,16 @@ public class ContactData {
 
   public ContactData withMobilePhone(String mobilePhone) {
     this.mobilePhone = mobilePhone;
+    return this;
+  }
+
+  public ContactData withHomePhone(String home) {
+    this.homePhone = home;
+    return this;
+  }
+
+  public ContactData withWorkPhone(String work) {
+    this.workPhone = work;
     return this;
   }
 
@@ -67,6 +79,8 @@ public class ContactData {
     this.group = group;
     return this;
   }
+
+
 
 
   @Override
@@ -154,6 +168,11 @@ public class ContactData {
     return group;
   }
 
+  public String getWorkPhone() {
+    return workPhone;
+  }
 
 
+  public String getHomePhone() {return homePhone;
+  }
 }
