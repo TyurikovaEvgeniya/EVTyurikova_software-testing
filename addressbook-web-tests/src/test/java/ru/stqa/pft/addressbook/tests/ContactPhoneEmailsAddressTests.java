@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.tests;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -16,9 +17,10 @@ public class ContactPhoneEmailsAddressTests extends TestBase {
     app.goTo().homePage();
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
-
-    assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
-    assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFromEditForm)));
+    app.contact().mergePhones(contactInfoFromEditForm);
+    app.contact().mergeEmails(contactInfoFromEditForm);
+    assertThat(contact.getAllPhones(), equalTo(contactInfoFromEditForm.getAllPhones()));
+    assertThat(contact.getAllEmails(), equalTo(contactInfoFromEditForm.getAllEmails()));
     assertThat(contact.getAddress(), equalTo(contactInfoFromEditForm.getAddress()));
   }
 
@@ -26,16 +28,4 @@ public class ContactPhoneEmailsAddressTests extends TestBase {
     return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
   }
 
-  private String mergePhones(ContactData contact) {
-    return Stream.of(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone())
-            .filter((s) -> !s.equals(""))
-            .map(ContactPhoneEmailsAddressTests::cleaned)
-            .collect(Collectors.joining("\n"));
-  }
-
-  private String mergeEmails(ContactData contact) {
-    return Stream.of(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
-            .filter((s) -> !s.equals(""))
-            .collect(Collectors.joining("\n"));
-  }
 }

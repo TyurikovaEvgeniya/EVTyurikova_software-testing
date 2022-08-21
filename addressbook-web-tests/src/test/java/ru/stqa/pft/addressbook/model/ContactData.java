@@ -20,7 +20,6 @@ public class ContactData {
   private String homePhone;
   private String workPhone;
   private String allPhones;
-  private String allAddresses;
   private String allEmails;
 
 
@@ -67,7 +66,7 @@ public class ContactData {
   }
 
   public ContactData withAddress(String address) {
-    this.allAddresses = address;
+    this.address = address;
     return this;
   }
 
@@ -133,12 +132,13 @@ public class ContactData {
     return id == that.id &&
             Objects.equals(firstname, that.firstname) &&
             Objects.equals(lastname, that.lastname) &&
-            Objects.equals(mobilePhone, that.mobilePhone);
+            Objects.equals(allPhones, that.allPhones) &&
+            Objects.equals(allEmails, that.allEmails);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, firstname, lastname, mobilePhone);
+    return Objects.hash(id, firstname, lastname, allPhones, allEmails);
   }
 
   public ContactData() {
@@ -158,6 +158,8 @@ public class ContactData {
     this.group = group;
     this.homePhone = homePhone;
     this.workPhone = workPhone;
+    this.allEmails = allEmails;
+    this.allPhones = allPhones;
   }
 
   @Override
@@ -179,6 +181,8 @@ public class ContactData {
             ", group='" + group + '\'' +
             ", homePhone='" + homePhone + '\'' +
             ", workPhone='" + workPhone + '\'' +
+            ", allPhones='" + allPhones + '\'' +
+            ", allEmails='" + allEmails + '\'' +
             '}';
   }
 
@@ -244,10 +248,6 @@ public class ContactData {
 
   public String getAddress2() {
     return address2;
-  }
-
-  public String getAllAddresses() {
-    return allAddresses;
   }
 
   public String getAllEmails() {
