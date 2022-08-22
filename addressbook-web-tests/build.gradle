@@ -8,4 +8,5 @@ dependencies{
     implementation 'com.thegoate:testng:0.15.8.202204130045'
     implementation 'org.seleniumhq.selenium:selenium-java:4.3.0'
     implementation 'it.ozimov:hamcrest:2.0.0'
+    implementation 'com.beust:jcommander:1.81'
 }
