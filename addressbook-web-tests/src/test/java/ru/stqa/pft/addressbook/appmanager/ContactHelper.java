@@ -8,8 +8,12 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.tests.ContactPhoneEmailsAddressTests;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ContactHelper extends HelperBase {
 
@@ -108,7 +112,7 @@ public class ContactHelper extends HelperBase {
               .withAddress(address)
               .withAllEmails(allEmails)
               .withLastName(lastname)
-              .withAllPhones( allPhones)
+              .withAllPhones(allPhones)
 
       );
     }
@@ -160,5 +164,26 @@ public class ContactHelper extends HelperBase {
     WebElement row = checkbox.findElement(By.xpath("./../.."));
     List<WebElement> cells = row.findElements(By.tagName("td"));
     cells.get(7).findElement(By.tagName("a")).click();
+  }
+
+  public void mergePhones(ContactData contact) {
+    contact.withAllPhones(
+            Stream.of(
+                    Optional.ofNullable(contact.getHomePhone()).orElse("")
+                    , Optional.ofNullable(contact.getMobilePhone()).orElse("")
+                    , Optional.ofNullable(contact.getWorkPhone()).orElse(""))
+                    .filter((s) -> !s.equals(""))
+                    .map(ContactPhoneEmailsAddressTests::cleaned)
+                    .collect(Collectors.joining("\n")));
+  }
+
+  public void mergeEmails(ContactData contact) {
+    contact.withAllEmails(
+            Stream.of(
+                    Optional.ofNullable(contact.getEmail()).orElse("")
+                    , Optional.ofNullable(contact.getEmail2()).orElse("")
+                    , Optional.ofNullable(contact.getEmail3()).orElse(""))
+                    .filter((s) -> !s.equals(""))
+                    .collect(Collectors.joining("\n")));
   }
 }
