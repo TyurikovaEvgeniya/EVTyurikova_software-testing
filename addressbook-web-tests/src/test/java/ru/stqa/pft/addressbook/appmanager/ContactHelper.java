@@ -30,6 +30,7 @@ public class ContactHelper extends HelperBase {
     selectFromDropDownList("bday", contactData.getBday());
     selectFromDropDownList("bmonth", contactData.getBmonth());
     type(By.name("byear"), contactData.getByear());
+    attach(By.name("photo"), contactData.getPhoto());
 
     if (creation) {
       if (contactData.getGroup() != null) {
