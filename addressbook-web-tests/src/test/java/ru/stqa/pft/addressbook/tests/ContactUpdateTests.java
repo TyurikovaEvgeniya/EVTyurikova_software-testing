@@ -28,7 +28,7 @@ public class ContactUpdateTests extends TestBase {
     app.goTo().homePage();
   }
 
-  @Test
+  @Test(enabled = false)
   public void testContactUpdateDetails() throws Exception {
 
     Contacts before = app.contact().all();
@@ -51,7 +51,7 @@ public class ContactUpdateTests extends TestBase {
   }
 
 
-  @Test
+  @Test(enabled = false)
   public void testContactModificationEdit() throws Exception {
 
     Contacts before = app.contact().all();

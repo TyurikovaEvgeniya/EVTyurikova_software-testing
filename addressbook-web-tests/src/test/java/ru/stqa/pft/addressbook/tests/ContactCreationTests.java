@@ -14,7 +14,7 @@ import static org.testng.Assert.assertEquals;
 
 public class ContactCreationTests extends TestBase {
 
-  @Test
+  @Test(enabled = false)
   public void testContactCreation() throws Exception {
     Contacts before = app.contact().all();
     File photo = new File("src/test/resources/OW.PNG");

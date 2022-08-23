@@ -23,9 +23,11 @@ import static org.testng.Assert.assertEquals;
 
 public class GroupCreationTests extends TestBase {
 
+  public static final String TEST_DATA_FILE_DIR = "src/test/resources/";
+
   @DataProvider
   public Iterator<Object[]> validGroupsFromXml() throws IOException {
-    BufferedReader reader = new BufferedReader( (new FileReader(new File("src/test/resources/groups.xml"))));
+    BufferedReader reader = new BufferedReader( (new FileReader(new File(TEST_DATA_FILE_DIR + "groups.xml"))));
     String xml = "";
     String line = reader.readLine();
     while (line != null){
@@ -40,7 +42,7 @@ public class GroupCreationTests extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> validGroupsFromJson() throws IOException {
-    BufferedReader reader = new BufferedReader( (new FileReader(new File("src/test/resources/groups.json"))));
+    BufferedReader reader = new BufferedReader( (new FileReader(new File(TEST_DATA_FILE_DIR + "GroupsValid.json"))));
     String json = "";
     String line = reader.readLine();
     while (line != null){
@@ -52,7 +54,21 @@ public class GroupCreationTests extends TestBase {
     return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
   }
 
-  @Test(dataProvider = "validGroupsFromJson")
+  @DataProvider
+  public Iterator<Object[]> invalidGroupsFromJson() throws IOException {
+    BufferedReader reader = new BufferedReader( (new FileReader(new File(TEST_DATA_FILE_DIR + "GroupsInvalid.json"))));
+    String json = "";
+    String line = reader.readLine();
+    while (line != null){
+      json += (line);
+      line = reader.readLine();
+    }
+    Gson gson = new Gson();
+    List<GroupData> groups = gson.fromJson(json, new TypeToken<List<GroupData>>(){}.getType()); //List<GroupData>.class
+    return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+  }
+
+  @Test(dataProvider = "validGroupsFromJson", enabled = false)
   public void testGroupCreation(GroupData group) throws Exception {
 
     app.goTo().groupPage();
@@ -66,12 +82,11 @@ public class GroupCreationTests extends TestBase {
 
   }
 
-  @Test(enabled = false)
-  public void testBadGroupCreation() throws Exception {
+  @Test(dataProvider = "invalidGroupsFromJson", enabled = false)
+  public void testBadGroupCreation(GroupData group) throws Exception {
 
     app.goTo().groupPage();
     Groups before = app.group().all();
-    GroupData group = new GroupData().withName(app.group().randomGroupName() + "'");
     app.group().create(group);
     app.goTo().groupPage();
     assertEquals(app.group().count(), before.size());

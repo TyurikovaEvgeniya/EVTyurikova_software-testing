@@ -8,8 +8,6 @@ import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.List;
 
-import static java.lang.Math.random;
-
 public class GroupHelper extends HelperBase {
 
   public GroupHelper(WebDriver wd) {
@@ -50,11 +48,6 @@ public class GroupHelper extends HelperBase {
     click(By.name("update"));
   }
 
-
-  public String randomGroupName() {
-    return String.format("test%s", (int) (random() * 1000));
-  }
-
   public void create(GroupData group) {
     initGroupCreation();
     fillGroupForm(group);
@@ -78,10 +71,10 @@ public class GroupHelper extends HelperBase {
     return new Groups(groupCache);
   }
 
-  public void modify(GroupData group) {
-    selectGroupById(group.getId());
+  public void modify(GroupData modifiedGroup, GroupData modificationGroupData) {
+    selectGroupById(modifiedGroup.getId());
     initGroupModification();
-    fillGroupForm(group);
+    fillGroupForm( modificationGroupData);
     submitGroupModification();
     groupCache = null;
   }
