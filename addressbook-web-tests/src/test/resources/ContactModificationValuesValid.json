@@ -1,0 +1,24 @@
+[
+  {
+    "firstname": "Аглая",
+    "middlename": "Степановна",
+    "lastname": "Кий",
+    "mobilePhone": "+7777777827",
+    "email": "aglaya.Kiy@gmail.om",
+    "bday": "17",
+    "bmonth": "May",
+    "byear": "1995",
+    "photo": "src/test/resources/OW.PNG"
+  },
+  {
+    "firstname": "Аглая",
+    "middlename": "Степановна",
+    "lastname": "Кий",
+    "mobilePhone": "+7777777171",
+    "email": "aglaya.Kiy@gmail.om",
+    "bday": "17",
+    "bmonth": "May",
+    "byear": "1995",
+    "photo": "src/test/resources/OW.PNG"
+  }
+]

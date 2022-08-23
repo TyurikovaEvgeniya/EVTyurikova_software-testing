@@ -1,0 +1,24 @@
+[
+  {
+    "firstname": "Евгения",
+    "middlename": "Вячеславовна",
+    "lastname": "Тюрикова",
+    "mobilePhone": "+7777777264",
+    "email": "evgeniya.tyurikova@ligastavok.ru",
+    "bday": "15",
+    "bmonth": "May",
+    "byear": "1988",
+    "photo": "src/test/resources/OW.PNG"
+  },
+  {
+    "firstname": "Евгения",
+    "middlename": "Вячеславовна",
+    "lastname": "Тюрикова",
+    "mobilePhone": "+7777777250",
+    "email": "evgeniya.tyurikova@ligastavok.ru",
+    "bday": "15",
+    "bmonth": "May",
+    "byear": "1988",
+    "photo": "src/test/resources/OW.PNG"
+  }
+]

@@ -10,6 +10,7 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.tests.ContactPhoneEmailsAddressTests;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,7 +31,7 @@ public class ContactHelper extends HelperBase {
     selectFromDropDownList("bday", contactData.getBday());
     selectFromDropDownList("bmonth", contactData.getBmonth());
     type(By.name("byear"), contactData.getByear());
-    attach(By.name("photo"), contactData.getPhoto());
+    attach(By.name("photo"), new File(contactData.getPhoto()));
 
     if (creation) {
       if (contactData.getGroup() != null) {
@@ -84,14 +85,13 @@ public class ContactHelper extends HelperBase {
     submitContactCreating();
   }
 
-  public String randomPhone() {
-    return "+7777777" + (int) (100 + Math.random() * 1000) % 1000;
-  }
+
 
 
   public void modify(ContactData contact) {
     modifyContactPhone(contact.getMobilePhone());
     submitContactUpdating();
+
   }
 
   public Contacts all() {

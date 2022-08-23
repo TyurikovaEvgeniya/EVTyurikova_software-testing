@@ -23,8 +23,6 @@ import static org.testng.Assert.assertEquals;
 
 public class GroupCreationTests extends TestBase {
 
-  public static final String TEST_DATA_FILE_DIR = "src/test/resources/";
-
   @DataProvider
   public Iterator<Object[]> validGroupsFromXml() throws IOException {
     BufferedReader reader = new BufferedReader( (new FileReader(new File(TEST_DATA_FILE_DIR + "groups.xml"))));
@@ -68,7 +66,7 @@ public class GroupCreationTests extends TestBase {
     return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
   }
 
-  @Test(dataProvider = "validGroupsFromJson", enabled = false)
+  @Test(dataProvider = "validGroupsFromJson", enabled = true)
   public void testGroupCreation(GroupData group) throws Exception {
 
     app.goTo().groupPage();
@@ -82,7 +80,7 @@ public class GroupCreationTests extends TestBase {
 
   }
 
-  @Test(dataProvider = "invalidGroupsFromJson", enabled = false)
+  @Test(dataProvider = "invalidGroupsFromJson", enabled = true)
   public void testBadGroupCreation(GroupData group) throws Exception {
 
     app.goTo().groupPage();

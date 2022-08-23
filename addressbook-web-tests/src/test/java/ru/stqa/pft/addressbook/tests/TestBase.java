@@ -10,8 +10,7 @@ import ru.stqa.pft.addressbook.generators.GroupDataGenerator;
 public class TestBase {
 
   protected static final ApplicationManager app = new ApplicationManager(Browser.CHROME);
-  protected static final GroupDataGenerator groupGen = new GroupDataGenerator();
-  protected static final ContactDataGenerator contactGen = new ContactDataGenerator();
+  public static final String TEST_DATA_FILE_DIR = "src/test/resources/";
 
   @BeforeSuite(alwaysRun = true)
   public void setUp() throws Exception {

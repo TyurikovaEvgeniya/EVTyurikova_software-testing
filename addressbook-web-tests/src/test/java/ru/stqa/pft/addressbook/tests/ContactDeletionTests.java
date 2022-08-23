@@ -4,14 +4,17 @@ import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.generators.ContactDataGenerator;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
+import java.io.File;
 import java.util.Comparator;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
+import static ru.stqa.pft.addressbook.generators.ContactDataGenerator.ACCOUNT_IMG;
 
 public class ContactDeletionTests extends TestBase {
 
@@ -19,33 +22,32 @@ public class ContactDeletionTests extends TestBase {
   public void ensurePreconditions() {
     ContactData contact;
     if (app.contact().all().size() == 0) {
-      contact = new ContactData().withFirstName("Евгения").withMiddleName("Вячеславовна").withLastName("Тюрикова")
-              .withMobilePhone(app.contact().randomPhone()).withEmail("evgeniya.tyurikova@ligastavok.ru")
-              .withBday("15").withBmonth("May").withByear("1988").withGroup(null);
-
+      contact = new ContactData().withFirstName("Проверка").withMiddleName("Предуслововна").withLastName("Тюрикова")
+              .withMobilePhone(ContactDataGenerator.randomPhone()).withEmail("ensurePreconditions.delete@gmail.com")
+              .withBday("15").withBmonth("May").withByear("1988").withGroup(null).withPhoto(ACCOUNT_IMG);
+      app.contact().mergeEmails(contact);
+      app.contact().mergePhones(contact);
       app.contact().addNewContact(contact);
       app.goTo().homePage();
     }
   }
 
-  @Test(enabled = false)
+  @Test(enabled = true)
   public void testContactDeletionHome() throws Exception {
-    Contacts before = app.contact().all();
-    ContactData deletedPosition = before.iterator().next() ;
 
     app.goTo().home();
+    Contacts before = app.contact().all();
+    ContactData deletedPosition = before.iterator().next() ;
     app.contact().deleteOnHomePage(deletedPosition);
 
-
     Contacts after = app.contact().all();
-
 
     assertThat(after, equalTo(before.without(deletedPosition)));
 
   }
 
 
-  @Test
+  @Test(enabled = true)
   public void testContactDeletionEdit() throws Exception {
     Contacts before = app.contact().all();
     ContactData deletedPosition = before.iterator().next() ;

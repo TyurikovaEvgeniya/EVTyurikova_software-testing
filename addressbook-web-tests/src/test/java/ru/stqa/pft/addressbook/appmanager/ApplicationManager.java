@@ -1,14 +1,11 @@
 package ru.stqa.pft.addressbook.appmanager;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.remote.*;
-import ru.stqa.pft.addressbook.model.ContactData;
-
-
-import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.remote.Browser;
 
 public class ApplicationManager {
   WebDriver wd;
@@ -18,6 +15,7 @@ public class ApplicationManager {
   private GroupHelper groupHelper;
   private ContactHelper contactHelper;
   private Browser browser;
+
 
   public ApplicationManager(Browser browser) {
     this.browser = browser;
