@@ -5,10 +5,22 @@ repositories {
 }
 
 dependencies{
-    implementation 'com.thegoate:testng:0.15.8.202204130045'
+    implementation 'org.testng:testng:6.9.10'
     implementation 'org.seleniumhq.selenium:selenium-java:4.3.0'
     implementation 'it.ozimov:hamcrest:2.0.0'
     implementation 'com.beust:jcommander:1.81'
     implementation 'com.thoughtworks.xstream:xstream:1.4.8'
     implementation 'com.google.code.gson:gson:2.6.1'
+}
+
+task testGroups(type: Test){
+    useTestNG{
+        suites 'src/test/resources/testng_Groups.xml'
+    }
+}
+
+task testContacts(type: Test){
+    useTestNG{
+        suites 'src/test/resources/testng_Contacts.xml'
+    }
 }
