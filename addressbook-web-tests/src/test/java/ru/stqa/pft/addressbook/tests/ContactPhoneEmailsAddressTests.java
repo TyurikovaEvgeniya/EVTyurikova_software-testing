@@ -5,10 +5,6 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.generators.ContactDataGenerator;
 import ru.stqa.pft.addressbook.model.ContactData;
 
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static ru.stqa.pft.addressbook.generators.ContactDataGenerator.ACCOUNT_IMG;

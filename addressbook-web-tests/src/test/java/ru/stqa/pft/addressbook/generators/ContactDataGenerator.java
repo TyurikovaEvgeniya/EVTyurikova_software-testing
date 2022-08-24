@@ -30,7 +30,7 @@ public class ContactDataGenerator extends TestBase {
   @Parameter(names = "-m", description = "Modifying flag")
   public String modifying;
 
-  public static void main(String[] args) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+  public static void main(String[] args) throws IOException, NoSuchMethodException {
     ContactDataGenerator generator = new ContactDataGenerator();
     JCommander jCommander = new JCommander(generator);
     try {
