@@ -51,20 +51,20 @@ public class GroupDataGenerator extends TestBase {
     if (validity.equals("true")) {
       if (modifying.equals("true")) {
         groups = generateGroupModificationValuesValid(count);
-        fileName = "GroupModificationValuesValid";
+        fileName = app.properties.getProperty("group.modification.valid");
       } else if (modifying.equals("false")) {
         groups = generateGroupsValid(count);
-        fileName = "GroupsValid";
+        fileName = app.properties.getProperty("group.creation.valid");
       } else {
         throw new NoSuchMethodException("Unrecognized modifying flag: " + modifying);
       }
     } else if (validity.equals("false")) {
       if (modifying.equals("true")) {
         groups = generateGroupModificationValuesInvalid(count);
-        fileName = "GroupModificationValuesInvalid";
+        fileName = app.properties.getProperty("group.modification.invalid");
       } else if (modifying.equals("false")) {
         groups = generateGroupsInvalid(count);
-        fileName = "GroupsInvalid";
+        fileName = app.properties.getProperty("group.creation.invalid");
       } else {
         System.out.println("Unrecognized modifying flag: " + modifying);
       }

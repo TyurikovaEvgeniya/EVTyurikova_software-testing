@@ -21,7 +21,7 @@ public class GroupDeletionTests extends TestBase {
     app.goTo().groupPage();
   }
 
-  @Test
+  @Test(enabled = true)
   public void testGroupDeletion() throws Exception {
     Groups before = app.group().all();
 

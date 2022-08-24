@@ -23,7 +23,7 @@ public class ContactCreationTests extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> validContactsFromJson() throws IOException {
-    try (BufferedReader reader = new BufferedReader( (new FileReader(new File(TEST_DATA_FILE_DIR + "ContactValuesValid.json"))))) {
+    try (BufferedReader reader = new BufferedReader( (new FileReader(new File(app.getTestDataDir() + app.properties.getProperty("contact.creation.valid") +".json"))))) {
       String json = "";
       String line = reader.readLine();
       while (line != null) {

@@ -20,11 +20,9 @@ import static org.testng.Assert.assertEquals;
 
 public class GroupModificationTests extends TestBase {
 
-  public static final String TEST_DATA_FILE_DIR = "src/test/resources/";
-
   @DataProvider
   public Iterator<Object[]> validGroupsModificationValuesFromJson() throws IOException {
-    try (BufferedReader reader = new BufferedReader( (new FileReader(new File(TEST_DATA_FILE_DIR + "GroupModificationValuesValid.json"))))) {
+    try (BufferedReader reader = new BufferedReader( (new FileReader(new File(app.getTestDataDir() + app.properties.getProperty("group.modification.valid") +".json"))))) {
       String json = "";
       String line = reader.readLine();
       while (line != null) {
@@ -49,7 +47,7 @@ public class GroupModificationTests extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> invalidGroupsModificationValuesFromJson() throws IOException {
-    try (BufferedReader reader = new BufferedReader( (new FileReader(new File(TEST_DATA_FILE_DIR + "GroupModificationValuesInvalid.json"))))) {
+    try (BufferedReader reader = new BufferedReader( (new FileReader(new File(app.getTestDataDir() + app.properties.getProperty("group.modification.invalid") +".json"))))) {
       StringBuilder json = new StringBuilder();
       String line = reader.readLine();
       while (line != null) {

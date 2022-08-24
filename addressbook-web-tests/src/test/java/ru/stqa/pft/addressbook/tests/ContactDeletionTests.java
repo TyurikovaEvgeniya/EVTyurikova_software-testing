@@ -8,7 +8,6 @@ import ru.stqa.pft.addressbook.model.Contacts;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.stqa.pft.addressbook.generators.ContactDataGenerator.ACCOUNT_IMG;
 
 public class ContactDeletionTests extends TestBase {
 
@@ -18,7 +17,7 @@ public class ContactDeletionTests extends TestBase {
     if (app.contact().all().size() == 0) {
       contact = new ContactData().withFirstName("Проверка").withMiddleName("Предуслововна").withLastName("Тюрикова")
               .withMobilePhone(ContactDataGenerator.randomPhone()).withEmail("ensurePreconditions.delete@gmail.com")
-              .withBday("15").withBmonth("May").withByear("1988").withGroup(null).withPhoto(ACCOUNT_IMG);
+              .withBday("15").withBmonth("May").withByear("1988").withGroup(null).withPhoto(app.getPhotoPath());
       app.contact().mergeEmails(contact);
       app.contact().mergePhones(contact);
       app.contact().addNewContact(contact);
@@ -33,7 +32,7 @@ public class ContactDeletionTests extends TestBase {
     Contacts before = app.contact().all();
     ContactData deletedPosition = before.iterator().next() ;
     app.contact().deleteOnHomePage(deletedPosition);
-
+    app.goTo().home();
     Contacts after = app.contact().all();
 
     assertThat(after, equalTo(before.without(deletedPosition)));

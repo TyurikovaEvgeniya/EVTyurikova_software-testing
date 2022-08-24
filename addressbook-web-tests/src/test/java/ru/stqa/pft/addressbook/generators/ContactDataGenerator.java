@@ -9,13 +9,10 @@ import ru.stqa.pft.addressbook.tests.TestBase;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ContactDataGenerator extends TestBase {
-
-  public static final String ACCOUNT_IMG = "src/test/resources/OW.PNG";
 
   private final FilesHelper fileOperations = new FilesHelper();
 
@@ -47,12 +44,13 @@ public class ContactDataGenerator extends TestBase {
     List<ContactData> contacts = null;
     String fileName = null;
 
+
       if (modifying.equals("true")) {
         contacts = generateContactModificationValuesValid(count);
-        fileName = "ContactModificationValuesValid";
+        fileName = app.properties.getProperty("contact.modification.valid");
       } else if (modifying.equals("false")) {
         contacts = generateContactValuesValid(count);
-        fileName = "ContactValuesValid";
+        fileName = app.properties.getProperty("contact.creation.valid");
       } else {
         throw new NoSuchMethodException("Unrecognized modifying flag: " + modifying);
       }
@@ -64,7 +62,7 @@ public class ContactDataGenerator extends TestBase {
 
   public List<ContactData> generateContactValuesValid(int count) {
     List<ContactData> contacts = new ArrayList<ContactData>();
-    File photo = new File(ACCOUNT_IMG);
+    File photo = new File(app.getPhotoPath());
     for (int i = 0; i < count; i++) {
 
       contacts.add(new ContactData().withFirstName("Евгения")
@@ -75,14 +73,14 @@ public class ContactDataGenerator extends TestBase {
               .withBday("15")
               .withBmonth("May")
               .withByear("1988")
-              .withPhoto(ACCOUNT_IMG));
+              .withPhoto(app.getPhotoPath()));
     }
     return contacts;
   }
 
   private List<ContactData> generateContactModificationValuesValid(int count) {
     List<ContactData> contacts = new ArrayList<ContactData>();
-    File photo = new File(ACCOUNT_IMG);
+    File photo = new File(app.getPhotoPath());
     for (int i = 0; i < count; i++) {
 
       contacts.add(  new ContactData()
@@ -94,7 +92,7 @@ public class ContactDataGenerator extends TestBase {
               .withBday("17")
               .withBmonth("May")
               .withByear("1995")
-              .withPhoto(ACCOUNT_IMG));
+              .withPhoto(app.getPhotoPath()));
     }
     return contacts;
   }

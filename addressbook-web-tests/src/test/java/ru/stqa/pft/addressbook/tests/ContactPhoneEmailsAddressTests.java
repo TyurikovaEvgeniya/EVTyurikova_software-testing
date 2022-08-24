@@ -7,7 +7,6 @@ import ru.stqa.pft.addressbook.model.ContactData;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.stqa.pft.addressbook.generators.ContactDataGenerator.ACCOUNT_IMG;
 
 public class ContactPhoneEmailsAddressTests extends TestBase {
 
@@ -19,7 +18,7 @@ public class ContactPhoneEmailsAddressTests extends TestBase {
       contact = new ContactData().withFirstName("Проверка").withMiddleName("Предуслововна").withLastName("Тюрикова")
               .withMobilePhone(ContactDataGenerator.randomPhone()).withHomePhone(ContactDataGenerator.randomPhone())
               .withWorkPhone(ContactDataGenerator.randomPhone()).withEmail("ensurePreconditions.testContactPhone1@gmail.com").withEmail2("ensurePreconditions.testContactPhone@gmail.com").withEmail3("ensurePreconditions.testContactPhone@gmail.com")
-              .withBday("15").withBmonth("May").withByear("1988").withGroup(null).withPhoto(ACCOUNT_IMG);
+              .withBday("15").withBmonth("May").withByear("1988").withGroup(null).withPhoto(app.getPhotoPath());
       app.contact().mergeEmails(contact);
       app.contact().mergePhones(contact);
       app.contact().addNewContact(contact);
