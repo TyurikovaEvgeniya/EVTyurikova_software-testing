@@ -24,16 +24,18 @@ public class GroupModificationTests extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> validGroupsModificationValuesFromJson() throws IOException {
-    BufferedReader reader = new BufferedReader( (new FileReader(new File(TEST_DATA_FILE_DIR + "GroupModificationValuesValid.json"))));
-    String json = "";
-    String line = reader.readLine();
-    while (line != null){
-      json += (line);
-      line = reader.readLine();
+    try (BufferedReader reader = new BufferedReader( (new FileReader(new File(TEST_DATA_FILE_DIR + "GroupModificationValuesValid.json"))))) {
+      String json = "";
+      String line = reader.readLine();
+      while (line != null) {
+        json += (line);
+        line = reader.readLine();
+      }
+      Gson gson = new Gson();
+      List<GroupData> groups = gson.fromJson(json, new TypeToken<List<GroupData>>() {
+      }.getType()); //List<GroupData>.class
+      return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
-    Gson gson = new Gson();
-    List<GroupData> groups = gson.fromJson(json, new TypeToken<List<GroupData>>(){}.getType()); //List<GroupData>.class
-    return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
   }
 
   @BeforeMethod
@@ -47,17 +49,18 @@ public class GroupModificationTests extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> invalidGroupsModificationValuesFromJson() throws IOException {
-    BufferedReader reader = new BufferedReader( (new FileReader(new File(TEST_DATA_FILE_DIR + "GroupModificationValuesInvalid.json"))));
-    StringBuilder json = new StringBuilder();
-    String line = reader.readLine();
-    while (line != null){
-      json.append(line);
-      line = reader.readLine();
+    try (BufferedReader reader = new BufferedReader( (new FileReader(new File(TEST_DATA_FILE_DIR + "GroupModificationValuesInvalid.json"))))) {
+      StringBuilder json = new StringBuilder();
+      String line = reader.readLine();
+      while (line != null) {
+        json.append(line);
+        line = reader.readLine();
+      }
+      Gson gson = new Gson();
+      List<GroupData> groups = gson.fromJson(json.toString(), new TypeToken<List<GroupData>>() {
+      }.getType()); //List<GroupData>.class
+      return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
-    Gson gson = new Gson();
-    List<GroupData> groups = gson.fromJson(json.toString(), new TypeToken<List<GroupData>>(){}.getType()); //List<GroupData>.class
-    return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
-
 
   }
 

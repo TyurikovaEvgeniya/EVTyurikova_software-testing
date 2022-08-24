@@ -46,42 +46,49 @@ public class FilesHelper {
   private static void saveGroupAsJson(List<GroupData> group, File file) throws IOException {
     Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
     String json = gson.toJson(group);
-    Writer writer = new FileWriter(file);
-    writer.write(json);
-    writer.close();
+    try (Writer writer  = new FileWriter(file)){
+    writer.write(json);}
   }
 
 
   private static void saveContactAsJson(List<ContactData> contacts, File file) throws IOException {
     Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
     String json = gson.toJson(contacts);
-    Writer writer = new FileWriter(file);
-    writer.write(json);
-    writer.close();
+    try (Writer writer  = new FileWriter(file)){
+      writer.write(json);}
   }
 
 
-  private static void saveContactAsCsv(List<ContactData> group, File file) {
+  private static void saveContactAsCsv(List<ContactData> contacts, File file) throws IOException {
+    System.out.println(new File(".").getAbsolutePath());
+    try (Writer writer = new FileWriter(file)) {
+    for (ContactData contact : contacts) {
+      writer.write(String.format("%s;%s;%s\n", contact.getFirstName(), contact.getLastName(), contact.getAllPhones()));
+    }}
+
   }
-  private static void saveGroupAsCsv(List<GroupData> contact, File file) {
+  private static void saveGroupAsCsv(List<GroupData> groups, File file) throws IOException {
+    System.out.println(new File(".").getAbsolutePath());
+    try (Writer writer = new FileWriter(file)) {
+      for (GroupData group : groups) {
+        writer.write(String.format("%s;%s;%s\n", group.getName(), group.getFooter(), group.getHeader()));
+      }}
   }
 
   private static void saveGroupAsXml(List<GroupData> group, File file) throws IOException {
     XStream xstream = new XStream();
     xstream.processAnnotations(GroupData.class);
     String xml = xstream.toXML(group);
-    Writer writer = new FileWriter(file);
-    writer.write(xml);
-    writer.close();
+    try (Writer writer  = new FileWriter(file)){
+      writer.write(xml);}
   }
 
   private static void saveContactAsXml(List<ContactData> contacts, File file) throws IOException {
     XStream xstream = new XStream();
     xstream.processAnnotations(ContactData.class);
     String xml = xstream.toXML(contacts);
-    Writer writer = new FileWriter(file);
-    writer.write(xml);
-    writer.close();
+    try (Writer writer  = new FileWriter(file)){
+      writer.write(xml);}
   }
 
   public void saveListOfContactDataAsFile(List<ContactData> contacts, FileParams file) throws IOException {
