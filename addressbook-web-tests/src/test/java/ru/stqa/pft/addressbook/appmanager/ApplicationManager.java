@@ -1,6 +1,7 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -14,21 +15,20 @@ public class ApplicationManager {
   private NavigationHelper navigationHelper;
   private GroupHelper groupHelper;
   private ContactHelper contactHelper;
-  private Browser browser;
+  private final String browser;
 
 
-  public ApplicationManager(Browser browser) {
+  public ApplicationManager(String browser) {
     this.browser = browser;
   }
 
   public void init() {
 
-    if (browser.equals(Browser.FIREFOX))
-    {
-      wd = new FirefoxDriver();
-    } else if (browser.equals(Browser.CHROME)) {
+    if (browser.equals(Browser.FIREFOX.browserName()))
+    { wd = new FirefoxDriver();
+    } else if (browser.equals(Browser.CHROME.browserName())) {
       wd = new ChromeDriver();
-    } else if (browser.equals(Browser.IE)) {
+    } else if (browser.equals(Browser.IE.browserName())) {
       wd = new InternetExplorerDriver();
     }
 
