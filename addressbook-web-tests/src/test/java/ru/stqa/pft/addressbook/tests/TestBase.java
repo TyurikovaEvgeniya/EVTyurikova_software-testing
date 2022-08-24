@@ -4,12 +4,10 @@ import org.openqa.selenium.remote.Browser;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
-import ru.stqa.pft.addressbook.generators.ContactDataGenerator;
-import ru.stqa.pft.addressbook.generators.GroupDataGenerator;
 
 public class TestBase {
 
-  protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser"));
+  protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", Browser.CHROME.browserName()));
   public static final String TEST_DATA_FILE_DIR = "src/test/resources/";
 
   @BeforeSuite(alwaysRun = true)
