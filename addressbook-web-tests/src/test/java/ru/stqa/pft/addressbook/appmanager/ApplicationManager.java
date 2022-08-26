@@ -6,13 +6,17 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.Browser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ru.stqa.pft.addressbook.tests.GroupCreationTests;
+import ru.stqa.pft.addressbook.tests.TestBase;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
-public class ApplicationManager {
+public class ApplicationManager extends TestBase {
   public Properties properties;
   WebDriver wd;
 
@@ -72,9 +76,5 @@ public class ApplicationManager {
   public String getPhotoPath() {
     return this.properties.getProperty("web.PhotoPath","src/test/resources/OW.PNG");
   }
-
-//  public String getPhotoPath2() {
-//    return this.properties.getProperty(
-//  }
 
 }
