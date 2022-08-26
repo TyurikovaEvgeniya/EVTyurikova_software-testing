@@ -51,7 +51,7 @@ public class ApplicationManager {
 
   public void stop() {
     wd.findElement(By.linkText("Logout")).click();
-    wd.get("http://localhost/addressbook");
+    wd.get(properties.getProperty("web.baseUrl"));
     wd.quit();
   }
 
