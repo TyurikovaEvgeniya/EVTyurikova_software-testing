@@ -20,8 +20,7 @@ public class ContactUpdateTests extends TestBase {
               .withBday("15").withBmonth("May").withByear("1988").withGroup(null).withPhoto(app.getPhotoPath());
 
       app.contact().addNewContact(contact);
-      app.contact().mergeEmails(contact);
-      app.contact().mergePhones(contact);
+
     }
     app.goTo().homePage();
   }
@@ -35,7 +34,6 @@ public class ContactUpdateTests extends TestBase {
     String newPhone = ContactDataGenerator.randomPhone();
     ContactData contact;
     contact = updatedPosition.withMobilePhone(newPhone);
-    System.out.println("testContactUpdateDetails" + contact);
 
     app.goTo().contactDetails(updatedPosition);
     app.goTo().modifingContactOnDetailsPage();
@@ -61,7 +59,6 @@ public class ContactUpdateTests extends TestBase {
     ContactData contact;
 
     contact = updatedPosition.withMobilePhone(newPhone);
-    System.out.println("testContactModificationEdit" + contact);
 
     app.goTo().contactEdit(updatedPosition);
     app.contact().modify(contact);

@@ -21,16 +21,6 @@ public class ContactData {
   private String fax;
   @Expose
   private String workPhone;
-
-  public String getPhone2() {
-    return phone2;
-  }
-
-  public ContactData withPhone2(String phone2) {
-    this.phone2 = phone2;
-    return this;
-  }
-
   @Expose
   private String phone2;
   @Expose
@@ -73,6 +63,14 @@ public class ContactData {
 
   public ContactData withWorkPhone(String work) {
     this.workPhone = work;
+    return this;
+  }
+  public String getPhone2() {
+    return phone2;
+  }
+
+  public ContactData withPhone2(String phone2) {
+    this.phone2 = phone2;
     return this;
   }
 
