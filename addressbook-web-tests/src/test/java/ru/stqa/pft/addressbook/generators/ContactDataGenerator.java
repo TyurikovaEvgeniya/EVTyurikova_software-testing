@@ -74,6 +74,8 @@ public class ContactDataGenerator extends TestBase {
               .withHomePhone(randomPhone())
               .withFax(randomPhone())
               .withEmail("evgeniya.tyurikova@ligastavok.ru")
+              .withEmail2("evgeniya.fgjfg@ligastavok.ru")
+              .withEmail3("evgeniya.tfdghjdgyurikova@ligastavok.ru")
               .withBday("15")
               .withBmonth("May")
               .withByear("1988")
@@ -96,6 +98,8 @@ public class ContactDataGenerator extends TestBase {
               .withHomePhone(randomPhone())
               .withFax(randomPhone())
               .withEmail("aglaya.Kiy@gmail.om")
+              .withEmail2("evgeniya.fgjfg@ligastavok.ru")
+              .withEmail3("evgeniya.tfdghjdgyurikova@ligastavok.ru")
               .withBday("17")
               .withBmonth("May")
               .withByear("1995")
@@ -109,7 +113,7 @@ public class ContactDataGenerator extends TestBase {
   }
 
   public static String randomPhone() {
-    return "+7777777" + (int) (100 + Math.random() * 1000) % 1000;
+    return "+777777" + (int) (1000 + Math.random() * 10000) % 1000;
   }
 
 }

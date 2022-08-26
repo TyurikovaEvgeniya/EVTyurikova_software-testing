@@ -15,15 +15,17 @@ public class ContactData {
   private String lastname;
   @Expose
   private String mobilePhone;
+  @Expose
   private String homePhone;
-
-
-
+  @Expose
   private String fax;
+  @Expose
   private String workPhone;
   @Expose
   private String email;
+  @Expose
   private String email2;
+  @Expose
   private String email3;
   private String address;
   private String address2;
@@ -60,6 +62,50 @@ public class ContactData {
   public ContactData withWorkPhone(String work) {
     this.workPhone = work;
     return this;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ContactData that = (ContactData) o;
+    return id == that.id &&
+            Objects.equals(firstname, that.firstname) &&
+            Objects.equals(lastname, that.lastname) &&
+            Objects.equals(address, that.address) &&
+            Objects.equals(allPhones, that.allPhones) &&
+            Objects.equals(allEmails, that.allEmails);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, firstname, lastname, mobilePhone, homePhone, fax, workPhone, email, email2, email3, address, allPhones, allEmails);
+  }
+
+  @Override
+  public String toString() {
+    return "ContactData{" +
+            "id=" + id +
+            ", firstname='" + firstname + '\'' +
+            ", middlename='" + middlename + '\'' +
+            ", lastname='" + lastname + '\'' +
+            ", mobilePhone='" + mobilePhone + '\'' +
+            ", homePhone='" + homePhone + '\'' +
+            ", fax='" + fax + '\'' +
+            ", workPhone='" + workPhone + '\'' +
+            ", email='" + email + '\'' +
+            ", email2='" + email2 + '\'' +
+            ", email3='" + email3 + '\'' +
+            ", address='" + address + '\'' +
+            ", address2='" + address2 + '\'' +
+            ", bday='" + bday + '\'' +
+            ", bmonth='" + bmonth + '\'' +
+            ", byear='" + byear + '\'' +
+            ", group='" + group + '\'' +
+            ", allPhones='" + allPhones + '\'' +
+            ", allEmails='" + allEmails + '\'' +
+            ", photo='" + photo + '\'' +
+            '}';
   }
 
   public ContactData withFax(String fax) {
@@ -150,49 +196,8 @@ public class ContactData {
     return this;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    ContactData that = (ContactData) o;
-    return id == that.id &&
-            Objects.equals(firstname, that.firstname) &&
-            Objects.equals(lastname, that.lastname) &&
-            Objects.equals(allPhones, that.allPhones) &&
-            Objects.equals(allEmails, that.allEmails);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, firstname, lastname, allPhones, allEmails);
-  }
-
   public ContactData() {
     this.id = Integer.MAX_VALUE;
-  }
-
-  @Override
-  public String toString() {
-    return "ContactData{" +
-            "id=" + id +
-            ", firstname='" + firstname + '\'' +
-            ", middlename='" + middlename + '\'' +
-            ", lastname='" + lastname + '\'' +
-            ", mobilePhone='" + mobilePhone + '\'' +
-            ", email='" + email + '\'' +
-            ", email2='" + email2 + '\'' +
-            ", email3='" + email3 + '\'' +
-            ", address='" + address + '\'' +
-            ", address2='" + address2 + '\'' +
-            ", bday='" + bday + '\'' +
-            ", bmonth='" + bmonth + '\'' +
-            ", byear='" + byear + '\'' +
-            ", group='" + group + '\'' +
-            ", homePhone='" + homePhone + '\'' +
-            ", workPhone='" + workPhone + '\'' +
-            ", allPhones='" + allPhones + '\'' +
-            ", allEmails='" + allEmails + '\'' +
-            '}';
   }
 
   public int getId() {

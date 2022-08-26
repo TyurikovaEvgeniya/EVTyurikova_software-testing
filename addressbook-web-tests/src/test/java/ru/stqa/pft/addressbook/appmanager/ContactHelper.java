@@ -27,8 +27,12 @@ public class ContactHelper extends HelperBase {
     type(By.name("middlename"), contactData.getMiddleName());
     type(By.name("lastname"), contactData.getLastName());
     type(By.name("mobile"), contactData.getMobilePhone());
-    type(By.name("email"), contactData.getEmail());
+    type(By.name("home"), contactData.getHomePhone());
+    type(By.name("work"), contactData.getWorkPhone());
     type(By.name("fax"), contactData.getFax());
+    type(By.name("email"), contactData.getEmail());
+    type(By.name("email2"), contactData.getEmail());
+    type(By.name("email3"), contactData.getEmail());
     selectFromDropDownList("bday", contactData.getBday());
     selectFromDropDownList("bmonth", contactData.getBmonth());
     type(By.name("byear"), contactData.getByear());
@@ -174,8 +178,7 @@ public class ContactHelper extends HelperBase {
             Stream.of(
                     Optional.ofNullable(contact.getHomePhone()).orElse("")
                     , Optional.ofNullable(contact.getMobilePhone()).orElse("")
-                    , Optional.ofNullable(contact.getWorkPhone()).orElse("")
-                    , Optional.ofNullable(contact.getFax()).orElse(""))
+                    , Optional.ofNullable(contact.getWorkPhone()).orElse(""))
                     .filter((s) -> !s.equals(""))
                     .map(this::cleaned)
                     .collect(Collectors.joining("\n")));
