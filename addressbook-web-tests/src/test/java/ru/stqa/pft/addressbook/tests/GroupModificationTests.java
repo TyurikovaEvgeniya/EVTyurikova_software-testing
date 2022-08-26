@@ -22,7 +22,7 @@ public class GroupModificationTests extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> validGroupsModificationValuesFromJson() throws IOException {
-    try (BufferedReader reader = new BufferedReader( (new FileReader(new File(app.getTestDataDir() + app.properties.getProperty("group.modification.valid") +".json"))))) {
+    try (BufferedReader reader = new BufferedReader( (new FileReader(new File(app.getTestDataDir() + app.properties.getProperty("gen.group.modification.valid") +".json"))))) {
       String json = "";
       String line = reader.readLine();
       while (line != null) {
@@ -47,7 +47,7 @@ public class GroupModificationTests extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> invalidGroupsModificationValuesFromJson() throws IOException {
-    try (BufferedReader reader = new BufferedReader( (new FileReader(new File(app.getTestDataDir() + app.properties.getProperty("group.modification.invalid") +".json"))))) {
+    try (BufferedReader reader = new BufferedReader( (new FileReader(new File(app.getTestDataDir() + app.properties.getProperty("gen.group.modification.invalid") +".json"))))) {
       StringBuilder json = new StringBuilder();
       String line = reader.readLine();
       while (line != null) {

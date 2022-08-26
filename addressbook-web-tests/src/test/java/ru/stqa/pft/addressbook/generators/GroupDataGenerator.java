@@ -7,6 +7,7 @@ import ru.stqa.pft.addressbook.model.FileParams;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.tests.TestBase;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -47,24 +48,24 @@ public class GroupDataGenerator extends TestBase {
     List<GroupData> groups = null;
     String fileName = null;
 
-
+    app.properties.load(new FileReader("addressbook-web-tests/src/test/resources/local.properties"));
     if (validity.equals("true")) {
       if (modifying.equals("true")) {
         groups = generateGroupModificationValuesValid(count);
-        fileName = app.properties.getProperty("group.modification.valid");
+        fileName = app.properties.getProperty("gen.group.modification.valid");
       } else if (modifying.equals("false")) {
         groups = generateGroupsValid(count);
-        fileName = app.properties.getProperty("group.creation.valid");
+        fileName = app.properties.getProperty("gen.group.creation.valid");
       } else {
         throw new NoSuchMethodException("Unrecognized modifying flag: " + modifying);
       }
     } else if (validity.equals("false")) {
       if (modifying.equals("true")) {
         groups = generateGroupModificationValuesInvalid(count);
-        fileName = app.properties.getProperty("group.modification.invalid");
+        fileName = app.properties.getProperty("gen.group.modification.invalid");
       } else if (modifying.equals("false")) {
         groups = generateGroupsInvalid(count);
-        fileName = app.properties.getProperty("group.creation.invalid");
+        fileName = app.properties.getProperty("gen.group.creation.invalid");
       } else {
         System.out.println("Unrecognized modifying flag: " + modifying);
       }
@@ -80,7 +81,7 @@ public class GroupDataGenerator extends TestBase {
 //    }
     //fileName = fileName.replaceAll("generate", "");
 
-    FileParams file = new FileParams().inFileDir(dir).withName(fileName).withFormat(format);
+    FileParams file = new FileParams().inFileDir(app.properties.getProperty("gen.TestDataDir")).withName(fileName).withFormat(format);
     fileOperations.saveListOfGroupDataAsFile(groups, file);
   }
 

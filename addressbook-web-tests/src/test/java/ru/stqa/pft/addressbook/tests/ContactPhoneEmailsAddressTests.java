@@ -17,7 +17,8 @@ public class ContactPhoneEmailsAddressTests extends TestBase {
     if (app.contact().all().size() == 0) {
       contact = new ContactData().withFirstName("Проверка").withMiddleName("Предуслововна").withLastName("Тюрикова")
               .withMobilePhone(ContactDataGenerator.randomPhone()).withHomePhone(ContactDataGenerator.randomPhone())
-              .withWorkPhone(ContactDataGenerator.randomPhone()).withEmail("ensurePreconditions.testContactPhone1@gmail.com").withEmail2("ensurePreconditions.testContactPhone@gmail.com").withEmail3("ensurePreconditions.testContactPhone@gmail.com")
+              .withWorkPhone(ContactDataGenerator.randomPhone()).withFax(ContactDataGenerator.randomPhone())
+              .withEmail("ensurePreconditions.testContactPhone1@gmail.com").withEmail2("ensurePreconditions.testContactPhone@gmail.com").withEmail3("ensurePreconditions.testContactPhone@gmail.com")
               .withBday("15").withBmonth("May").withByear("1988").withGroup(null).withPhoto(app.getPhotoPath());
       app.contact().mergeEmails(contact);
       app.contact().mergePhones(contact);

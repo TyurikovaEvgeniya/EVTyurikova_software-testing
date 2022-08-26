@@ -15,6 +15,12 @@ public class ContactData {
   private String lastname;
   @Expose
   private String mobilePhone;
+  private String homePhone;
+
+
+
+  private String fax;
+  private String workPhone;
   @Expose
   private String email;
   private String email2;
@@ -28,8 +34,7 @@ public class ContactData {
   @Expose
   private String byear;
   private String group;
-  private String homePhone;
-  private String workPhone;
+
   private String allPhones;
   private String allEmails;
   @Expose
@@ -54,6 +59,11 @@ public class ContactData {
 
   public ContactData withWorkPhone(String work) {
     this.workPhone = work;
+    return this;
+  }
+
+  public ContactData withFax(String fax) {
+    this.fax = fax;
     return this;
   }
 
@@ -205,6 +215,16 @@ public class ContactData {
     return mobilePhone;
   }
 
+  public String getWorkPhone() {
+    return workPhone;
+  }
+
+  public String getHomePhone() {return homePhone;  }
+
+  public String getFax() {
+    return fax;
+  }
+
   public String getEmail() {
     return email;
   }
@@ -223,10 +243,6 @@ public class ContactData {
 
   public String getGroup() {
     return group;
-  }
-
-  public String getWorkPhone() {
-    return workPhone;
   }
 
   public String getAllPhones() {
@@ -253,8 +269,6 @@ public class ContactData {
     return allEmails;
   }
 
-  public String getHomePhone() {return homePhone;
-  }
   public String getPhoto() {
     return photo;
   }

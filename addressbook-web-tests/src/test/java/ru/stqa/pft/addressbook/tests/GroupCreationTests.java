@@ -25,7 +25,7 @@ public class GroupCreationTests extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> validGroupsFromXml() throws IOException {
-    try (BufferedReader reader = new BufferedReader( (new FileReader(new File(app.getTestDataDir() + app.properties.getProperty("group.creation.valid")  + ".xml"))))) {
+    try (BufferedReader reader = new BufferedReader( (new FileReader(new File(app.getTestDataDir() + app.properties.getProperty("gen.group.creation.valid")  + ".xml"))))) {
     String xml = "";
     String line = reader.readLine();
     while (line != null){
@@ -41,7 +41,7 @@ public class GroupCreationTests extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> validGroupsFromJson() throws IOException {
-    try ( BufferedReader reader = new BufferedReader( (new FileReader(new File(app.getTestDataDir() + app.properties.getProperty("group.creation.valid") +".json"))))){
+    try ( BufferedReader reader = new BufferedReader( (new FileReader(new File(app.getTestDataDir() + app.properties.getProperty("gen.group.creation.valid") +".json"))))){
     String json = "";
     String line = reader.readLine();
     while (line != null){
@@ -56,7 +56,7 @@ public class GroupCreationTests extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> invalidGroupsFromJson() throws IOException {
-    try ( BufferedReader reader = new BufferedReader( (new FileReader(new File(app.getTestDataDir() + app.properties.getProperty("group.creation.invalid") +".json"))))) {
+    try ( BufferedReader reader = new BufferedReader( (new FileReader(new File(app.getTestDataDir() + app.properties.getProperty("gen.group.creation.invalid") +".json"))))) {
       String json = "";
       String line = reader.readLine();
       while (line != null) {

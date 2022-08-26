@@ -28,6 +28,7 @@ public class ContactHelper extends HelperBase {
     type(By.name("lastname"), contactData.getLastName());
     type(By.name("mobile"), contactData.getMobilePhone());
     type(By.name("email"), contactData.getEmail());
+    type(By.name("fax"), contactData.getFax());
     selectFromDropDownList("bday", contactData.getBday());
     selectFromDropDownList("bmonth", contactData.getBmonth());
     type(By.name("byear"), contactData.getByear());
@@ -140,6 +141,7 @@ public class ContactHelper extends HelperBase {
     String home = wd.findElement(By.name("home")).getAttribute("value");
     String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
     String work = wd.findElement(By.name("work")).getAttribute("value");
+    String fax = wd.findElement(By.name("fax")).getAttribute("value");
     String address = wd.findElement(By.name("address")).getAttribute("value");
     String address2 = wd.findElement(By.name("address2")).getAttribute("value");
     String email = wd.findElement(By.name("email")).getAttribute("value");
@@ -152,6 +154,7 @@ public class ContactHelper extends HelperBase {
             .withMobilePhone(mobile)
             .withHomePhone(home)
             .withWorkPhone(work)
+            .withFax(fax)
             .withAddress(address)
             .withEmail(email)
             .withEmail2(email2)
@@ -171,7 +174,8 @@ public class ContactHelper extends HelperBase {
             Stream.of(
                     Optional.ofNullable(contact.getHomePhone()).orElse("")
                     , Optional.ofNullable(contact.getMobilePhone()).orElse("")
-                    , Optional.ofNullable(contact.getWorkPhone()).orElse(""))
+                    , Optional.ofNullable(contact.getWorkPhone()).orElse("")
+                    , Optional.ofNullable(contact.getFax()).orElse(""))
                     .filter((s) -> !s.equals(""))
                     .map(this::cleaned)
                     .collect(Collectors.joining("\n")));

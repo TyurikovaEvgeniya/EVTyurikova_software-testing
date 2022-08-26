@@ -8,6 +8,7 @@ import ru.stqa.pft.addressbook.model.FileParams;
 import ru.stqa.pft.addressbook.tests.TestBase;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,19 +45,19 @@ public class ContactDataGenerator extends TestBase {
     List<ContactData> contacts = null;
     String fileName = null;
 
-
+    app.properties.load(new FileReader("addressbook-web-tests/src/test/resources/local.properties"));
       if (modifying.equals("true")) {
         contacts = generateContactModificationValuesValid(count);
-        fileName = app.properties.getProperty("contact.modification.valid");
+        fileName = app.properties.getProperty("gen.contact.modification.valid");
       } else if (modifying.equals("false")) {
         contacts = generateContactValuesValid(count);
-        fileName = app.properties.getProperty("contact.creation.valid");
+        fileName = app.properties.getProperty("gen.contact.creation.valid");
       } else {
         throw new NoSuchMethodException("Unrecognized modifying flag: " + modifying);
       }
 
 
-    FileParams file = new FileParams().inFileDir(dir).withName(fileName).withFormat(format);
+    FileParams file = new FileParams().inFileDir(app.properties.getProperty("gen.TestDataDir")).withName(fileName).withFormat(format);
     fileOperations.saveListOfContactDataAsFile(contacts, file);
   }
 
@@ -69,6 +70,9 @@ public class ContactDataGenerator extends TestBase {
               .withMiddleName("Вячеславовна")
               .withLastName("Тюрикова")
               .withMobilePhone(randomPhone())
+              .withWorkPhone(randomPhone())
+              .withHomePhone(randomPhone())
+              .withFax(randomPhone())
               .withEmail("evgeniya.tyurikova@ligastavok.ru")
               .withBday("15")
               .withBmonth("May")
@@ -88,6 +92,9 @@ public class ContactDataGenerator extends TestBase {
               .withMiddleName("Степановна")
               .withLastName("Кий")
               .withMobilePhone(randomPhone())
+              .withWorkPhone(randomPhone())
+              .withHomePhone(randomPhone())
+              .withFax(randomPhone())
               .withEmail("aglaya.Kiy@gmail.om")
               .withBday("17")
               .withBmonth("May")
