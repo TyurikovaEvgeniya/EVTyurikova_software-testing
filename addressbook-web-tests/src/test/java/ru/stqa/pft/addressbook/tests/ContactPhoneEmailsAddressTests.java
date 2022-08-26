@@ -38,8 +38,6 @@ public class ContactPhoneEmailsAddressTests extends TestBase {
     assertThat(contact.getAddress(), equalTo(contactInfoFromEditForm.getAddress()));
   }
 
-  public static String cleaned(String phone) {
-    return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
-  }
+
 
 }

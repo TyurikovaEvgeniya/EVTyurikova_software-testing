@@ -173,7 +173,7 @@ public class ContactHelper extends HelperBase {
                     , Optional.ofNullable(contact.getMobilePhone()).orElse("")
                     , Optional.ofNullable(contact.getWorkPhone()).orElse(""))
                     .filter((s) -> !s.equals(""))
-                    .map(ContactPhoneEmailsAddressTests::cleaned)
+                    .map(this::cleaned)
                     .collect(Collectors.joining("\n")));
   }
 
@@ -185,5 +185,9 @@ public class ContactHelper extends HelperBase {
                     , Optional.ofNullable(contact.getEmail3()).orElse(""))
                     .filter((s) -> !s.equals(""))
                     .collect(Collectors.joining("\n")));
+  }
+
+  public String cleaned(String phone) {
+    return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
   }
 }
