@@ -21,6 +21,18 @@ public class ContactData {
   private String fax;
   @Expose
   private String workPhone;
+
+  public String getPhone2() {
+    return phone2;
+  }
+
+  public ContactData withPhone2(String phone2) {
+    this.phone2 = phone2;
+    return this;
+  }
+
+  @Expose
+  private String phone2;
   @Expose
   private String email;
   @Expose
@@ -89,6 +101,7 @@ public class ContactData {
             ", middlename='" + middlename + '\'' +
             ", lastname='" + lastname + '\'' +
             ", mobilePhone='" + mobilePhone + '\'' +
+            ", phone2='" + phone2 + '\'' +
             ", homePhone='" + homePhone + '\'' +
             ", fax='" + fax + '\'' +
             ", workPhone='" + workPhone + '\'' +
