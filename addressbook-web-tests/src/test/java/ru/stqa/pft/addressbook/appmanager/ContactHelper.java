@@ -31,8 +31,8 @@ public class ContactHelper extends HelperBase {
     type(By.name("work"), contactData.getWorkPhone());
     type(By.name("fax"), contactData.getFax());
     type(By.name("email"), contactData.getEmail());
-    type(By.name("email2"), contactData.getEmail());
-    type(By.name("email3"), contactData.getEmail());
+    type(By.name("email2"), contactData.getEmail2());
+    type(By.name("email3"), contactData.getEmail3());
     selectFromDropDownList("bday", contactData.getBday());
     selectFromDropDownList("bmonth", contactData.getBmonth());
     type(By.name("byear"), contactData.getByear());
@@ -84,10 +84,12 @@ public class ContactHelper extends HelperBase {
     click(By.xpath("//input[1][@type = 'submit'][@value='Enter']"));
   }
 
-  public void addNewContact(ContactData contactData) {
+  public void addNewContact(ContactData contact) {
     clickAddNew();
-    fillContactData(contactData, true);
+    fillContactData(contact, true);
     submitContactCreating();
+    mergePhones(contact);
+    mergeEmails(contact);
   }
 
 
@@ -95,8 +97,8 @@ public class ContactHelper extends HelperBase {
 
   public void modify(ContactData contact) {
     modifyContactPhone(contact.getMobilePhone());
+    infoFromEditForm(contact);
     submitContactUpdating();
-
   }
 
   public Contacts all() {
@@ -139,7 +141,7 @@ public class ContactHelper extends HelperBase {
   }
 
   public ContactData infoFromEditForm(ContactData contact) {
-    initContactModificationById(contact.getId());
+
     String firstName = wd.findElement(By.name("firstname")).getAttribute("value");
     String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
     String home = wd.findElement(By.name("home")).getAttribute("value");
@@ -151,9 +153,7 @@ public class ContactHelper extends HelperBase {
     String email = wd.findElement(By.name("email")).getAttribute("value");
     String email2 = wd.findElement(By.name("email2")).getAttribute("value");
     String email3 = wd.findElement(By.name("email3")).getAttribute("value");
-    wd.navigate().back();
-    return new ContactData()
-            .withFirstName(firstName)
+    contact.withFirstName(firstName)
             .withLastName(lastname)
             .withMobilePhone(mobile)
             .withHomePhone(home)
@@ -164,6 +164,9 @@ public class ContactHelper extends HelperBase {
             .withEmail2(email2)
             .withEmail3(email3)
             .withAddress2(address2);
+    mergePhones(contact);
+    mergeEmails(contact);
+    return contact;
   }
 
   private void initContactModificationById(int id) {

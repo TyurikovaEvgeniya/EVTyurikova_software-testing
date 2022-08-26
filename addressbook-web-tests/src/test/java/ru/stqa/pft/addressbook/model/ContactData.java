@@ -72,14 +72,13 @@ public class ContactData {
     return id == that.id &&
             Objects.equals(firstname, that.firstname) &&
             Objects.equals(lastname, that.lastname) &&
-            Objects.equals(address, that.address) &&
             Objects.equals(allPhones, that.allPhones) &&
             Objects.equals(allEmails, that.allEmails);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, firstname, lastname, mobilePhone, homePhone, fax, workPhone, email, email2, email3, address, allPhones, allEmails);
+    return Objects.hash(id, firstname, lastname, allPhones, allEmails);
   }
 
   @Override
@@ -277,5 +276,6 @@ public class ContactData {
   public String getPhoto() {
     return photo;
   }
+
 
 }

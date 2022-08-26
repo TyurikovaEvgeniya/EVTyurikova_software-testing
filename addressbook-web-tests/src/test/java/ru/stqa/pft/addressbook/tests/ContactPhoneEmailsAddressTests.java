@@ -20,8 +20,6 @@ public class ContactPhoneEmailsAddressTests extends TestBase {
               .withWorkPhone(ContactDataGenerator.randomPhone()).withFax(ContactDataGenerator.randomPhone())
               .withEmail("ensurePreconditions.testContactPhone1@gmail.com").withEmail2("ensurePreconditions.testContactPhone@gmail.com").withEmail3("ensurePreconditions.testContactPhone@gmail.com")
               .withBday("15").withBmonth("May").withByear("1988").withGroup(null).withPhoto(app.getPhotoPath());
-      app.contact().mergeEmails(contact);
-      app.contact().mergePhones(contact);
       app.contact().addNewContact(contact);
       app.goTo().homePage();
     }
@@ -31,6 +29,8 @@ public class ContactPhoneEmailsAddressTests extends TestBase {
   public void testContactData() {
     app.goTo().homePage();
     ContactData contact = app.contact().all().iterator().next();
+    app.goTo().contactDetails(contact);
+    app.goTo().modifingContactOnDetailsPage();
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
     app.contact().mergePhones(contactInfoFromEditForm);
     app.contact().mergeEmails(contactInfoFromEditForm);

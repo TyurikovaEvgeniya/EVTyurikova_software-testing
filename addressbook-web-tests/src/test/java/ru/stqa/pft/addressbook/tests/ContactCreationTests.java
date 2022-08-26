@@ -43,8 +43,6 @@ public class ContactCreationTests extends TestBase {
 
 
     app.contact().addNewContact(contact);
-    app.contact().mergeEmails(contact);
-    app.contact().mergePhones(contact);
     app.goTo().homePage();
     Contacts after = app.contact().all();
 

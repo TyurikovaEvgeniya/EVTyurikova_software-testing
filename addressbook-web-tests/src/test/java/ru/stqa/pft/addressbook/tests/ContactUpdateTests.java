@@ -18,9 +18,10 @@ public class ContactUpdateTests extends TestBase {
       contact = new ContactData().withFirstName("Проверка").withMiddleName("Предуслововна").withLastName("Тюрикова")
               .withMobilePhone(ContactDataGenerator.randomPhone()).withEmail("ensurePrecoditions.update@ligastavok.ru")
               .withBday("15").withBmonth("May").withByear("1988").withGroup(null).withPhoto(app.getPhotoPath());
+
+      app.contact().addNewContact(contact);
       app.contact().mergeEmails(contact);
       app.contact().mergePhones(contact);
-      app.contact().addNewContact(contact);
     }
     app.goTo().homePage();
   }
@@ -34,11 +35,12 @@ public class ContactUpdateTests extends TestBase {
     String newPhone = ContactDataGenerator.randomPhone();
     ContactData contact;
     contact = updatedPosition.withMobilePhone(newPhone);
+    System.out.println("testContactUpdateDetails" + contact);
 
     app.goTo().contactDetails(updatedPosition);
     app.goTo().modifingContactOnDetailsPage();
     app.contact().modify(contact);
-    app.contact().mergePhones(contact);
+
     app.goTo().homePage();
 
     Contacts after = app.contact().all();
@@ -57,11 +59,13 @@ public class ContactUpdateTests extends TestBase {
 
     String newPhone = ContactDataGenerator.randomPhone();
     ContactData contact;
+
     contact = updatedPosition.withMobilePhone(newPhone);
+    System.out.println("testContactModificationEdit" + contact);
 
     app.goTo().contactEdit(updatedPosition);
     app.contact().modify(contact);
-    app.contact().mergePhones(contact);
+
     app.goTo().homePage();
 
     Contacts after = app.contact().all();

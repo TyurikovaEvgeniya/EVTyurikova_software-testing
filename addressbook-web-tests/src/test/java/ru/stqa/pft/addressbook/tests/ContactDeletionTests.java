@@ -18,8 +18,7 @@ public class ContactDeletionTests extends TestBase {
       contact = new ContactData().withFirstName("Проверка").withMiddleName("Предуслововна").withLastName("Тюрикова")
               .withMobilePhone(ContactDataGenerator.randomPhone()).withEmail("ensurePreconditions.delete@gmail.com")
               .withBday("15").withBmonth("May").withByear("1988").withGroup(null).withPhoto(app.getPhotoPath());
-      app.contact().mergeEmails(contact);
-      app.contact().mergePhones(contact);
+
       app.contact().addNewContact(contact);
       app.goTo().homePage();
     }
