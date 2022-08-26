@@ -1,50 +1,83 @@
 package ru.stqa.pft.addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
-
+@Entity
+@Table(name="addressbook")
 public class ContactData {
+  @Id
+  @Column(name="id")
   private int id;
   @Expose
+  @Column(name="firstname")
   private String firstname;
   @Expose
   private String middlename;
   @Expose
+  @Column(name="lastname")
   private String lastname;
   @Expose
+  @Type(type="text")
+  @Column(name="mobile")
   private String mobilePhone;
   @Expose
+  @Type(type="text")
+  @Column(name="home")
   private String homePhone;
   @Expose
+  @Type(type="text")
+  @Column(name="fax")
   private String fax;
   @Expose
+  @Column(name="work")
+  @Type(type="text")
   private String workPhone;
   @Expose
+  @Column(name="phone2")
+  @Type(type="text")
   private String phone2;
   @Expose
+  @Column(name="email")
+  @Type(type="text")
   private String email;
   @Expose
+  @Column(name="email2")
+  @Type(type="text")
   private String email2;
   @Expose
+  @Column(name="email3")
+  @Type(type="text")
   private String email3;
+  @Column(name="address")
+  @Type(type="text")
   private String address;
+  @Column(name="address2")
+  @Type(type="text")
   private String address2;
   @Expose
-  private String bday;
+  @Column(name="bday")
+  @Type(type="byte")
+  private byte bday;
   @Expose
+  @Column(name="bmonth" , length = 65535, columnDefinition="TEXT")
   private String bmonth;
   @Expose
+  @Column(name="byear", length = 65535, columnDefinition="TEXT")
   private String byear;
+  @Transient
   private String group;
-
+  @Transient
   private String allPhones;
+  @Transient
   private String allEmails;
   @Expose
+  @Column(name="photo")
+  @Type(type="text")
   private String photo;
-
-
 
 
   public void setId(int id) {
@@ -182,7 +215,7 @@ public class ContactData {
   }
 
   public ContactData withBday(String bday) {
-    this.bday = bday;
+    this.bday = Byte.parseByte(bday);
     return this;
   }
 
@@ -245,7 +278,7 @@ public class ContactData {
   }
 
   public String getBday() {
-    return bday;
+    return String.valueOf(bday);
   }
 
   public String getBmonth() {
