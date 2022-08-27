@@ -39,18 +39,16 @@ public class ContactCreationTests extends TestBase {
 
   @Test(dataProvider = "validContactsFromJson", enabled = true)
   public void testContactCreation(ContactData contact) throws Exception {
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
 
 
     app.contact().addNewContact(contact);
     app.goTo().homePage();
-    Contacts after = app.contact().all();
-
+    Contacts after = app.db().contacts();
     assertEquals(after.size(), before.size() + 1);
     assertThat(after,
-            equalTo(before.withAdded(contact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt())
-                    .withAllEmails(contact.getAllEmails())
-                    .withAllPhones(contact.getAllPhones()))));
+            equalTo(before.withAdded(contact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
+
 
   }
 

@@ -1,17 +1,20 @@
 package ru.stqa.pft.addressbook.model;
 
+import com.google.common.base.Strings;
 import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.io.File;
 import java.util.Objects;
+import java.util.Optional;
+
 @Entity
 @Table(name="addressbook")
 public class ContactData {
   @Id
   @Column(name="id")
   private int id;
+
   @Expose
   @Column(name="firstname")
   private String firstname;
@@ -54,9 +57,11 @@ public class ContactData {
   private String email3;
   @Column(name="address")
   @Type(type="text")
-  private String address;
+  @Expose
+  private String address ;
   @Column(name="address2")
   @Type(type="text")
+  @Expose
   private String address2;
   @Expose
   @Column(name="bday")
@@ -75,6 +80,7 @@ public class ContactData {
   @Transient
   private String allEmails;
   @Expose
+  @Transient
   @Column(name="photo")
   @Type(type="text")
   private String photo;
@@ -107,50 +113,6 @@ public class ContactData {
     return this;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    ContactData that = (ContactData) o;
-    return id == that.id &&
-            Objects.equals(firstname, that.firstname) &&
-            Objects.equals(lastname, that.lastname) &&
-            Objects.equals(allPhones, that.allPhones) &&
-            Objects.equals(allEmails, that.allEmails);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, firstname, lastname, allPhones, allEmails);
-  }
-
-  @Override
-  public String toString() {
-    return "ContactData{" +
-            "id=" + id +
-            ", firstname='" + firstname + '\'' +
-            ", middlename='" + middlename + '\'' +
-            ", lastname='" + lastname + '\'' +
-            ", mobilePhone='" + mobilePhone + '\'' +
-            ", phone2='" + phone2 + '\'' +
-            ", homePhone='" + homePhone + '\'' +
-            ", fax='" + fax + '\'' +
-            ", workPhone='" + workPhone + '\'' +
-            ", email='" + email + '\'' +
-            ", email2='" + email2 + '\'' +
-            ", email3='" + email3 + '\'' +
-            ", address='" + address + '\'' +
-            ", address2='" + address2 + '\'' +
-            ", bday='" + bday + '\'' +
-            ", bmonth='" + bmonth + '\'' +
-            ", byear='" + byear + '\'' +
-            ", group='" + group + '\'' +
-            ", allPhones='" + allPhones + '\'' +
-            ", allEmails='" + allEmails + '\'' +
-            ", photo='" + photo + '\'' +
-            '}';
-  }
-
   public ContactData withFax(String fax) {
     this.fax = fax;
     return this;
@@ -179,12 +141,12 @@ public class ContactData {
   }
 
   public ContactData withAddress(String address) {
-    this.address = address;
+     if (address.equals("")){ this.address = null; } else {this.address = address;}
     return this;
   }
 
   public ContactData withAddress2(String address2) {
-    this.address2 = address2;
+    if (address2.equals("")){ this.address2 = null; } else {this.address2 = address2;}
     return this;
   }
 
@@ -305,8 +267,31 @@ public class ContactData {
     return email3;
   }
 
+  @Override
+  public String toString() {
+    return "ContactData{" +
+            "id=" + id +
+            ", firstname='" + firstname + '\'' +
+            ", middlename='" + middlename + '\'' +
+            ", lastname='" + lastname + '\'' +
+            ", mobilePhone='" + mobilePhone + '\'' +
+            ", homePhone='" + homePhone + '\'' +
+            ", fax='" + fax + '\'' +
+            ", workPhone='" + workPhone + '\'' +
+            ", phone2='" + phone2 + '\'' +
+            ", email='" + email + '\'' +
+            ", email2='" + email2 + '\'' +
+            ", email3='" + email3 + '\'' +
+            ", address='" + address + '\'' +
+            ", address2='" + address2 + '\'' +
+            ", bday=" + bday +
+            ", bmonth='" + bmonth + '\'' +
+            ", byear='" + byear + '\'' +
+            '}';
+  }
+
   public String getAddress() {
-    return address;
+    return  ((address == null) ? "" : address);
   }
 
   public String getAddress2() {
@@ -320,6 +305,58 @@ public class ContactData {
   public String getPhoto() {
     return photo;
   }
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ContactData that = (ContactData) o;
+    return id == that.id &&
+            bday == that.bday &&
+            Objects.equals(firstname, that.firstname) &&
+            Objects.equals(middlename, that.middlename) &&
+            Objects.equals(lastname, that.lastname) &&
+            Objects.equals(mobilePhone, that.mobilePhone) &&
+            Objects.equals(homePhone, that.homePhone) &&
+            Objects.equals(fax, that.fax) &&
+            Objects.equals(workPhone, that.workPhone) &&
+            Objects.equals(phone2, that.phone2) &&
+            Objects.equals(email, that.email) &&
+            Objects.equals(email2, that.email2) &&
+            Objects.equals(email3, that.email3) &&
+            Objects.equals(address, that.address) &&
+            Objects.equals(address2, that.address2) &&
+            Objects.equals(bmonth, that.bmonth) &&
+            Objects.equals(byear, that.byear);
+  }
+
+  public ContactData toDBTypes() {
+    this.withFirstName(Optional.ofNullable(this.getFirstName()).orElse(""))
+    .withMiddleName(Optional.ofNullable(this.getMiddleName()).orElse(""))
+    .withLastName(Optional.ofNullable(this.getLastName()).orElse(""))
+    .withWorkPhone(Optional.ofNullable(this.getWorkPhone()).orElse(""))
+    .withMobilePhone(Optional.ofNullable(this.getMobilePhone()).orElse(""))
+    .withHomePhone(Optional.ofNullable(this.getHomePhone()).orElse(""))
+    .withFax(Optional.ofNullable(this.getFax()).orElse(""))
+    .withAddress(Optional.ofNullable(this.getAddress()).orElse(""))
+    .withAddress2(Optional.ofNullable(this.getAddress2()).orElse(""))
+    .withBday(Optional.ofNullable(this.getBday()).orElse(""))
+    .withBmonth(Optional.ofNullable(this.getBmonth()).orElse(""))
+    .withByear(Optional.ofNullable(this.getByear()).orElse(""))
+    .withEmail(Optional.ofNullable(this.getEmail()).orElse(""))
+    .withEmail2(Optional.ofNullable(this.getEmail2()).orElse(""))
+    .withEmail3(Optional.ofNullable(this.getEmail3()).orElse(""));
+    return this;
+
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, firstname, middlename, lastname, mobilePhone, homePhone, fax, workPhone, phone2, email, email2, email3, address, address2, bday, bmonth, byear);
+  }
+
+
 
 
 }

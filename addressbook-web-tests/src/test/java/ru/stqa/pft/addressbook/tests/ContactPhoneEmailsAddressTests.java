@@ -28,12 +28,16 @@ public class ContactPhoneEmailsAddressTests extends TestBase {
   @Test(enabled = true)
   public void testContactData() {
     app.goTo().homePage();
-    ContactData contact = app.contact().all().iterator().next();
+
+    ContactData contact = app.db().contacts().iterator().next();
+
     app.goTo().contactDetails(contact);
     app.goTo().modifingContactOnDetailsPage();
+
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
     app.contact().mergePhones(contactInfoFromEditForm);
     app.contact().mergeEmails(contactInfoFromEditForm);
+
     assertThat(contact.getAllPhones(), equalTo(contactInfoFromEditForm.getAllPhones()));
     assertThat(contact.getAllEmails(), equalTo(contactInfoFromEditForm.getAllEmails()));
     assertThat(contact.getAddress(), equalTo(contactInfoFromEditForm.getAddress()));

@@ -25,6 +25,7 @@ public class ApplicationManager extends TestBase {
   private GroupHelper groupHelper;
   private ContactHelper contactHelper;
   private final String browser;
+  private DBHelper dbHelper;
 
 
   public ApplicationManager(String browser){
@@ -33,6 +34,7 @@ public class ApplicationManager extends TestBase {
   }
 
   public void init() throws IOException {
+    dbHelper = new DBHelper();
 
     if (browser.equals(Browser.FIREFOX.browserName()))
     { wd = new FirefoxDriver();
@@ -45,6 +47,7 @@ public class ApplicationManager extends TestBase {
     String target = System.getProperty("target","local");
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
     wd.get(properties.getProperty("web.baseUrl"));
+
 
     groupHelper = new GroupHelper(wd);
     navigationHelper = new NavigationHelper(wd);
@@ -66,6 +69,7 @@ public class ApplicationManager extends TestBase {
   public NavigationHelper goTo() {
     return navigationHelper;
   }
+
   public ContactHelper contact() {
     return contactHelper;
   }
@@ -73,8 +77,12 @@ public class ApplicationManager extends TestBase {
   public String getTestDataDir() {
     return this.properties.getProperty("web.TestDataDir","src/test/resources/");
   }
+
   public String getPhotoPath() {
     return this.properties.getProperty("web.PhotoPath","src/test/resources/OW.PNG");
   }
 
+  public DBHelper db() {
+    return dbHelper;
+  }
 }

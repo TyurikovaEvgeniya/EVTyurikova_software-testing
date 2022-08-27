@@ -3,12 +3,21 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
+import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static java.time.Duration.ofSeconds;
 
 public class GroupHelper extends HelperBase {
+  private WebDriverWait wait;
+
 
   public GroupHelper(WebDriver wd) {
     super(wd);
@@ -36,7 +45,10 @@ public class GroupHelper extends HelperBase {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
+
   public void selectGroupById(int id) {
+//    wait  = new WebDriverWait(wd, ofSeconds(10));
+//    wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("input[value='" + id + "']")));
     wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
 
@@ -78,6 +90,8 @@ public class GroupHelper extends HelperBase {
     submitGroupModification();
     groupCache = null;
   }
+
+
 
   public void delete(GroupData deletingGroup) {
     selectGroupById(deletingGroup.getId());

@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.appmanager;
 
+import com.google.common.base.Strings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -8,8 +9,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
-import ru.stqa.pft.addressbook.tests.ContactPhoneEmailsAddressTests;
-
 import java.io.File;
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +33,8 @@ public class ContactHelper extends HelperBase {
     type(By.name("email"), contactData.getEmail());
     type(By.name("email2"), contactData.getEmail2());
     type(By.name("email3"), contactData.getEmail3());
+    type(By.name("address"), contactData.getAddress());
+    type(By.name("address2"), contactData.getAddress2());
     selectFromDropDownList("bday", contactData.getBday());
     selectFromDropDownList("bmonth", contactData.getBmonth());
     type(By.name("byear"), contactData.getByear());
@@ -97,7 +98,7 @@ public class ContactHelper extends HelperBase {
 
 
   public void modify(ContactData contact) {
-    modifyContactPhone(contact.getMobilePhone());
+    fillContactData(contact, false);
     infoFromEditForm(contact);
     submitContactUpdating();
   }
@@ -205,4 +206,7 @@ public class ContactHelper extends HelperBase {
   public String cleaned(String phone) {
     return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
   }
+
+
+
 }

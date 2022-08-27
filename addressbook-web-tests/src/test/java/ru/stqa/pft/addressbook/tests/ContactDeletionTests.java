@@ -28,11 +28,11 @@ public class ContactDeletionTests extends TestBase {
   public void testContactDeletionHome() throws Exception {
 
     app.goTo().home();
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     ContactData deletedPosition = before.iterator().next() ;
     app.contact().deleteOnHomePage(deletedPosition);
     app.goTo().home();
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
 
     assertThat(after, equalTo(before.without(deletedPosition)));
 
@@ -41,7 +41,7 @@ public class ContactDeletionTests extends TestBase {
 
   @Test(enabled = true)
   public void testContactDeletionEdit() throws Exception {
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     ContactData deletedPosition = before.iterator().next() ;
 
 
@@ -49,7 +49,7 @@ public class ContactDeletionTests extends TestBase {
     app.contact().deleteOnEditPage(deletedPosition);
     app.goTo().home();
 
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
 
     assertThat(after, equalTo(before.without(deletedPosition)));
 

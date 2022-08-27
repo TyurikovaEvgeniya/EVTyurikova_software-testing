@@ -20,6 +20,17 @@ import static org.testng.Assert.assertEquals;
 
 public class GroupModificationTests extends TestBase {
 
+  @BeforeMethod
+  public void ensurePreconditions() {
+    if (app.db().groups().size() == 0) {
+      app.goTo().groupPage();
+      if (app.group().all().size() == 0) {
+        app.group().create(new GroupData().withName(GroupDataGenerator.randomValidGroupName()).withHeader("ensurePreconditions").withFooter("ensurePreconditions"));
+      }
+    }
+    app.goTo().groupPage();
+  }
+
   @DataProvider
   public Iterator<Object[]> validGroupsModificationValuesFromJson() throws IOException {
     try (BufferedReader reader = new BufferedReader( (new FileReader(new File(app.getTestDataDir() + app.properties.getProperty("gen.group.modification.valid") +".json"))))) {
@@ -36,14 +47,6 @@ public class GroupModificationTests extends TestBase {
     }
   }
 
-  @BeforeMethod
-  public void ensurePreconditions(){
-    app.goTo().groupPage();
-    if (app.group().all().size() == 0) {
-      app.group().create(new GroupData().withName(GroupDataGenerator.randomValidGroupName()).withHeader("ensurePreconditions").withFooter("ensurePreconditions"));
-    }
-    app.goTo().groupPage();
-  }
 
   @DataProvider
   public Iterator<Object[]> invalidGroupsModificationValuesFromJson() throws IOException {
@@ -66,13 +69,13 @@ public class GroupModificationTests extends TestBase {
   @Test(dataProvider = "validGroupsModificationValuesFromJson")
   public void testGroupValidModification(GroupData modificationGroupData) {
 
-    Groups before = app.group().all();
+    Groups before = app.db().groups();
     GroupData modifiedGroup = before.iterator().next();
 
     app.group().modify(modifiedGroup, modificationGroupData.withId(modifiedGroup.getId()));
     app.goTo().groupPage();
     assertEquals(app.group().count(), before.size());
-    Groups after = app.group().all();
+    Groups after = app.db().groups();
 
     assertThat(after,
             equalTo(before.without(modifiedGroup).withAdded(modificationGroupData)));
@@ -81,12 +84,12 @@ public class GroupModificationTests extends TestBase {
   @Test(dataProvider = "invalidGroupsModificationValuesFromJson")
   public void testGroupInvalidModification(GroupData modificationGroupData) {
 
-    Groups before = app.group().all();
+    Groups before = app.db().groups();
     GroupData modifiedGroup = before.iterator().next();
     app.group().modify(modifiedGroup, modificationGroupData.withId(modifiedGroup.getId()));
     app.goTo().groupPage();
     assertEquals(app.group().count(), before.size());
-    Groups after = app.group().all();
+    Groups after = app.db().groups();
 
     assertThat(after,
             equalTo(before));
