@@ -23,6 +23,20 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactUpdateTests extends TestBase {
 
+  @BeforeMethod
+  public void ensurePrecoditions() {
+    ContactData contact = null;
+    if (app.contact().all().size() == 0) {
+      contact = new ContactData().withFirstName("Проверка").withMiddleName("Предуслововна").withLastName("Тюрикова")
+              .withMobilePhone(ContactDataGenerator.randomPhone()).withEmail("ensurePrecoditions.update@ligastavok.ru")
+              .withBday("15").withBmonth("May").withByear("1988").withGroup(null).withPhoto(app.getPhotoPath());
+
+      app.contact().addNewContact(contact);
+
+    }
+    app.goTo().homePage();
+  }
+
   @DataProvider
   public Iterator<Object[]> validContactModificationValuesFromJson() throws IOException {
     try (BufferedReader reader = new BufferedReader( (new FileReader(new File(app.getTestDataDir() + app.properties.getProperty("gen.contact.modification.valid") +".json"))))) {
@@ -42,7 +56,7 @@ public class ContactUpdateTests extends TestBase {
   @Test(enabled = true, dataProvider = "validContactModificationValuesFromJson")
   public void testContactUpdateDetails(ContactData modificationContactData) throws Exception {
 
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     ContactData modifiedContact = before.iterator().next();
 
     app.goTo().contactDetails(modifiedContact);
@@ -51,10 +65,10 @@ public class ContactUpdateTests extends TestBase {
 
     app.goTo().homePage();
 
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
 
     assertThat(after, equalTo(before.without(modifiedContact)
-            .withAdded(modificationContactData.toDBTypes().withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
+            .withAdded(modificationContactData.withId(modifiedContact.getId()).toDBTypes())));
 
 
   }
@@ -74,7 +88,7 @@ public class ContactUpdateTests extends TestBase {
     Contacts after = app.db().contacts();
 
     assertThat(after, equalTo(before.without(modifiedContact)
-            .withAdded(modificationContactData.toDBTypes().withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
+            .withAdded(modificationContactData.withId(modifiedContact.getId()).toDBTypes())));
 
   }
 }

@@ -9,69 +9,69 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Entity
-@Table(name="addressbook")
+@Table(name = "addressbook")
 public class ContactData {
   @Id
-  @Column(name="id")
+  @Column(name = "id")
   private int id;
 
   @Expose
-  @Column(name="firstname")
+  @Column(name = "firstname")
   private String firstname;
   @Expose
   private String middlename;
   @Expose
-  @Column(name="lastname")
+  @Column(name = "lastname")
   private String lastname;
   @Expose
-  @Type(type="text")
-  @Column(name="mobile")
+  @Type(type = "text")
+  @Column(name = "mobile")
   private String mobilePhone;
   @Expose
-  @Type(type="text")
-  @Column(name="home")
+  @Type(type = "text")
+  @Column(name = "home")
   private String homePhone;
   @Expose
-  @Type(type="text")
-  @Column(name="fax")
+  @Type(type = "text")
+  @Column(name = "fax")
   private String fax;
   @Expose
-  @Column(name="work")
-  @Type(type="text")
+  @Column(name = "work")
+  @Type(type = "text")
   private String workPhone;
   @Expose
-  @Column(name="phone2")
-  @Type(type="text")
+  @Column(name = "phone2")
+  @Type(type = "text")
   private String phone2;
   @Expose
-  @Column(name="email")
-  @Type(type="text")
+  @Column(name = "email")
+  @Type(type = "text")
   private String email;
   @Expose
-  @Column(name="email2")
-  @Type(type="text")
+  @Column(name = "email2")
+  @Type(type = "text")
   private String email2;
   @Expose
-  @Column(name="email3")
-  @Type(type="text")
+  @Column(name = "email3")
+  @Type(type = "text")
   private String email3;
-  @Column(name="address")
-  @Type(type="text")
+  @Column(name = "address")
+  @Type(type = "text")
   @Expose
-  private String address ;
-  @Column(name="address2")
-  @Type(type="text")
+  private String address;
+  @Column(name = "address2")
+  @Type(type = "text")
   @Expose
   private String address2;
   @Expose
-  @Column(name="bday")
-  @Type(type="byte")
+  @Column(name = "bday")
+  @Type(type = "byte")
   private byte bday;
   @Expose
-  @Column(name="bmonth" , length = 65535, columnDefinition="TEXT")
+  @Column(name = "bmonth", length = 65535, columnDefinition = "TEXT")
   private String bmonth;
   @Expose
-  @Column(name="byear", length = 65535, columnDefinition="TEXT")
+  @Column(name = "byear", length = 65535, columnDefinition = "TEXT")
   private String byear;
   @Transient
   private String group;
@@ -81,8 +81,8 @@ public class ContactData {
   private String allEmails;
   @Expose
   @Transient
-  @Column(name="photo")
-  @Type(type="text")
+  @Column(name = "photo")
+  @Type(type = "text")
   private String photo;
 
 
@@ -104,6 +104,7 @@ public class ContactData {
     this.workPhone = work;
     return this;
   }
+
   public String getPhone2() {
     return phone2;
   }
@@ -141,12 +142,12 @@ public class ContactData {
   }
 
   public ContactData withAddress(String address) {
-     if (address.equals("")){ this.address = null; } else {this.address = address;}
+      this.address = address;
     return this;
   }
 
   public ContactData withAddress2(String address2) {
-    if (address2.equals("")){ this.address2 = null; } else {this.address2 = address2;}
+    this.address2 = address2;
     return this;
   }
 
@@ -229,7 +230,9 @@ public class ContactData {
     return workPhone;
   }
 
-  public String getHomePhone() {return homePhone;  }
+  public String getHomePhone() {
+    return homePhone;
+  }
 
   public String getFax() {
     return fax;
@@ -291,7 +294,7 @@ public class ContactData {
   }
 
   public String getAddress() {
-    return  ((address == null) ? "" : address);
+    return address;
   }
 
   public String getAddress2() {
@@ -333,20 +336,20 @@ public class ContactData {
 
   public ContactData toDBTypes() {
     this.withFirstName(Optional.ofNullable(this.getFirstName()).orElse(""))
-    .withMiddleName(Optional.ofNullable(this.getMiddleName()).orElse(""))
-    .withLastName(Optional.ofNullable(this.getLastName()).orElse(""))
-    .withWorkPhone(Optional.ofNullable(this.getWorkPhone()).orElse(""))
-    .withMobilePhone(Optional.ofNullable(this.getMobilePhone()).orElse(""))
-    .withHomePhone(Optional.ofNullable(this.getHomePhone()).orElse(""))
-    .withFax(Optional.ofNullable(this.getFax()).orElse(""))
-    .withAddress(Optional.ofNullable(this.getAddress()).orElse(""))
-    .withAddress2(Optional.ofNullable(this.getAddress2()).orElse(""))
-    .withBday(Optional.ofNullable(this.getBday()).orElse(""))
-    .withBmonth(Optional.ofNullable(this.getBmonth()).orElse(""))
-    .withByear(Optional.ofNullable(this.getByear()).orElse(""))
-    .withEmail(Optional.ofNullable(this.getEmail()).orElse(""))
-    .withEmail2(Optional.ofNullable(this.getEmail2()).orElse(""))
-    .withEmail3(Optional.ofNullable(this.getEmail3()).orElse(""));
+            .withMiddleName(Optional.ofNullable(this.getMiddleName()).orElse(""))
+            .withLastName(Optional.ofNullable(this.getLastName()).orElse(""))
+            .withWorkPhone(Optional.ofNullable(this.getWorkPhone()).orElse(""))
+            .withMobilePhone(Optional.ofNullable(this.getMobilePhone()).orElse(""))
+            .withHomePhone(Optional.ofNullable(this.getHomePhone()).orElse(""))
+            .withFax(Optional.ofNullable(this.getFax()).orElse(""))
+            .withAddress(Optional.ofNullable(this.getAddress()).orElse(""))
+            .withAddress2(Optional.ofNullable(this.getAddress2()).orElse(""))
+            .withBday(Optional.ofNullable(this.getBday()).orElse(""))
+            .withBmonth(Optional.ofNullable(this.getBmonth()).orElse(""))
+            .withByear(Optional.ofNullable(this.getByear()).orElse(""))
+            .withEmail(Optional.ofNullable(this.getEmail()).orElse(""))
+            .withEmail2(Optional.ofNullable(this.getEmail2()).orElse(""))
+            .withEmail3(Optional.ofNullable(this.getEmail3()).orElse(""));
     return this;
 
   }
@@ -355,8 +358,6 @@ public class ContactData {
   public int hashCode() {
     return Objects.hash(id, firstname, middlename, lastname, mobilePhone, homePhone, fax, workPhone, phone2, email, email2, email3, address, address2, bday, bmonth, byear);
   }
-
-
 
 
 }
