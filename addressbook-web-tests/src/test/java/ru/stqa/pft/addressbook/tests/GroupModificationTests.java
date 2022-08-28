@@ -79,6 +79,8 @@ public class GroupModificationTests extends TestBase {
 
     assertThat(after,
             equalTo(before.without(modifiedGroup).withAdded(modificationGroupData)));
+
+    verifyGroupListInUI();
   }
 
   @Test(dataProvider = "invalidGroupsModificationValuesFromJson")
