@@ -23,7 +23,7 @@ import static org.testng.Assert.assertEquals;
 public class ContactCreationTests extends TestBase {
 
   @DataProvider
-  public Iterator<Object[]> validContactsFromJson() throws IOException {
+  public static Iterator<Object[]> validContactsFromJson() throws IOException {
     try (BufferedReader reader = new BufferedReader( (new FileReader(new File(app.getTestDataDir() + app.properties.getProperty("gen.contact.creation.valid") +".json"))))) {
       String json = "";
       String line = reader.readLine();
@@ -39,7 +39,7 @@ public class ContactCreationTests extends TestBase {
   }
 
   @Test(dataProvider = "validContactsFromJson", enabled = true)
-  public void testContactCreation(ContactData contact) throws Exception {
+  public static void testContactCreation(ContactData contact) throws Exception {
     Contacts before = app.db().contacts();
     Groups groups = app.db().groups();
     contact = contact.inGroup(groups.iterator().next());

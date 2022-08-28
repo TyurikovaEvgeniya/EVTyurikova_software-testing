@@ -14,7 +14,7 @@ public class ContactDeletionTests extends TestBase {
   @BeforeMethod
   public void ensurePreconditions() {
     ContactData contact;
-    if (app.contact().all().size() == 0) {
+    if (app.db().contacts().size() == 0) {
       contact = new ContactData().withFirstName("Проверка").withMiddleName("Предуслововна").withLastName("Тюрикова")
               .withMobilePhone(ContactDataGenerator.randomPhone()).withEmail("ensurePreconditions.delete@gmail.com")
               .withBday("15").withBmonth("May").withByear("1988").withPhoto(app.getPhotoPath());

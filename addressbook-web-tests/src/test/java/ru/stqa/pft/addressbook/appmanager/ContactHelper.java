@@ -1,14 +1,17 @@
 package ru.stqa.pft.addressbook.appmanager;
 
-import com.google.common.base.Strings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
+
 import java.io.File;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +23,8 @@ public class ContactHelper extends HelperBase {
   public ContactHelper(WebDriver wd) {
     super(wd);
   }
+
+  Logger logger = LoggerFactory.getLogger(ContactHelper.class);
 
   public void fillContactData(ContactData contactData, boolean creation) {
     type(By.name("firstname"), contactData.getFirstName());
@@ -62,6 +67,10 @@ public class ContactHelper extends HelperBase {
     click(By.linkText("add new"));
   }
 
+  public void clickGotoGroupPage() {
+    click(By.linkText("group page"));
+  }
+
   public void deleteContactOnHomePage() {
     click(By.xpath("//input[@type = 'button'][@value='Delete']"));
   }
@@ -94,8 +103,6 @@ public class ContactHelper extends HelperBase {
     mergePhones(contact);
     mergeEmails(contact);
   }
-
-
 
 
   public void modify(ContactData contact) {
@@ -139,7 +146,7 @@ public class ContactHelper extends HelperBase {
     deleteContactOnEditPage();
   }
 
-  private void selectContactById(int id) {
+  public void selectContactById(int id) {
     wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
 
@@ -209,5 +216,32 @@ public class ContactHelper extends HelperBase {
   }
 
 
+  public void addContactToGroup(int id, GroupData targetGroup) {
+    selectContactById(id);
+    chooseGroupForAddition(targetGroup.getId());
+    submitAddingContactToGroup();
+  }
 
+  private void submitAddingContactToGroup() {
+    wd.findElement(By.cssSelector(("input[type='submit'][value='Add to']"))).click();
+  }
+
+  public void chooseGroupForAddition(int id) {
+    wd.findElement(By.name("to_group")).click();
+    wd.findElement(By.cssSelector(String.format("select[name='to_group']>option[value='%s']", id))).click();
+
+  }
+
+  public void submitContactDeletingFromGroup(String groupName) {
+    wd.findElement(By.cssSelector(String.format("input[type='submit'][value='Remove from \"%s\"']", groupName))).click();
+  }
+
+  public void setGroupFilter(int groupId) {
+    wd.findElement(By.cssSelector("select[name='group']")).click();
+    wd.findElement(By.cssSelector(String.format("select[name='group']>option[value='%s']", groupId))).click();
+  }
+
+  public void toGroupPageAfterRemovingContact(String name) {
+    wd.findElement(By.xpath(String.format("//a[contains(text(),'group page \"%s\"')]", name))).click();
+  }
 }

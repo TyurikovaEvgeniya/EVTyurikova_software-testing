@@ -3,10 +3,7 @@ package ru.stqa.pft.addressbook.tests;
 import org.openqa.selenium.remote.Browser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
@@ -21,7 +18,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 public class TestBase {
 
   protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", Browser.CHROME.browserName()));
-  Logger logger = LoggerFactory.getLogger(GroupCreationTests.class);
+  Logger logger = LoggerFactory.getLogger(TestBase.class);
 
   @BeforeSuite(alwaysRun = true)
   public void setUp() throws Exception {

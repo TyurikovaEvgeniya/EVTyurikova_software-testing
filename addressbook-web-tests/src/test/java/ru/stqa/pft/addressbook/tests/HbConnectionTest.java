@@ -56,6 +56,8 @@ public class HbConnectionTest {
     for (ContactData contact : result) {
       System.out.println(contact);
       System.out.println("getGroups: " + contact.getGroups());
+
+
     }
   }
 }
