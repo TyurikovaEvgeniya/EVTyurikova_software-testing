@@ -29,7 +29,7 @@ public class ContactUpdateTests extends TestBase {
     if (app.contact().all().size() == 0) {
       contact = new ContactData().withFirstName("Проверка").withMiddleName("Предуслововна").withLastName("Тюрикова")
               .withMobilePhone(ContactDataGenerator.randomPhone()).withEmail("ensurePrecoditions.update@ligastavok.ru")
-              .withBday("15").withBmonth("May").withByear("1988").withGroup(null).withPhoto(app.getPhotoPath());
+              .withBday("15").withBmonth("May").withByear("1988").withPhoto(app.getPhotoPath());
 
       app.contact().addNewContact(contact);
 

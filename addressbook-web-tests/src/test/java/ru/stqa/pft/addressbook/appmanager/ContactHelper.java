@@ -41,11 +41,12 @@ public class ContactHelper extends HelperBase {
     attach(By.name("photo"), new File(contactData.getPhoto()));
 
     if (creation) {
-      if (contactData.getGroup() != null) {
+      if (contactData.getGroups().size() > 0) {
         try {
-          new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+          Assert.assertTrue(contactData.getGroups().size() == 1);
+          new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
         } catch (NoSuchElementException e) {
-          System.out.println("Группа \"" + contactData.getGroup() + "\" не найдена.");
+          System.out.println("Группа \"" + contactData.getGroups() + "\" не найдена.");
           new Select(wd.findElement(By.name("new_group"))).selectByVisibleText("[none]");
 
         }

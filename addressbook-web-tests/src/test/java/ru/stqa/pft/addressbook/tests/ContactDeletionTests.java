@@ -17,17 +17,17 @@ public class ContactDeletionTests extends TestBase {
     if (app.contact().all().size() == 0) {
       contact = new ContactData().withFirstName("Проверка").withMiddleName("Предуслововна").withLastName("Тюрикова")
               .withMobilePhone(ContactDataGenerator.randomPhone()).withEmail("ensurePreconditions.delete@gmail.com")
-              .withBday("15").withBmonth("May").withByear("1988").withGroup(null).withPhoto(app.getPhotoPath());
+              .withBday("15").withBmonth("May").withByear("1988").withPhoto(app.getPhotoPath());
 
       app.contact().addNewContact(contact);
-      app.goTo().homePage();
+
     }
+    app.goTo().homePage();
   }
 
   @Test(enabled = true)
   public void testContactDeletionHome() throws Exception {
 
-    app.goTo().home();
     Contacts before = app.db().contacts();
     ContactData deletedPosition = before.iterator().next() ;
     app.contact().deleteOnHomePage(deletedPosition);

@@ -19,15 +19,15 @@ public class ContactPhoneEmailsAddressTests extends TestBase {
               .withMobilePhone(ContactDataGenerator.randomPhone()).withHomePhone(ContactDataGenerator.randomPhone())
               .withWorkPhone(ContactDataGenerator.randomPhone()).withFax(ContactDataGenerator.randomPhone())
               .withEmail("ensurePreconditions.testContactPhone1@gmail.com").withEmail2("ensurePreconditions.testContactPhone@gmail.com").withEmail3("ensurePreconditions.testContactPhone@gmail.com")
-              .withBday("15").withBmonth("May").withByear("1988").withGroup(null).withPhoto(app.getPhotoPath());
+              .withBday("15").withBmonth("May").withByear("1988").withPhoto(app.getPhotoPath());
       app.contact().addNewContact(contact);
-      app.goTo().homePage();
+
     }
+    app.goTo().homePage();
   }
 
   @Test(enabled = true)
   public void testContactData() {
-    app.goTo().homePage();
 
     ContactData contact = app.db().contacts().iterator().next();
 
