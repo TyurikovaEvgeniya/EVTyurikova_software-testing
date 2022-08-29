@@ -2,6 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/addressbook-web-tests/addressbook-web-tests.iml" filepath="$PROJECT_DIR$/addressbook-web-tests/addressbook-web-tests.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mantis-tests/mantis-tests.iml" filepath="$PROJECT_DIR$/mantis-tests/mantis-tests.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mantis-tests.main.iml" filepath="$PROJECT_DIR$/.idea/modules/mantis-tests.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mantis-tests.test.iml" filepath="$PROJECT_DIR$/.idea/modules/mantis-tests.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/sandbox.main.iml" filepath="$PROJECT_DIR$/.idea/modules/sandbox.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/sandbox.test.iml" filepath="$PROJECT_DIR$/.idea/modules/sandbox.test.iml" />
     </modules>

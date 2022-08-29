@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="addressbook-web-tests">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/addressbook-web-tests/build/libs/addressbook-web-tests.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
