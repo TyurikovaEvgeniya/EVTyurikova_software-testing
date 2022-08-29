@@ -55,6 +55,22 @@ public class DBHelper {
     return maxId.getId();
   }
 
+  public int maxGroupId() {
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    GroupData maxId = null;
+    maxId = (GroupData) session.createCriteria(GroupData.class)
+            .addOrder(Order.desc("id"))
+            .setMaxResults(1)
+            .uniqueResult();
+
+    System.out.println(maxId);
+    session.getTransaction().commit();
+    session.close();
+    assert maxId != null;
+    return maxId.getId();
+  }
+
 
   public ContactData getContactById(int id) {
     Session session = sessionFactory.openSession();
@@ -65,6 +81,17 @@ public class DBHelper {
     session.getTransaction().commit();
     session.close();
     return contact;
+  }
+
+  public GroupData getGroupById(int id) {
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    Query result = session.createQuery(String.format("from GroupData where id = %s", id));
+    GroupData group = (GroupData) result.uniqueResult();
+    System.out.println(group);
+    session.getTransaction().commit();
+    session.close();
+    return group;
   }
 
   public Groups groups() {

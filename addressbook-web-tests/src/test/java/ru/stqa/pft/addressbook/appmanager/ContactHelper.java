@@ -220,6 +220,7 @@ public class ContactHelper extends HelperBase {
     selectContactById(id);
     chooseGroupForAddition(targetGroup.getId());
     submitAddingContactToGroup();
+    toGroupPageAfterRemovingContact(targetGroup.getName());
   }
 
   private void submitAddingContactToGroup() {
@@ -227,7 +228,7 @@ public class ContactHelper extends HelperBase {
   }
 
   public void chooseGroupForAddition(int id) {
-    wd.findElement(By.name("to_group")).click();
+    wd.findElement(By.cssSelector("select[name='to_group']")).click();
     wd.findElement(By.cssSelector(String.format("select[name='to_group']>option[value='%s']", id))).click();
 
   }

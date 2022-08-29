@@ -341,6 +341,7 @@ public class ContactData {
             .withLastName(Optional.ofNullable(this.getLastName()).orElse(""))
             .withWorkPhone(Optional.ofNullable(this.getWorkPhone()).orElse(""))
             .withMobilePhone(Optional.ofNullable(this.getMobilePhone()).orElse(""))
+            .withPhone2(Optional.ofNullable(this.getPhone2()).orElse(""))
             .withHomePhone(Optional.ofNullable(this.getHomePhone()).orElse(""))
             .withFax(Optional.ofNullable(this.getFax()).orElse(""))
             .withAddress(Optional.ofNullable(this.getAddress()).orElse(""))
@@ -354,6 +355,7 @@ public class ContactData {
     return this;
 
   }
+
 
   @Override
   public int hashCode() {
