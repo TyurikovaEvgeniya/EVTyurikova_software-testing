@@ -43,7 +43,6 @@ public class ApplicationManager extends TestBase {
   }
 
   public void stop() {
-    wd.findElement(By.linkText("Logout")).click();
     wd.get(properties.getProperty("web.baseUrl"));
     wd.quit();
   }
