@@ -21,7 +21,8 @@ public class ApplicationManager extends TestBase {
   private final String browser;
   private RegistrationHelper registrationHelper;
   private FtpHelper ftp;
-
+  private MailHelper mailHelper;
+  private JamesHelper jamesHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -72,6 +73,20 @@ public class ApplicationManager extends TestBase {
       ftp = new FtpHelper(this);
     }
     return ftp;
+  }
+
+  public MailHelper mail() {
+    if (mailHelper == null) {
+      mailHelper = new MailHelper(this);
+    }
+    return mailHelper;
+  }
+
+  public JamesHelper james() {
+    if (jamesHelper == null) {
+      jamesHelper = new JamesHelper(this);
+    }
+    return jamesHelper;
   }
 }
 
