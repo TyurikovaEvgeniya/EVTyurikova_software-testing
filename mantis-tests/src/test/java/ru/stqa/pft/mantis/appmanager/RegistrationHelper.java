@@ -13,5 +13,6 @@ public class RegistrationHelper {
 
   public void start(String userName, String email) {
     wd.get(app.getProperty("web.baseUrl") + "/signup_page.php");
+    System.out.println(wd.getPageSource());
   }
 }
