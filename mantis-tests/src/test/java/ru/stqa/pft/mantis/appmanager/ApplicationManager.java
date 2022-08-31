@@ -20,6 +20,7 @@ public class ApplicationManager extends TestBase {
 
   private final String browser;
   private RegistrationHelper registrationHelper;
+  private FtpHelper ftp;
 
 
   public ApplicationManager(String browser) {
@@ -64,6 +65,13 @@ public class ApplicationManager extends TestBase {
       wd = new InternetExplorerDriver();
     }
     return wd;
+  }
+
+  public FtpHelper ftp() {
+    if (ftp == null) {
+      ftp = new FtpHelper(this);
+    }
+    return ftp;
   }
 }
 
