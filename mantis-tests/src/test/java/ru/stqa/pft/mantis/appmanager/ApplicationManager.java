@@ -36,7 +36,6 @@ public class ApplicationManager extends TestBase {
 
   public void stop() {
     if (wd != null) {
-      wd.get(properties.getProperty("web.baseUrl"));
       wd.quit();
     }
   }
