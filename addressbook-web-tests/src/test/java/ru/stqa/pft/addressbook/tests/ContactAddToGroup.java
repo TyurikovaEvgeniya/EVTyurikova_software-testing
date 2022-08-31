@@ -63,7 +63,7 @@ public class ContactAddToGroup extends TestBase {
           //Целевая группа = первая группа, которую не содержит контакт из итератора цикла, либо null
           targetGroup = groups.stream().filter(s -> !cont.getGroups().contains(s)).findFirst().orElse(null);
           contactCandidateForAdding = cont;
-          logger.info("Контакт есть не во всех существующих группах");
+          logger.info("Контакт есть не во всех существующих группах: " + contactCandidateForAdding);
           logger.info("Его нет в группе: " + targetGroup);
           break; //Так не смогла разобрать с while с iterator().hasNext(); Уходит в бесконечный цикл
         }
@@ -84,7 +84,7 @@ public class ContactAddToGroup extends TestBase {
       //Целевая группа выбирается случайным образом
       targetGroup = groups.iterator().next();
 
-    } else {
+    } else if (contactCandidateForAdding == null) {
       contactCandidateForAdding = contacts.iterator().next();
       logger.info("Контакт для добавления: " + contactCandidateForAdding);
       logger.info("группа для пополнения: " + targetGroup);

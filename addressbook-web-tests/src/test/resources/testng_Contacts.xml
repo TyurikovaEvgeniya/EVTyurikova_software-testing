@@ -3,9 +3,11 @@
     <test name="Contacts">
         <classes>
             <class name="ru.stqa.pft.addressbook.tests.ContactCreationTests"/>
-<!--            <class name="ru.stqa.pft.addressbook.tests.ContactDeletionTests"/>-->
-<!--            <class name="ru.stqa.pft.addressbook.tests.ContactPhoneEmailsAddressTests"/>-->
-<!--            <class name="ru.stqa.pft.addressbook.tests.ContactUpdateTests"/>-->
+            <class name="ru.stqa.pft.addressbook.tests.ContactDeletionTests"/>
+            <class name="ru.stqa.pft.addressbook.tests.ContactPhoneEmailsAddressTests"/>
+            <class name="ru.stqa.pft.addressbook.tests.ContactUpdateTests"/>
+            <class name="ru.stqa.pft.addressbook.tests.ContactAddToGroup"/>
+            <class name=" ru.stqa.pft.addressbook.tests.ContactDeleteFromGroup"/>
         </classes>
     </test>
 </suite>
