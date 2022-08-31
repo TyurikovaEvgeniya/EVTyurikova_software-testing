@@ -3,7 +3,7 @@
 <suite name="Suite1" verbose="1" >
     <test name="tests" >
         <classes>
-            <class name="ru.stqa.pft.mantis.tests.test" />
+            <class name="ru.stqa.pft.mantis.tests.loginTest" />
         </classes>
     </test>
 </suite>

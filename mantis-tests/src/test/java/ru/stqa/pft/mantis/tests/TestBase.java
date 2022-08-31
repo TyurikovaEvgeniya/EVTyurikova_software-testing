@@ -7,7 +7,7 @@ import ru.stqa.pft.mantis.appmanager.ApplicationManager;
 
 public class TestBase {
 
-  protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", Browser.CHROME.browserName()));
+  protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", Browser.FIREFOX.browserName()));
 
   @BeforeSuite(alwaysRun = true)
   public void setUp() throws Exception {
