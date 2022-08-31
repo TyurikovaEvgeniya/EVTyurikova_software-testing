@@ -15,10 +15,11 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class ApplicationManager extends TestBase {
-  public Properties properties;
-  WebDriver wd;
+  private Properties properties;
+  private WebDriver wd;
 
   private final String browser;
+  private RegistrationHelper registrationHelper;
 
 
   public ApplicationManager(String browser) {
@@ -27,7 +28,34 @@ public class ApplicationManager extends TestBase {
   }
 
   public void init() throws IOException {
+    String target = System.getProperty("target", "local");
+    properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+  }
 
+  public void stop() {
+    if (wd != null) {
+      wd.get(properties.getProperty("web.baseUrl"));
+      wd.quit();
+    }
+  }
+
+
+  public HttpSession newSession() {
+    return new HttpSession(this);
+  }
+
+  public String getProperty(String key) {
+    return properties.getProperty(key);
+  }
+
+  public RegistrationHelper registration() {
+    if (registrationHelper == null) {
+      registrationHelper = new RegistrationHelper(this);
+    }
+    return registrationHelper;
+  }
+
+  public WebDriver getDriver() {
     if (browser.equals(Browser.FIREFOX.browserName())) {
       wd = new FirefoxDriver();
     } else if (browser.equals(Browser.CHROME.browserName())) {
@@ -35,26 +63,7 @@ public class ApplicationManager extends TestBase {
     } else if (browser.equals(Browser.IE.browserName())) {
       wd = new InternetExplorerDriver();
     }
-
-    String target = System.getProperty("target", "local");
-    properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-    wd.get(properties.getProperty("web.baseUrl"));
-
-
-  }
-
-  public void stop() {
-    wd.get(properties.getProperty("web.baseUrl"));
-    wd.quit();
-  }
-
-
-  public HttpSession newSession(){
-    return new HttpSession(this);
-  }
-
-  public String getProperty(String key){
-    return properties.getProperty(key);
+    return wd;
   }
 }
 
