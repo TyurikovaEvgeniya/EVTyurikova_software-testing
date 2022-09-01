@@ -4,29 +4,44 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.time.Duration;
 
 public class HelperBase {
 
-  protected ApplicationManager app;
+
   protected WebDriver wd;
+  protected ApplicationManager app;
 
+  public HelperBase(WebDriver wd, ApplicationManager app) {
+    this.app = app;
+    this.wd = wd;
+  }
 
-  public HelperBase(ApplicationManager app) {
-    this.app=app;
-    this.wd=app.getDriver();
+  public HelperBase(WebDriver wd) {
   }
 
 
   protected void click(By locator) {
-    wd.findElement(locator).click();
+
+    try {
+      if (wd.findElement(locator).isDisplayed()) {
+        wd.findElement(locator).click();
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   protected void type(By locator, String text) {
     if (text != null) {
-      click(locator);
+      WebDriverWait wait = new WebDriverWait(wd, Duration.ofSeconds(10));
+      wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+      wd.findElement(locator).click();
       String existingText = wd.findElement(locator).getAttribute("value");
       if (!text.equals(existingText)) {
         wd.findElement(locator).clear();

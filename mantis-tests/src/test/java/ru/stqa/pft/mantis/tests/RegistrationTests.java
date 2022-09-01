@@ -36,13 +36,15 @@ public class RegistrationTests extends TestBase {
 
     app.james().createUser(user, password);
 
+    app.login().registerInMantis();
     app.registration().start(user, email);
-//    List<MailMessage> mailMessages = app.mail().waitForMAil(2, 10000);
+
     List<MailMessage> mailMessages = app.james().waitForMail(user, password, 100000);
     String confirmationLink = findConfirmationLink(mailMessages, email);
 
+    app.goTo().confirm(confirmationLink);
+    app.registration().finish(password, realname);
 
-    app.registration().finish(confirmationLink, password, realname);
     assertTrue(app.newSession().login(user, password));
   }
 
@@ -58,7 +60,7 @@ public class RegistrationTests extends TestBase {
 //  }
 
   @AfterMethod(alwaysRun = true)
-  public void stopBrowser(){
+  public void stopBrowser() {
     app.stop();
 
   }

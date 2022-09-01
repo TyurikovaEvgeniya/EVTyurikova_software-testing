@@ -1,7 +1,5 @@
 package ru.stqa.pft.mantis.appmanager;
 
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -16,13 +14,16 @@ import java.util.Properties;
 
 public class ApplicationManager extends TestBase {
   private Properties properties;
-  private WebDriver wd;
+  WebDriver wd;
 
   private final String browser;
   private RegistrationHelper registrationHelper;
   private FtpHelper ftp;
   private MailHelper mailHelper;
   private JamesHelper jamesHelper;
+  private DBHelper dbHelper;
+  private LoginHelper loginHelper;
+  private NavigationHelper navigationHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -30,8 +31,16 @@ public class ApplicationManager extends TestBase {
   }
 
   public void init() throws IOException {
+    dbHelper = this.db();
+    wd = getDriver();
     String target = System.getProperty("target", "local");
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+
+  }
+
+  public DBHelper db() {
+    dbHelper = new DBHelper();
+    return dbHelper;
   }
 
   public void stop() {
@@ -40,6 +49,11 @@ public class ApplicationManager extends TestBase {
     }
   }
 
+  public void closeBrSession() {
+    if (wd != null) {
+      wd.close();
+    }
+  }
 
   public HttpSession newSession() {
     return new HttpSession(this);
@@ -49,20 +63,17 @@ public class ApplicationManager extends TestBase {
     return properties.getProperty(key);
   }
 
-  public RegistrationHelper registration() {
-    if (registrationHelper == null) {
-      registrationHelper = new RegistrationHelper(this);
-    }
-    return registrationHelper;
-  }
+
 
   public WebDriver getDriver() {
-    if (browser.equals(Browser.FIREFOX.browserName())) {
-      wd = new FirefoxDriver();
-    } else if (browser.equals(Browser.CHROME.browserName())) {
-      wd = new ChromeDriver();
-    } else if (browser.equals(Browser.IE.browserName())) {
-      wd = new InternetExplorerDriver();
+    if (wd == null) {
+      if (browser.equals(Browser.FIREFOX.browserName())) {
+        wd = new FirefoxDriver();
+      } else if (browser.equals(Browser.CHROME.browserName())) {
+        wd = new ChromeDriver();
+      } else if (browser.equals(Browser.IE.browserName())) {
+        wd = new InternetExplorerDriver();
+      }
     }
     return wd;
   }
@@ -87,5 +98,29 @@ public class ApplicationManager extends TestBase {
     }
     return jamesHelper;
   }
+
+
+  public LoginHelper login() {
+    if (loginHelper == null) {
+      loginHelper = new LoginHelper(getDriver(), app);
+    }
+    return loginHelper;
+  }
+
+  public NavigationHelper goTo() {
+    if (navigationHelper == null) {
+      navigationHelper = new NavigationHelper(getDriver(), app);
+    }
+    return navigationHelper;
+  }
+
+  public RegistrationHelper registration() {
+    if (registrationHelper == null) {
+      registrationHelper = new RegistrationHelper(getDriver(), app);
+    }
+    return registrationHelper;
+  }
+
 }
+
 

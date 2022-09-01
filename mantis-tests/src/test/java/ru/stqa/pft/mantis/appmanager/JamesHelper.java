@@ -140,7 +140,12 @@ public class JamesHelper {
   public List<MailMessage> waitForMail(String username, String password, long timeout) throws MessagingException {
     long now = System.currentTimeMillis();
     while (System.currentTimeMillis() < now + timeout) {
-      List<MailMessage> allMail = getAllMail(username, password);
+      List<MailMessage> allMail = null;
+      try {
+        allMail = getAllMail(username, password);
+      } catch (MessagingException e) {
+        e.printStackTrace();
+      }
       if (allMail.size() > 0) {
         return allMail;
       }

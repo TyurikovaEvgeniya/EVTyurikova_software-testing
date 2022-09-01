@@ -1,6 +1,5 @@
 package ru.stqa.pft.addressbook.model;
 
-import com.google.common.base.Strings;
 import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.Type;
 
