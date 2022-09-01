@@ -1,9 +1,13 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Suite1" verbose="1" >
-    <test name="tests" >
+<suite name="Suite1" verbose="1">
+    <test name="tests">
         <classes>
-            <class name="ru.stqa.pft.mantis.tests.loginTest" />
+            <class name="ru.stqa.pft.mantis.tests.loginTest"/>
         </classes>
     </test>
 </suite>
+
+<testng  haltonfailure="false" useDefaultListeners="true"
+        listeners="org.uncommons.reportng.HTMLReporter,org.uncommons.reportng.JUnitXMLReporter,Transformer"
+        classpathref="reportnglibs"/>

@@ -6,15 +6,15 @@ public class Issue {
 
   private BigInteger id;
   private String summary;
-  private String label;
+  private String tags;
   private String description;
 
   public String getLabel() {
-    return label;
+    return tags;
   }
 
   public Issue withLabel(String label) {
-    this.label = label;
+    this.tags = label;
     return this;
   }
 

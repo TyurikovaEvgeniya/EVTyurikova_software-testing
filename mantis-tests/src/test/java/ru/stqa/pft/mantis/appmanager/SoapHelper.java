@@ -12,11 +12,14 @@ import java.rmi.RemoteException;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-public class SoapHelper  extends HelperBase  {
+public class SoapHelper{
+
+  private final ApplicationManager app;
 
   public SoapHelper(ApplicationManager app) {
-    super(null, app);
+    this.app = app;
   }
 
   public Set<Project> getProjects() throws MalformedURLException, RemoteException, ServiceException {
@@ -45,25 +48,39 @@ public class SoapHelper  extends HelperBase  {
             .withSummary(createdIssueData.getSummary())
             .withDescription(createdIssueData.getDescription())
             .withProject(new Project().withId(createdIssueData.getProject().getId())
-            .withName(createdIssueData.getProject().getName()));
+                    .withName(createdIssueData.getProject().getName()));
   }
 
-  public Issue addLabel(Issue issue) throws MalformedURLException, ServiceException, RemoteException {
+
+  public BigInteger getIdFromSummary(String summary) throws MalformedURLException, ServiceException, RemoteException {
     MantisConnectPortType mc = getMantisConnect();
-    String[] categories = mc.mc_project_get_categories(app.getProperty("web.admin.login"), app.getProperty("web.admin.password"), issue.getProject().getId());
-    IssueData issueData = new IssueData();
-    issueData.setSummary(issue.getSummary());
-    issueData.setDescription(issue.getDescription());
-    issueData.setProject(new ObjectRef(issue.getProject().getId(), issue.getProject().getName()));
+    return mc.mc_issue_get_id_from_summary(app.getProperty("web.admin.login"), app.getProperty("web.admin.password"), summary);
+  }
 
-    issueData.setCategory(categories[0]);
-    BigInteger issueId = mc.mc_issue_add(app.getProperty("web.admin.login"), app.getProperty("web.admin.password"), issueData);
-    IssueData createdIssueData = mc.mc_issue_get(app.getProperty("web.admin.login"), app.getProperty("web.admin.password"), issueId);
+  public Set<String> getIssueStatusById(BigInteger issueId) throws MalformedURLException, ServiceException, RemoteException {
+    MantisConnectPortType mc = getMantisConnect();
+    IssueData issueData = mc.mc_issue_get(app.getProperty("web.admin.login"), app.getProperty("web.admin.password"), issueId);
 
-    return new Issue().withId(createdIssueData.getId())
-            .withSummary(createdIssueData.getSummary())
-            .withDescription(createdIssueData.getDescription())
-            .withProject(new Project().withId(createdIssueData.getProject().getId())
-                    .withName(createdIssueData.getProject().getName()));
+    ObjectRef status = issueData.getStatus();
+    return Stream.of(status).map(ObjectRef::getName).collect(Collectors.toSet());
+  }
+
+  public BigInteger getIssueWithMaxId(Project project) throws MalformedURLException, ServiceException, RemoteException {
+    MantisConnectPortType mc = getMantisConnect();
+    return mc.mc_issue_get_biggest_id(app.getProperty("web.admin.login"), app.getProperty("web.admin.password"), project.getId());
+  }
+
+  public boolean checkIssueClosed(BigInteger issueId) throws MalformedURLException, ServiceException, RemoteException {
+    MantisConnectPortType mc = getMantisConnect();
+
+    IssueData issue = null;
+    if (mc.mc_issue_exists(app.getProperty("web.admin.login"), app.getProperty("web.admin.password"), issueId)) {
+      issue = mc.mc_issue_get(app.getProperty("web.admin.login"), app.getProperty("web.admin.password"), issueId);
+    } else {
+      return false;
+    }
+
+    return Arrays.asList(issue.getStatus()).stream().map(ObjectRef::getName).collect(Collectors.toSet()).contains("closed");
+
   }
 }
