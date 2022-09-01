@@ -24,6 +24,7 @@ public class ApplicationManager extends TestBase {
   private DBHelper dbHelper;
   private LoginHelper loginHelper;
   private NavigationHelper navigationHelper;
+  private SoapHelper soapHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -119,6 +120,13 @@ public class ApplicationManager extends TestBase {
       registrationHelper = new RegistrationHelper(getDriver(), app);
     }
     return registrationHelper;
+  }
+
+  public SoapHelper soap(){
+    if (soapHelper == null) {
+      soapHelper = new SoapHelper(this);
+    }
+    return soapHelper;
   }
 
 }

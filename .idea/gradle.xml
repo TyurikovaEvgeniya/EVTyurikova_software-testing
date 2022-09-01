@@ -7,6 +7,18 @@
         <option name="delegatedBuild" value="false" />
         <option name="testRunner" value="PLATFORM" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/SOAP-server" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/SOAP-server" />
+          </set>
+        </option>
+        <option name="useQualifiedModuleNames" value="true" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="delegatedBuild" value="false" />
+        <option name="testRunner" value="PLATFORM" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/addressbook-web-tests" />
         <option name="modules">
           <set>
@@ -23,6 +35,18 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/mantis-tests" />
+          </set>
+        </option>
+        <option name="useQualifiedModuleNames" value="true" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="delegatedBuild" value="true" />
+        <option name="testRunner" value="GRADLE" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/sandbox" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/sandbox" />
           </set>
         </option>
         <option name="useQualifiedModuleNames" value="true" />

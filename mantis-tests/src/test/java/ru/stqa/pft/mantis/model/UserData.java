@@ -1,9 +1,5 @@
 package ru.stqa.pft.mantis.model;
 
-import org.hibernate.annotations.Type;
-
-import javax.persistence.*;
-
 public class UserData {
 
   public int id;
