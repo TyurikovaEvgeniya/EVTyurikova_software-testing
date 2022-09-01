@@ -31,7 +31,10 @@ public class SOAPTests extends TestBase {
             .getClass()
             .getEnclosingMethod()
             .getName();
-    checkNotClosedIssues(currentMethodName);
+    BigInteger issueWithSummary = app.soap().getIdFromSummary(currentMethodName);
+    skipIfNotFixed(issueWithSummary);
+
+
     System.out.println(projects.size());
     for (Project project : projects) {
       System.out.println(project.getName());
@@ -44,7 +47,9 @@ public class SOAPTests extends TestBase {
             .getClass()
             .getEnclosingMethod()
             .getName();
-    checkNotClosedIssues(currentMethodName);
+    BigInteger issueWithSummary = app.soap().getIdFromSummary(currentMethodName);
+    skipIfNotFixed(issueWithSummary);
+
     Issue issue = new Issue().withSummary("Test issue").withDescription("Test issue description")
             .withProject(projects.iterator().next());
     Issue created = app.soap().addIssue(issue);
@@ -57,7 +62,9 @@ public class SOAPTests extends TestBase {
             .getClass()
             .getEnclosingMethod()
             .getName();
-    checkNotClosedIssues(currentMethodName);
+    BigInteger issueWithSummary = app.soap().getIdFromSummary(currentMethodName);
+    skipIfNotFixed(issueWithSummary);
+
     Issue issue = new Issue().withSummary("Test issue").withDescription("Test issue description")
             .withProject(projects.iterator().next());
     Issue created = app.soap().addIssue(issue);

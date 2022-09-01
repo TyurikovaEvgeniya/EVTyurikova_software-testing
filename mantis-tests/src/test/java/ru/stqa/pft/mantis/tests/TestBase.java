@@ -19,20 +19,26 @@ public class TestBase {
   @BeforeSuite(alwaysRun = true)
   public void setUp() throws Exception {
     app.init();
-    app.ftp().upload(new File("src/test/resources/config_inc.php"),"config_inc.php","config_inc.php.bak");
+    app.ftp().upload(new File("src/test/resources/config_inc.php"), "config_inc.php", "config_inc.php.bak");
   }
 
   @AfterSuite(alwaysRun = true)
   public void tearDown() throws Exception {
-    app.ftp().restore("config_inc.php.bak","config_inc.php");
+    app.ftp().restore("config_inc.php.bak", "config_inc.php");
     app.stop();
   }
 
-//  public void skipIfNotFixed(BigInteger issueId) throws MalformedURLException, ServiceException, RemoteException {
-//    if (isIssueOpen(issueId)) {
-//      throw new SkipException("Ignored because of issue " + issueId);
-//    }
-//  }
+  public void skipIfNotFixed(BigInteger issueId) throws RemoteException, ServiceException, MalformedURLException {
+    if (isIssueOpen(issueId)) {
+      throw new SkipException("Ignored because of issue " + issueId);
+    }
+  }
 
+  private boolean isIssueOpen(BigInteger issueId) throws RemoteException, ServiceException, MalformedURLException {
+    if (Integer.parseInt(String.valueOf(issueId)) != 0 || app.soap().checkIssueClosed(issueId)) {
+      return true;
+    }
+    return false;
+  }
 
 }
