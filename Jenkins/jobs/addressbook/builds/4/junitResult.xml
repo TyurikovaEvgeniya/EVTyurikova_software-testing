@@ -1,0 +1,55 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<result plugin="junit@1119.1121.vc43d0fc45561">
+  <suites>
+    <suite>
+      <file>C:\Users\kirra\.jenkins\workspace\addressbook\addressbook-web-tests\build\test-results\testGroups\TEST-ru.stqa.pft.addressbook.tests.GroupModificationTests.xml</file>
+      <name>ru.stqa.pft.addressbook.tests.GroupModificationTests</name>
+      <stdout>Hibernate: select groupdata0_.group_id as group_id1_2_, groupdata0_.group_footer as group_fo2_2_, groupdata0_.group_header as group_he3_2_, groupdata0_.group_name as group_na4_2_ from group_list groupdata0_
+Hibernate: select contacts0_.group_id as group_id2_0_0_, contacts0_.id as id1_0_0_, contactdat1_.id as id1_1_1_, contactdat1_.address as address2_1_1_, contactdat1_.address2 as address3_1_1_, contactdat1_.bday as bday4_1_1_, contactdat1_.bmonth as bmonth5_1_1_, contactdat1_.byear as byear6_1_
+...[truncated 17076 chars]...
+data1_.group_id where groups0_.id=?
+Hibernate: select groups0_.id as id1_0_0_, groups0_.group_id as group_id2_0_0_, groupdata1_.group_id as group_id1_2_1_, groupdata1_.group_footer as group_fo2_2_1_, groupdata1_.group_header as group_he3_2_1_, groupdata1_.group_name as group_na4_2_1_ from address_in_groups groups0_ inner join group_list groupdata1_ on groups0_.group_id=groupdata1_.group_id where groups0_.id=?
+GroupData{id=191, name=&apos;Modified group 577&apos;, header=&apos;header 455&apos;, footer=&apos;footer 290&apos;}
+</stdout>
+      <stderr></stderr>
+      <duration>2.993</duration>
+      <timestamp>2022-09-02T19:29:39</timestamp>
+      <time>2.993</time>
+      <enclosingBlocks/>
+      <enclosingBlockNames/>
+      <cases>
+        <case>
+          <duration>0.686</duration>
+          <className>ru.stqa.pft.addressbook.tests.GroupModificationTests</className>
+          <testName>testGroupInvalidModification[0](GroupData{id=2147483647, name=&apos;Modified group &apos;812&apos;, header=&apos;header 329&apos;, footer=&apos;footer 88&apos;})</testName>
+          <skipped>false</skipped>
+          <failedSince>0</failedSince>
+        </case>
+        <case>
+          <duration>0.653</duration>
+          <className>ru.stqa.pft.addressbook.tests.GroupModificationTests</className>
+          <testName>testGroupValidModification[0](GroupData{id=2147483647, name=&apos;Modified group 493&apos;, header=&apos;header 10&apos;, footer=&apos;footer 91&apos;})</testName>
+          <skipped>false</skipped>
+          <failedSince>0</failedSince>
+        </case>
+        <case>
+          <duration>0.616</duration>
+          <className>ru.stqa.pft.addressbook.tests.GroupModificationTests</className>
+          <testName>testGroupValidModification[1](GroupData{id=2147483647, name=&apos;Modified group 191&apos;, header=&apos;header 368&apos;, footer=&apos;footer 331&apos;})</testName>
+          <skipped>false</skipped>
+          <failedSince>0</failedSince>
+        </case>
+        <case>
+          <duration>0.667</duration>
+          <className>ru.stqa.pft.addressbook.tests.GroupModificationTests</className>
+          <testName>testGroupValidModification[2](GroupData{id=2147483647, name=&apos;Modified group 577&apos;, header=&apos;header 455&apos;, footer=&apos;footer 290&apos;})</testName>
+          <skipped>false</skipped>
+          <failedSince>0</failedSince>
+        </case>
+      </cases>
+    </suite>
+  </suites>
+  <duration>2.993</duration>
+  <skipOldReports>false</skipOldReports>
+  <keepLongStdio>false</keepLongStdio>
+</result>

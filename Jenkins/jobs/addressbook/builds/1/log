@@ -1,0 +1,46 @@
+Started by user [8mha:////4JVTYa7Cycnm4ExMb93DXpAHXaRnArtpjRY6WdSRd+BqAAAAnR+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzZEgZB/dLi1CL91LKSytKizOz8skQAH11nMsYAAAA=[0m“юрикова ≈вгени€ ¬€чеславовна
+Running as SYSTEM
+Building in workspace C:\Users\kirra\.jenkins\workspace\addressbook
+The recommended git tool is: NONE
+No credentials specified
+Cloning the remote Git repository
+Cloning repository https://github.com/TyurikovaEvgeniya/EVTyurikova_software-testing
+ > git.exe init C:\Users\kirra\.jenkins\workspace\addressbook # timeout=10
+Fetching upstream changes from https://github.com/TyurikovaEvgeniya/EVTyurikova_software-testing
+ > git.exe --version # timeout=10
+ > git --version # 'git version 2.24.1.windows.2'
+ > git.exe fetch --tags --force --progress -- https://github.com/TyurikovaEvgeniya/EVTyurikova_software-testing +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git.exe config remote.origin.url https://github.com/TyurikovaEvgeniya/EVTyurikova_software-testing # timeout=10
+ > git.exe config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git.exe rev-parse "refs/remotes/origin/master^{commit}" # timeout=10
+Checking out Revision a8efc409fd281ff55343f4b4969147df714ae765 (refs/remotes/origin/master)
+ > git.exe config core.sparsecheckout # timeout=10
+ > git.exe checkout -f a8efc409fd281ff55343f4b4969147df714ae765 # timeout=10
+Commit message: "fix"
+First time build. Skipping changelog.
+[Gradle] - Launching build.
+[addressbook] $ cmd.exe /C "gradle.bat clean testGroup && exit %%ERRORLEVEL%%"
+FATAL: command execution failed
+java.io.IOException: Process working directory 'C:\Users\kirra\.jenkins\workspace\addressbook\addressbook' doesn't exist!
+	at hudson.Proc$LocalProc.<init>(Proc.java:252)
+	at hudson.Proc$LocalProc.<init>(Proc.java:223)
+	at hudson.Launcher$LocalLauncher.launch(Launcher.java:997)
+	at hudson.Launcher$ProcStarter.start(Launcher.java:509)
+	at hudson.Launcher$ProcStarter.join(Launcher.java:520)
+	at hudson.plugins.gradle.Gradle.perform(Gradle.java:318)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:20)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:816)
+	at hudson.model.Build$BuildExecution.build(Build.java:199)
+	at hudson.model.Build$BuildExecution.doRun(Build.java:164)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:524)
+	at hudson.model.Run.execute(Run.java:1897)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:44)
+	at hudson.model.ResourceController.execute(ResourceController.java:101)
+	at hudson.model.Executor.run(Executor.java:442)
+Build step 'Invoke Gradle script' changed build result to FAILURE
+Build step 'Invoke Gradle script' marked build as failure
+Recording test results
+No test report files were found. Configuration error?
+[Checks API] No suitable checks publisher found.
+Finished: FAILURE

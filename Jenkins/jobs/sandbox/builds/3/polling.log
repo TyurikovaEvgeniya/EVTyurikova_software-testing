@@ -1,0 +1,12 @@
+Started on 02.09.2022 22:46:00
+Using strategy: Default
+[poll] Last Built Revision: Revision a8efc409fd281ff55343f4b4969147df714ae765 (refs/remotes/origin/master)
+The recommended git tool is: NONE
+No credentials specified
+ > git.exe --version # timeout=10
+ > git --version # 'git version 2.24.1.windows.2'
+ > git.exe ls-remote -h -- https://github.com/TyurikovaEvgeniya/EVTyurikova_software-testing # timeout=10
+Found 3 remote heads on https://github.com/TyurikovaEvgeniya/EVTyurikova_software-testing
+[poll] Latest remote head revision on refs/heads/master is: d718ae2e8075c2d19a591463d9ac446d625c29cd
+Done. Took 0,32 секунд
+Changes found

@@ -1,0 +1,45 @@
+Запущен изменением в SCM
+Running as SYSTEM
+Building in workspace C:\Users\kirra\.jenkins\workspace\sandbox
+The recommended git tool is: NONE
+No credentials specified
+ > git.exe rev-parse --resolve-git-dir C:\Users\kirra\.jenkins\workspace\sandbox\.git # timeout=10
+Fetching changes from the remote Git repository
+ > git.exe config remote.origin.url https://github.com/TyurikovaEvgeniya/EVTyurikova_software-testing # timeout=10
+Fetching upstream changes from https://github.com/TyurikovaEvgeniya/EVTyurikova_software-testing
+ > git.exe --version # timeout=10
+ > git --version # 'git version 2.24.1.windows.2'
+ > git.exe fetch --tags --force --progress -- https://github.com/TyurikovaEvgeniya/EVTyurikova_software-testing +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git.exe rev-parse "refs/remotes/origin/master^{commit}" # timeout=10
+Checking out Revision d718ae2e8075c2d19a591463d9ac446d625c29cd (refs/remotes/origin/master)
+ > git.exe config core.sparsecheckout # timeout=10
+ > git.exe checkout -f d718ae2e8075c2d19a591463d9ac446d625c29cd # timeout=10
+Commit message: "fix"
+ > git.exe rev-list --no-walk a8efc409fd281ff55343f4b4969147df714ae765 # timeout=10
+[Gradle] - Launching build.
+[sandbox] $ cmd.exe /C "gradle.bat clean test && exit %%ERRORLEVEL%%"
+Starting a Gradle Daemon, 1 incompatible and 7 stopped Daemons could not be reused, use --status for details
+[8mha:////4GPiZKZPhSjmv6tXePc/XiWmH1TEDAxqMnN99gvyrbQRAAAAYB+LCAAAAAAAAP9b85aBtbiIQSWjNKU4P0+vIKc0PTOvWC+9KDElJ1XPHUyFJBZn++WXpCqzh62PfDo/h4mBoaKIQQqqJTk/rzgfqNYZQoMUMkAAI0hhAQASWqbMYgAAAA==[0m> Task :clean
+[8mha:////4GPiZKZPhSjmv6tXePc/XiWmH1TEDAxqMnN99gvyrbQRAAAAYB+LCAAAAAAAAP9b85aBtbiIQSWjNKU4P0+vIKc0PTOvWC+9KDElJ1XPHUyFJBZn++WXpCqzh62PfDo/h4mBoaKIQQqqJTk/rzgfqNYZQoMUMkAAI0hhAQASWqbMYgAAAA==[0m> Task :compileJava
+[8mha:////4GPiZKZPhSjmv6tXePc/XiWmH1TEDAxqMnN99gvyrbQRAAAAYB+LCAAAAAAAAP9b85aBtbiIQSWjNKU4P0+vIKc0PTOvWC+9KDElJ1XPHUyFJBZn++WXpCqzh62PfDo/h4mBoaKIQQqqJTk/rzgfqNYZQoMUMkAAI0hhAQASWqbMYgAAAA==[0m> Task :processResources NO-SOURCE
+[8mha:////4GPiZKZPhSjmv6tXePc/XiWmH1TEDAxqMnN99gvyrbQRAAAAYB+LCAAAAAAAAP9b85aBtbiIQSWjNKU4P0+vIKc0PTOvWC+9KDElJ1XPHUyFJBZn++WXpCqzh62PfDo/h4mBoaKIQQqqJTk/rzgfqNYZQoMUMkAAI0hhAQASWqbMYgAAAA==[0m> Task :classes
+[8mha:////4GPiZKZPhSjmv6tXePc/XiWmH1TEDAxqMnN99gvyrbQRAAAAYB+LCAAAAAAAAP9b85aBtbiIQSWjNKU4P0+vIKc0PTOvWC+9KDElJ1XPHUyFJBZn++WXpCqzh62PfDo/h4mBoaKIQQqqJTk/rzgfqNYZQoMUMkAAI0hhAQASWqbMYgAAAA==[0m> Task :compileTestJava
+[8mha:////4GPiZKZPhSjmv6tXePc/XiWmH1TEDAxqMnN99gvyrbQRAAAAYB+LCAAAAAAAAP9b85aBtbiIQSWjNKU4P0+vIKc0PTOvWC+9KDElJ1XPHUyFJBZn++WXpCqzh62PfDo/h4mBoaKIQQqqJTk/rzgfqNYZQoMUMkAAI0hhAQASWqbMYgAAAA==[0m> Task :processTestResources NO-SOURCE
+[8mha:////4GPiZKZPhSjmv6tXePc/XiWmH1TEDAxqMnN99gvyrbQRAAAAYB+LCAAAAAAAAP9b85aBtbiIQSWjNKU4P0+vIKc0PTOvWC+9KDElJ1XPHUyFJBZn++WXpCqzh62PfDo/h4mBoaKIQQqqJTk/rzgfqNYZQoMUMkAAI0hhAQASWqbMYgAAAA==[0m> Task :testClasses
+[8mha:////4GPiZKZPhSjmv6tXePc/XiWmH1TEDAxqMnN99gvyrbQRAAAAYB+LCAAAAAAAAP9b85aBtbiIQSWjNKU4P0+vIKc0PTOvWC+9KDElJ1XPHUyFJBZn++WXpCqzh62PfDo/h4mBoaKIQQqqJTk/rzgfqNYZQoMUMkAAI0hhAQASWqbMYgAAAA==[0m> Task :test
+
+[8mha:////4EWJfsNfUgDKhpY3wdGbjGoAPmBv7aLs2PfU9GT0H2ckAAAAYx+LCAAAAAAAAP9b85aBtbiIQT2jNKU4P0+vIKc0PTOvWC+9KDElJ1XPHUz5l5Yk5+em+uWXpNbNmqZ4mHPZIiYGhooiBimoruT8vOJ8oHJnCA1SyAABjCCFBQBI197DZQAAAA==[0mBUILD SUCCESSFUL in 12s
+4 actionable tasks: 4 executed
+Build step 'Invoke Gradle script' changed build result to SUCCESS
+[sandbox] $ cmd /c call C:\Users\kirra\AppData\Local\Temp\jenkins3965968747758712042.bat
+
+C:\Users\kirra\.jenkins\workspace\sandbox>chromedriver --version 
+ChromeDriver 104.0.5112.79 (3cf3e8c8a07d104b9e1260c910efb8f383285dc5-refs/branch-heads/5112@{#1307})
+
+C:\Users\kirra\.jenkins\workspace\sandbox>where chromedriver 
+V:\Soft\Tools\chromedriver.exe
+
+C:\Users\kirra\.jenkins\workspace\sandbox>exit 0 
+Recording test results
+[Checks API] No suitable checks publisher found.
+Finished: SUCCESS

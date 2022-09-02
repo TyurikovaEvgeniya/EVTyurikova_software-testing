@@ -1,0 +1,11 @@
+commit d718ae2e8075c2d19a591463d9ac446d625c29cd
+tree 2794cb29c109cba84bc082b371b7b07fdc19f44c
+parent a8efc409fd281ff55343f4b4969147df714ae765
+author TyurikovaEvgeniya <kirra.sekirra@gmail.com> 2022-09-02 22:43:59 +0300
+committer TyurikovaEvgeniya <kirra.sekirra@gmail.com> 2022-09-02 22:43:59 +0300
+
+    fix
+
+
+:100644 100644 70cacde71e424c2c47e15d72518ddb3191cb2dde 10cdba46decc2f2edcfd6c80f456b6a4aae0f4a4 M	addressbook-web-tests/out/test/classes/ru/stqa/pft/addressbook/appmanager/ApplicationManager.class
+:100644 100644 6d562d2c112d7e0f0779649c9e5b0b5de269dc06 0f0e7dd42a114ba596adfd797426875db01574c9 M	addressbook-web-tests/src/test/resources/remote.properties
