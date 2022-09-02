@@ -40,6 +40,8 @@ public class ApplicationManager extends TestBase {
   public void init() throws IOException {
     dbHelper = new DBHelper();
 
+    String target = System.getProperty("target", "local");
+    properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
     if ("".equals(properties.getProperty("selenium.server"))) {
       if (browser.equals(Browser.FIREFOX.browserName())) {
@@ -52,12 +54,12 @@ public class ApplicationManager extends TestBase {
     } else {
       DesiredCapabilities capabilities = new DesiredCapabilities();
       capabilities.setBrowserName(browser);
-      wd = new RemoteWebDriver(new URL("http://192.168.100.26:4444/wd/host"), capabilities);
+      wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
     }
 
-    String target = System.getProperty("target", "local");
-    properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
     wd.get(properties.getProperty("web.baseUrl"));
+
+
 
 
     groupHelper = new GroupHelper(wd);
