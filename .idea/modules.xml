@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mantis-tests.main.iml" filepath="$PROJECT_DIR$/.idea/modules/mantis-tests.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mantis-tests.test.iml" filepath="$PROJECT_DIR$/.idea/modules/mantis-tests.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sandbox.main.iml" filepath="$PROJECT_DIR$/.idea/modules/sandbox.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sandbox.test.iml" filepath="$PROJECT_DIR$/.idea/modules/sandbox.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/EVTyurikova_software-testing.iml" filepath="$PROJECT_DIR$/.idea/EVTyurikova_software-testing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/REST-sample.main.iml" filepath="$PROJECT_DIR$/.idea/modules/REST-sample.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/REST-sample.test.iml" filepath="$PROJECT_DIR$/.idea/modules/REST-sample.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SOAP-server/SOAP-server.iml" filepath="$PROJECT_DIR$/SOAP-server/SOAP-server.iml" />
     </modules>
   </component>
 </project>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="mantis-tests">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/mantis-tests/build/libs/mantis-tests.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
